@@ -7,6 +7,8 @@ input_boolean:
     icon: mdi:cctv
   thermostat:
     icon: mdi:thermostat
+  dummy:
+    icon: mdi:home
 input_text:
   remote_voice_command:
     icon: mdi:microphone
