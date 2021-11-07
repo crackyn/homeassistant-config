@@ -1,0 +1,1148 @@
+binary_sensor:
+  - platform: workday
+    name: Workday
+    country: US
+    days_offset: 0
+    workdays: [mon, tue, wed, thu, fri] 
+    excludes: [sat, sun, holiday]
+  - platform: workday
+    name: Workday Tomorrow
+    country: US
+    days_offset: 1
+    workdays: [mon, tue, wed, thu, fri] 
+    excludes: [sat, sun, holiday]    
+  - platform: template
+    sensors:
+      morning:
+        unique_id: morning
+        friendly_name: Is Morning
+        value_template: >
+          {{ (states.sensor.time.state < "12:00")  }}
+      ring_unavailable:
+        unique_id: ring_unavailable
+        friendly_name: Ring Unavailable
+        value_template: >
+          {{ is_state("alarm_control_panel.crackyns_cave_alarm", "unavailable") }}
+            
+
+sensor:
+
+  - platform: template
+    sensors:
+      grill_alert_temp:
+        value_template:
+          "{% if (states.sensor.ibbq_probe_6.state | int) < (states.input_number.grill_alert_low.state | int) or (states.sensor.ibbq_probe_6.state | int)  > (states.input_number.grill_alert_high.state | int) %}
+          Alert
+          {% else %}
+          Normal
+          {% endif %}"
+        friendly_name: Grill Temp Alert
+        icon_template:
+          "{% if (states.sensor.ibbq_probe_6.state | int) < (states.input_number.grill_alert_low.state | int) or (states.sensor.ibbq_probe_6.state | int)  > (states.input_number.grill_alert_high.state | int) %}
+          mdi:alert-circle
+          {% else %}
+          mdi:alert-circle-check
+          {% endif %}"
+      target_alert_temp_probe_1:
+        value_template:
+          "{% if (states.sensor.ibbq_probe_1.state | int) >= (states.sensor.probe_1_wrap | int) %}
+          Alert
+          {% else %}
+          Normal
+          {% endif %}"
+        friendly_name: Probe 1 Target Alert
+        icon_template:
+          "{% if (states.sensor.ibbq_probe_1.state | int) >= (states.sensor.probe_1_wrap | int) %}
+          mdi:alert-circle
+          {% else %}
+          mdi:alert-circle-check
+          {% endif %}"
+      target_alert_temp_probe_2:
+        value_template:
+          "{% if (states.sensor.ibbq_probe_2.state | int) >= (states.sensor.probe_2_wrap | int) %}
+          Alert
+          {% else %}
+          Normal
+          {% endif %}"
+        friendly_name: Probe 2 Target Alert
+        icon_template:
+          "{% if (states.sensor.ibbq_probe_2.state | int) >= (states.sensor.probe_2_wrap | int) %}
+          mdi:alert-circle
+          {% else %}
+          mdi:alert-circle-check
+          {% endif %}"
+      target_alert_temp_probe_3:
+        value_template:
+          "{% if (states.sensor.ibbq_probe_3.state | int) >= (states.sensor.probe_3_wrap | int) %}
+          Alert
+          {% else %}
+          Normal
+          {% endif %}"
+        friendly_name: Probe 4 Target Alert
+        icon_template:
+          "{% if (states.sensor.ibbq_probe_3.state | int) >= (states.sensor.probe_3_wrap | int) %}
+          mdi:alert-circle
+          {% else %}
+          mdi:alert-circle-check
+          {% endif %}"
+      target_alert_temp_probe_4:
+        value_template:
+          "{% if (states.sensor.ibbq_probe_4.state | int) >= (states.sensor.probe_4_wrap | int) %}
+          Alert
+          {% else %}
+          Normal
+          {% endif %}"
+        friendly_name: Probe 4 Target Alert
+        icon_template:
+          "{% if (states.sensor.ibbq_probe_4.state | int) >= (states.sensor.probe_4_wrap | int) %}
+          mdi:alert-circle
+          {% else %}
+          mdi:alert-circle-check
+          {% endif %}"
+      target_alert_temp_probe_5:
+        value_template:
+          "{% if (states.sensor.ibbq_probe_5.state | int) >= (states.sensor.probe_5_wrap | int) %}
+          Alert
+          {% else %}
+          Normal
+          {% endif %}"
+        friendly_name: Probe 5 Target Alert
+        icon_template:
+          "{% if (states.sensor.ibbq_probe_5.state | int) >= (states.sensor.probe_5_wrap | int) %}
+          mdi:alert-circle
+          {% else %}
+          mdi:alert-circle-check
+          {% endif %}"
+      target_alert2_temp_probe_1:
+        value_template:
+          "{% if (states.sensor.ibbq_probe_1.state | int) >= (states.sensor.probe_1_done | int) %}
+          Alert
+          {% else %}
+          Normal
+          {% endif %}"
+        friendly_name: Probe 1 Target Alert
+        icon_template:
+          "{% if (states.sensor.ibbq_probe_1.state | int) >= (states.sensor.probe_1_done | int) %}
+          mdi:alert-circle
+          {% else %}
+          mdi:alert-circle-check
+          {% endif %}"
+      target_alert2_temp_probe_2:
+        value_template:
+          "{% if (states.sensor.ibbq_probe_2.state | int) >= (states.sensor.probe_2_done | int) %}
+          Alert
+          {% else %}
+          Normal
+          {% endif %}"
+        friendly_name: Probe 2 Target Alert
+        icon_template:
+          "{% if (states.sensor.ibbq_probe_2.state | int) >= (states.sensor.probe_2_done | int) %}
+          mdi:alert-circle
+          {% else %}
+          mdi:alert-circle-check
+          {% endif %}"
+      target_alert2_temp_probe_3:
+        value_template:
+          "{% if (states.sensor.ibbq_probe_3.state | int) >= (states.sensor.probe_3_done | int) %}
+          Alert
+          {% else %}
+          Normal
+          {% endif %}"
+        friendly_name: Probe 4 Target Alert
+        icon_template:
+          "{% if (states.sensor.ibbq_probe_3.state | int) >= (states.sensor.probe_3_done | int) %}
+          mdi:alert-circle
+          {% else %}
+          mdi:alert-circle-check
+          {% endif %}"
+      target_alert2_temp_probe_4:
+        value_template:
+          "{% if (states.sensor.ibbq_probe_4.state | int) >= (states.sensor.probe_4_done | int) %}
+          Alert
+          {% else %}
+          Normal
+          {% endif %}"
+        friendly_name: Probe 4 Target Alert
+        icon_template:
+          "{% if (states.sensor.ibbq_probe_4.state | int) >= (states.sensor.probe_4_done | int) %}
+          mdi:alert-circle
+          {% else %}
+          mdi:alert-circle-check
+          {% endif %}"
+      target_alert2_temp_probe_5:
+        value_template:
+          "{% if (states.sensor.ibbq_probe_5.state | int) >= (states.sensor.probe_5_done | int) %}
+          Alert
+          {% else %}
+          Normal
+          {% endif %}"
+        friendly_name: Probe 5 Target Alert
+        icon_template:
+          "{% if (states.sensor.ibbq_probe_5.state | int) >= (states.sensor.probe_5_done | int) %}
+          mdi:alert-circle
+          {% else %}
+          mdi:alert-circle-check
+          {% endif %}"
+      probe_1_wrap:
+        friendly_name: Probe 1 - Wrap
+        icon_template: mdi:grill
+        value_template:
+          '{% if (states("input_select.probe_1_type") == "Beef Briskett") %}
+          165
+          {% elif (states("input_select.probe_1_type") == "Beef Chuck Roast") %}
+          165
+          {% elif (states("input_select.probe_1_type") == "Beef Tenderloin") %}
+          165
+          {% elif (states("input_select.probe_1_type") == "Beef Tri Tip") %}
+          0
+          {% elif (states("input_select.probe_1_type") == "Chicken") %}
+          0
+          {% elif (states("input_select.probe_1_type") == "Fish") %}
+          0
+          {% elif (states("input_select.probe_1_type") == "Pork Butt/Shoulder") %}
+          165
+          {% elif (states("input_select.probe_1_type") == "Pork Ribs") %}
+          165
+          {% elif (states("input_select.probe_1_type") == "Turkey") %}
+          0
+          {% else %}
+          0
+          {% endif %}'
+      probe_1_done:
+        friendly_name: Probe 1 - Done
+        icon_template: mdi:grill
+        value_template:
+          '{% if (states("input_select.probe_1_type") == "Beef Briskett") %}
+          195
+          {% elif (states("input_select.probe_1_type") == "Beef Chuck Roast") %}
+          195
+          {% elif (states("input_select.probe_1_type") == "Beef Tenderloin") %}
+          195
+          {% elif (states("input_select.probe_1_type") == "Beef Tri Tip") %}
+          130
+          {% elif (states("input_select.probe_1_type") == "Chicken") %}
+          165
+          {% elif (states("input_select.probe_1_type") == "Fish") %}
+          145
+          {% elif (states("input_select.probe_1_type") == "Pork Butt/Shoulder") %}
+          195
+          {% elif (states("input_select.probe_1_type") == "Pork Ribs") %}
+          195
+          {% elif (states("input_select.probe_1_type") == "Turkey") %}
+          165
+          {% else %}
+          0
+          {% endif %}'
+      probe_2_wrap:
+        friendly_name: Probe 2 - Wrap
+        icon_template: mdi:grill
+        value_template:
+          '{% if (states("input_select.probe_2_type") == "Beef Briskett") %}
+          165
+          {% elif (states("input_select.probe_2_type") == "Beef Chuck Roast") %}
+          165
+          {% elif (states("input_select.probe_2_type") == "Beef Tenderloin") %}
+          165
+          {% elif (states("input_select.probe_2_type") == "Beef Tri Tip") %}
+          0
+          {% elif (states("input_select.probe_2_type") == "Chicken") %}
+          0
+          {% elif (states("input_select.probe_2_type") == "Fish") %}
+          0
+          {% elif (states("input_select.probe_2_type") == "Pork Butt/Shoulder") %}
+          165
+          {% elif (states("input_select.probe_2_type") == "Pork Ribs") %}
+          165
+          {% elif (states("input_select.probe_2_type") == "Turkey") %}
+          0
+          {% else %}
+          0
+          {% endif %}'
+      probe_2_done:
+        friendly_name: Probe 2 - Done
+        icon_template: mdi:grill
+        value_template:
+          '{% if (states("input_select.probe_2_type") == "Beef Briskett") %}
+          195
+          {% elif (states("input_select.probe_2_type") == "Beef Chuck Roast") %}
+          195
+          {% elif (states("input_select.probe_2_type") == "Beef Tenderloin") %}
+          195
+          {% elif (states("input_select.probe_2_type") == "Beef Tri Tip") %}
+          130
+          {% elif (states("input_select.probe_2_type") == "Chicken") %}
+          165
+          {% elif (states("input_select.probe_2_type") == "Fish") %}
+          145
+          {% elif (states("input_select.probe_2_type") == "Pork Butt/Shoulder") %}
+          195
+          {% elif (states("input_select.probe_2_type") == "Pork Ribs") %}
+          195
+          {% elif (states("input_select.probe_2_type") == "Turkey") %}
+          165
+          {% else %}
+          0
+          {% endif %}'
+      probe_3_wrap:
+        friendly_name: Probe 3 - Wrap
+        icon_template: mdi:grill
+        value_template:
+          '{% if (states("input_select.probe_3_type") == "Beef Briskett") %}
+          165
+          {% elif (states("input_select.probe_3_type") == "Beef Chuck Roast") %}
+          165
+          {% elif (states("input_select.probe_3_type") == "Beef Tenderloin") %}
+          165
+          {% elif (states("input_select.probe_3_type") == "Beef Tri Tip") %}
+          0
+          {% elif (states("input_select.probe_3_type") == "Chicken") %}
+          0
+          {% elif (states("input_select.probe_3_type") == "Fish") %}
+          0
+          {% elif (states("input_select.probe_3_type") == "Pork Butt/Shoulder") %}
+          165
+          {% elif (states("input_select.probe_3_type") == "Pork Ribs") %}
+          165
+          {% elif (states("input_select.probe_3_type") == "Turkey") %}
+          0
+          {% else %}
+          0
+          {% endif %}'
+      probe_3_done:
+        friendly_name: Probe 3 - Done
+        icon_template: mdi:grill
+        value_template:
+          '{% if (states("input_select.probe_3_type") == "Beef Briskett") %}
+          195
+          {% elif (states("input_select.probe_3_type") == "Beef Chuck Roast") %}
+          195
+          {% elif (states("input_select.probe_3_type") == "Beef Tenderloin") %}
+          195
+          {% elif (states("input_select.probe_3_type") == "Beef Tri Tip") %}
+          130
+          {% elif (states("input_select.probe_3_type") == "Chicken") %}
+          165
+          {% elif (states("input_select.probe_3_type") == "Fish") %}
+          145
+          {% elif (states("input_select.probe_3_type") == "Pork Butt/Shoulder") %}
+          195
+          {% elif (states("input_select.probe_3_type") == "Pork Ribs") %}
+          195
+          {% elif (states("input_select.probe_3_type") == "Turkey") %}
+          165
+          {% else %}
+          0
+          {% endif %}'
+      probe_4_wrap:
+        friendly_name: Probe 4 - Wrap
+        icon_template: mdi:grill
+        value_template:
+          '{% if (states("input_select.probe_4_type") == "Beef Briskett") %}
+          165
+          {% elif (states("input_select.probe_4_type") == "Beef Chuck Roast") %}
+          165
+          {% elif (states("input_select.probe_4_type") == "Beef Tenderloin") %}
+          165
+          {% elif (states("input_select.probe_4_type") == "Beef Tri Tip") %}
+          0
+          {% elif (states("input_select.probe_4_type") == "Chicken") %}
+          0
+          {% elif (states("input_select.probe_4_type") == "Fish") %}
+          0
+          {% elif (states("input_select.probe_4_type") == "Pork Butt/Shoulder") %}
+          165
+          {% elif (states("input_select.probe_4_type") == "Pork Ribs") %}
+          165
+          {% elif (states("input_select.probe_4_type") == "Turkey") %}
+          0
+          {% else %}
+          0
+          {% endif %}'
+      probe_4_done:
+        friendly_name: Probe 4 - Done
+        icon_template: mdi:grill
+        value_template:
+          '{% if (states("input_select.probe_4_type") == "Beef Briskett") %}
+          195
+          {% elif (states("input_select.probe_4_type") == "Beef Chuck Roast") %}
+          195
+          {% elif (states("input_select.probe_4_type") == "Beef Tenderloin") %}
+          195
+          {% elif (states("input_select.probe_4_type") == "Beef Tri Tip") %}
+          130
+          {% elif (states("input_select.probe_4_type") == "Chicken") %}
+          165
+          {% elif (states("input_select.probe_4_type") == "Fish") %}
+          145
+          {% elif (states("input_select.probe_4_type") == "Pork Butt/Shoulder") %}
+          195
+          {% elif (states("input_select.probe_4_type") == "Pork Ribs") %}
+          195
+          {% elif (states("input_select.probe_4_type") == "Turkey") %}
+          165
+          {% else %}
+          0
+          {% endif %}'
+      probe_5_wrap:
+        friendly_name: Probe 5 - Wrap
+        icon_template: mdi:grill
+        value_template:
+          '{% if (states("input_select.probe_5_type") == "Beef Briskett") %}
+          165
+          {% elif (states("input_select.probe_5_type") == "Beef Chuck Roast") %}
+          165
+          {% elif (states("input_select.probe_5_type") == "Beef Tenderloin") %}
+          165
+          {% elif (states("input_select.probe_5_type") == "Beef Tri Tip") %}
+          0
+          {% elif (states("input_select.probe_5_type") == "Chicken") %}
+          0
+          {% elif (states("input_select.probe_5_type") == "Fish") %}
+          0
+          {% elif (states("input_select.probe_5_type") == "Pork Butt/Shoulder") %}
+          165
+          {% elif (states("input_select.probe_5_type") == "Pork Ribs") %}
+          165
+          {% elif (states("input_select.probe_5_type") == "Turkey") %}
+          0
+          {% else %}
+          0
+          {% endif %}'
+      probe_5_done:
+        friendly_name: Probe 5 - Done
+        icon_template: mdi:grill
+        value_template:
+          '{% if (states("input_select.probe_5_type") == "Beef Briskett") %}
+          195
+          {% elif (states("input_select.probe_5_type") == "Beef Chuck Roast") %}
+          195
+          {% elif (states("input_select.probe_5_type") == "Beef Tenderloin") %}
+          195
+          {% elif (states("input_select.probe_5_type") == "Beef Tri Tip") %}
+          130
+          {% elif (states("input_select.probe_5_type") == "Chicken") %}
+          165
+          {% elif (states("input_select.probe_5_type") == "Fish") %}
+          145
+          {% elif (states("input_select.probe_5_type") == "Pork Butt/Shoulder") %}
+          195
+          {% elif (states("input_select.probe_5_type") == "Pork Ribs") %}
+          195
+          {% elif (states("input_select.probe_5_type") == "Turkey") %}
+          165
+          {% else %}
+          0
+          {% endif %}'
+  - platform: waze_travel_time
+    name: Chip To Home
+    origin: person.chip
+    destination: zone.home
+    region: "US"
+  - platform: template
+    sensors:
+      chip_home_time_of_arrival:
+        friendly_name: Chip Home Arrival
+        value_template: >
+          {% set minutes = states('sensor.chip_to_home') | int %}
+          {{ (as_timestamp(now()) + (minutes * 60)) | timestamp_custom('%H:%M') }}
+  #  - platform: google_geocode
+  #    origin: person.chip
+  #    options: street_number, street, city
+  #    api_key: AIzaSyBi3jaD3JfPT3wO6xh-PTTIZt5D8BKfzBs
+  - platform: waze_travel_time
+    name: Nikki To Home
+    origin: person.nikki
+    destination: zone.home
+    region: "US"
+  - platform: template
+    sensors:
+      nikki_home_time_of_arrival:
+        friendly_name: Nikki Home Arrival
+        value_template: >
+          {% set minutes = states('sensor.nikki_to_home') | int %}
+          {{ (as_timestamp(now()) + (minutes * 60)) | timestamp_custom('%H:%M') }}
+  #  - platform: google_geocode
+  #    origin: person.nikki
+  #    options: street_number, street, city
+  #    api_key: AIzaSyBi3jaD3JfPT3wO6xh-PTTIZt5D8BKfzBs
+  #  - platform: places
+  #    name: chip
+  #    devicetracker_id: person.chip
+  #    options: zone,place
+  #    map_provider: google
+  #    map_zoom: 19
+  #    home_zone: zone.home
+  #    api_key: !secret email_chip
+  #  - platform: places
+  #    name: nikki
+  #    devicetracker_id: person.nikki
+  #    options: zone,place
+  #    map_provider: google
+  #    map_zoom: 19
+  #    home_zone: zone.home
+  #    api_key: !secret email_nikki
+  - platform: gtfs
+    name: MARTA to Midtown
+    origin: 908480
+    destination: 908375
+    data: MARTA.zip
+  - platform: waze_travel_time
+    name: Travel to StrongH2O
+    origin: !secret home_address
+    destination: !secret strongh2o_address
+    region: "US"
+  - platform: waze_travel_time
+    name: Travel from StrongH2O
+    origin: !secret strongh2o_address
+    destination: !secret home_address
+    region: "US"
+  - platform: waze_travel_time
+    name: Travel to NCR
+    origin: !secret home_address
+    destination: !secret ncr_address
+    region: "US"
+  - platform: waze_travel_time
+    name: Travel from NCR
+    origin: !secret ncr_address
+    destination: !secret home_address
+    region: "US"
+  - platform: gitlab_ci
+    gitlab_id: 23614491
+    token: kE5YswNw5-2xybcf6EDz
+  - platform: time_date
+    display_options:
+      - "time"
+      - "date"
+      - "date_time"
+      - "date_time_utc"
+      - "date_time_iso"
+      - "time_date"
+      - "time_utc"
+      - "beat"
+  #  - platform: illuminance
+  #    name: Estimated Illuminance
+  #    entity_id: weather.home
+  - platform: template
+    sensors:
+      dynamic_brightness:
+        friendly_name: Dynamic Brightness
+        value_template: >-
+          {# start of brightness calculations due to weather sensor data #}
+
+          {# if sunlight higher than user defined maximum then dynamic brightness must be zero #}
+          {% if states('input_number.high_ambient_lux') | float < states('sensor.estimated_illuminance') | float %}
+
+            {% set dynamic_brightness = 0 | float %}
+
+          {# if sunlight lower than user defined minimum then dynamic brightness must be user defined maximum brightness #}
+          {% elif states('sensor.estimated_illuminance') | float < states('input_number.low_ambient_lux') | float %}
+
+            {% set dynamic_brightness = states('input_number.max_brightness') | float %}
+
+          {# sunlight levels somewhere in between high and low thresholds so calculate brightness needed to maintain light levels #}
+          {% else %}
+
+            {% set illuminance = states('sensor.crackyn_s_cave_solar_rad_lx') | float %}
+            {% set low_lux = states('input_number.low_ambient_lux') | float %}
+            {% set high_lux = states('input_number.high_ambient_lux') | float %}
+            {% set max_bright = states('input_number.max_brightness') | float %}
+            {% set min_bright = states('input_number.min_brightness') | float %}
+
+            {# map illuminance sensor lux value to brightness value between minimum and maximum user defined limits #}
+            {% set dynamic_brightness = (((illuminance - high_lux) * (max_bright - min_bright )) / (low_lux - high_lux )) + min_bright %}
+
+          {% endif %}
+
+          {# end of brightness calculations #}
+
+
+          {# list of variables required by sunrise, sunset and night time routines below #}
+
+          {# convert time sensor and input_datetime values into minutes to simplify comparisons #}
+          {% set time_now_to_minutes = states('sensor.time')[:2] | int * 60 + states('sensor.time')[3:] | float  %}
+          {% set night_start_time_to_minutes = states('input_datetime.nighttime')[:2] | float * 60 + states('input_datetime.nighttime')[3:] | float %}
+          {% set morning_start_time_to_minutes = states('input_datetime.daytime')[:2] | float * 60 + states('input_datetime.daytime')[3:] | float %}
+          {% set sunrise_duration_to_minutes = states('input_datetime.sunrise_duration')[:2] | float * 60 + states('input_datetime.sunrise_duration')[3:5] | float %}
+          {% set sunset_duration_to_minutes = states('input_datetime.sunset_duration')[:2] | float * 60 + states('input_datetime.sunset_duration')[3:5] | float %}
+
+          {# shorten descriptive variable names so I don't have to type long names #}
+          {% set time = time_now_to_minutes %}
+          {% set night = night_start_time_to_minutes %}
+          {% set morning = morning_start_time_to_minutes %}
+          {% set sunrise = sunrise_duration_to_minutes %}
+          {% set sunset = sunset_duration_to_minutes %}
+
+          {# convert user defined dimming strength into percentile and apply to dynamic_brightness #}
+          {% set dim_percent = states('input_number.night_dim_strength') | float / 100.0 %}
+          {% set night_brightness = dynamic_brightness - (dynamic_brightness * dim_percent) %}
+
+          {# end of variables list #}
+
+
+
+          {# this part applies night time dimming to reduce dynamic brightness down to a comfortable value at user defined night time #}
+
+          {# if current time is past 'night' time plus 'sunset' duration or current time less than 'morning' time then set full night dimming strength #}
+          {% if (time >= (night + sunset)) or (time <= morning) %}
+
+            {# apply full night dimming strength to brightness #}
+            {% set dynamic_brightness = night_brightness %}
+
+          {# sunset routine #}
+          {# if current time is within 'sunset' period apply a gradually increasing level of dimming #}
+          {% elif (night < time) and (time < (night + sunset)) %}
+
+            {# go from no dimming to full night dimming strength as 'sunset' progresses #}
+            {% set dynamic_brightness = ((time - night) * (night_brightness - dynamic_brightness)) / ((night + sunset) - night) + dynamic_brightness %}
+
+          {# sunrise routine #}
+          {# if current time is within 'sunrise' period apply a gradually decreasing level of dimming #}
+          {% elif (morning < time) and (time < (morning + sunrise)) %}
+
+            {% set dynamic_brightness = ((time - morning) * (dynamic_brightness - night_brightness)) / ((morning + sunrise) - morning) + night_brightness %}
+
+          {% endif %}
+
+          {{ dynamic_brightness | round(0) | int }}
+
+  - platform: template
+    sensors:
+      # this sensor returns 154-370 mireds (cool to warm) dependent on time of day
+      # if time is after night and before morning return warm (370)
+      # if time after morning and before midday ramp down from warm to cool (370-154)
+      # if time after midday and before night ramp up from cool to warm (154-370)
+      dynamic_color_temp:
+        friendly_name: Dynamic Color Temp
+        value_template: >-
+          {# convert time sensor and input_datetime values into minutes to simplify comparisons #}
+          {% set time_now_to_minutes = states('sensor.time')[:2] | int * 60 + states('sensor.time')[3:] | float  %}
+          {% set night_start_time_to_minutes = states('input_datetime.nighttime')[:2] | float * 60 + states('input_datetime.nighttime')[3:] | float %}
+          {% set morning_start_time_to_minutes = states('input_datetime.daytime')[:2] | float * 60 + states('input_datetime.daytime')[3:] | float %}
+          {% set midday = 12 * 60 %}
+          {% set midnight = 0 %}
+          {% set cool = 154 %}
+          {% set warm = 370 %}
+
+          {# shorten descriptive variable names so I don't have to type long names #}
+          {% set time = time_now_to_minutes %}
+          {% set night = night_start_time_to_minutes %}
+          {% set morning = morning_start_time_to_minutes %}
+
+          {# set maximum warm during night time #}
+          {% if (time <= morning) or (time >= night) %}
+            {% set dynamic_color_temp = 370 %}
+
+          {# ramp from warm to cool from morning to midday #}
+          {% elif time <= midday %}
+            {% set dynamic_color_temp = (time - morning) * (cool - warm) / (midday - morning) + warm %}
+
+          {# ramp from cool to warm from midday to night #}
+          {% elif time < night %}
+            {% set dynamic_color_temp = (time - midday) * (warm - cool) / (night - midday) + cool %}
+
+          {% endif %}
+
+          {{ dynamic_color_temp | int }}
+  # Minimal configuration of the standard time and date sensor
+  - platform: time_date
+    display_options:
+      - "date_time_iso"
+  # Build on the standard sensor to produce one that can be customized
+  - platform: template
+    sensors:
+      time_formatted:
+        friendly_name: "Date and time"
+        value_template: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%A %B %-m, %I:%M %p') }}"
+        icon_template: mdi:calendar-clock
+  # Example configuration.yaml entry
+
+  - platform: darksky
+      api_key: 30821af82065f4f2248a87bfae7c0964
+      forecast:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+    hourly_forecast:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+      - 16
+      - 17
+      - 18
+      - 19
+      - 20
+      - 21
+      - 22
+      - 23
+    language: en
+    monitored_conditions:
+      - summary
+      - icon
+      - temperature
+      - apparent_temperature
+      - temperature_high
+      - temperature_low
+      - cloud_cover
+      - precip_type
+      - precip_intensity
+      - precip_probability
+      - precip_accumulation
+    units: us
+    scan_interval: "00:05:00"
+
+  - platform: version
+    name: hass_version_installed
+
+  - platform: version
+    name: hass_version_latest
+    source: docker
+
+  - platform: version
+    name: hass_version_latest_beta
+    beta: true
+    source: docker
+
+  - platform: filesize
+    file_paths:
+      - /config/home-assistant_v2.db
+      - /config/home-assistant.log
+
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /
+      - type: memory_use_percent
+      - type: processor_use
+      - type: last_boot
+
+  - platform: uptime
+
+  - platform: time_date
+    display_options: ["time", "date"]
+
+  - platform: rest
+    name: hass_release_notes
+    resource: https://api.github.com/repos/home-assistant/core/releases/latest
+    value_template: "{{ value_json.name }}"
+    json_attributes: [body]
+    scan_interval: 21600
+
+  - platform: rest
+    name: hass_release_notes_rc
+    resource: https://api.github.com/repos/home-assistant/core/releases?per_page=1
+    value_template: "{{ value_json[0].name }}"
+    json_attributes: [body]
+    scan_interval: 21600
+
+  - platform: dnsip
+
+  # - platform: rest
+  # name: fullykiosk
+  # json_attributes:
+  # ['batteryLevel', 'screenBrightness', 'plugged', 'motionDetectorStatus',
+  # 'lastAppStart', 'internalStorageFreeSpace', 'internalStorageTotalSpace',
+  # 'ramFreeMemory', 'ramTotalMemory', 'isInScreensaver']
+  # resource: !secret fullykiosk_rest_resource
+  # value_template: '{{ value_json.screenOn }}'
+  # scan_interval: 10
+
+  - platform: rest
+    name: docker_cpu
+    resource: !secret ha_dockermon_cpu
+    value_template: >
+      {% set cpuDelta = value_json.cpu_stats.cpu_usage.total_usage - value_json.precpu_stats.cpu_usage.total_usage %}
+      {% set systemDelta = value_json.cpu_stats.system_cpu_usage - value_json.precpu_stats.system_cpu_usage %}
+      {{ (cpuDelta / systemDelta * value_json.cpu_stats.cpu_usage.percpu_usage | length * 100) | round(1) }}
+    json_attributes: ["cpu_stats", "precpu_stats", "memory_stats"]
+
+  - platform: rest
+    name: docker_uptime
+    resource: !secret ha_dockermon_uptime
+    value_template: >
+      {{ value_json.status.split(' ')[1:] | join(' ') | replace ('About a minute', '1 minut')
+      | replace ('About an hour', '1 timme')  | replace ('seconds', 'sekunder') | replace ('minutes', 'minuter')
+      | replace ('hours', 'timmar') | replace ('days', 'dagar') + ' sedan' }}
+
+  #  - platform: plex_recently_added
+  #    token: !secret plex_token
+  #    host: !secret plex_host
+  #    port: !secret plex_port
+  #    max: 1
+  #    img_dir: '/'
+  #    image_resolution: 500
+  ####################################################
+  #                                                  #
+  #                     TEMPLATE                     #
+  #                                                  #
+  ####################################################
+  - platform: template
+    sensors:
+      sidebar_greeting:
+        value_template: >
+          {% set time = now().hour %}
+          {% if time <= 1 %} Good night {{'\U0001F611'}}
+          {% elif time <= 3 %} Good night {{'\U0001F62A'}}
+          {% elif time <= 5 %} Good night {{'\U0001F634'}}
+          {% elif time <= 7 %} Good morning {{'\U0001F4A9'}}
+          {% elif time <= 9 %} Good morning {{'\u2615\uFE0F'}}
+          {% elif time <= 10 %} Good morning {{'\U0001F642'}}
+          {% elif time <= 13 %} Good day {{'\U0001F60A'}}
+          {% elif time <= 15 %} Good day {{'\U0001F60E'}}
+          {% elif time <= 17 %} Good day {{'\U0001F44B\U0001F3FB'}}
+          {% elif time <= 19 %} Good evening {{'\U0001F44B\U0001F3FB'}}
+          {% elif time <= 22 %} Good evening {{'\U0001F60C'}}
+          {% elif time <= 23 %} Good evening {{'\U0001F974'}}
+          {% else %} Good evening {{'\U0001F974'}}
+          {% endif %}
+
+      sidebar_active:
+        value_template: >
+          {% set lights = [states.light.a_c_closet_switch, states.light.back_deck, states.light.backyard_floodlight_1, 
+          states.light.backyard_floodlight_2, states.light.bedroom_2_switch, states.light.bedroom_switch, 
+          states.light.dining_room_switch, states.light.eb05e09e647d17d6e29zgq, states.light.eb63968e9706e39556gm3w, 
+          states.light.ebb24638496fed025bo3sk, states.light.ebb810f31369212dbao41y, states.light.ebe79fcb3abbde5073u3mw, 
+          states.light.front_porch_right, states.light.garage_security_light, states.light.garage_stairs, 
+          states.light.garage_switch, states.light.kitchen_switch, states.light.living_room_fireplace_left, 
+          states.light.living_room_fireplace_right, states.light.living_room_switch, states.light.lower_garage, 
+          states.light.reading, states.light.sink_switch, states.light.tv] %}
+
+          {% set lights_on = lights | selectattr('state','eq','on') | list %}
+          {% set lights_name = lights | selectattr('state','eq','on') | map(attribute='name') | join(', ') %}
+
+          {% set switches = [states.switch.garage_main, states.switch.garage_stall_1, states.switch.garage_stall_2, states.switch.hdmi_switch_1, 
+          states.switch.left_water_bowl, states.switch.outside_lights_white, states.switch.right_water_bowl] %}
+
+          {% set switches_on = switches | selectattr('state','eq','on') | list %} 
+          {% set switches_name = switches | selectattr('state','eq','on') | map(attribute='name') | join(', ') %}
+
+          {% if (lights_on | length == 0) and (switches_on | length > 0) %} 
+          {{ switches_name | regex_replace(',([^,]*)$',' and\\1') }} is on
+
+          {% elif (lights_on | length == 1) and (switches_on | length == 1) %}
+          {{ lights_name }} and {{switches_name }} is on
+
+          {% elif (lights_on | length == 1) and (switches_on | length > 1) %}
+          {{ lights_name }}, {{ switches_name | regex_replace(',([^,]*)$',' and\\1') }} is on
+
+          {% elif (lights_on | length > 1) and (switches_on | length == 1) %}
+          {{ lights_on | length }} light and {{ switches_name }} is on
+
+          {% elif (lights_on | length > 1) and (switches_on | length > 1) %}
+          {{ lights_on | length }} light, {{ switches_name | regex_replace(',([^,]*)$',' and\\1') }} is on
+
+          {% elif (lights_on | length == 1) and (switches_on | length == 0) %}
+          {{ lights_name }} is on
+
+          {% elif (lights_on | length > 1) and (switches_on | length == 0) %}
+          {{ lights_on | length}} light is on
+
+          {% else %} 
+          <font color='#6a7377'>Everything is off</font> 
+          {% endif %}
+
+      sidebar_weather:
+        value_template: >
+          {% set temperature = states('sensor.dark_sky_temperature') %}
+          {% set apparent = states('sensor.dark_sky_apparent_temperature') | round %}
+          {% set precip = states('sensor.dark_sky_precip_probability') | round %}
+
+          {% if not is_state('sensor.dark_sky_temperature', 'unknown') %}
+            {% if temperature | float <= 0.0 %}
+              Feels like {{ apparent }}° with 
+              {{ precip }}% risk of snow {{'\u2744\uFE0F'}}
+            {% elif temperature | float > 0.0 %} 
+              Feels like {{ apparent}}° with 
+              {{ precip }}% risk of rain {{ '\u2614\uFE0F' if precip > 30 }}
+            {% endif %}
+          {% else %}
+            Unable to load weather information...
+          {% endif %}
+
+      # sidebar_skanetrafiken:
+      #   value_template: >
+      #     {% set entity_id = 'sensor.skanetrafiken' %}
+      #     {% if not states(entity_id) | regex_search('<') %}
+      #     {{ 'Nästa buss går ' + states(entity_id) if not is_state(entity_id, 'från') }}
+      #     {% endif %}
+
+      # public_ip:
+      #   value_template: !secret public_ip
+
+      placeholder:
+        value_template: " "
+
+      dockermon_mem:
+        friendly_name: Memory
+        icon_template: mdi:memory
+        value_template: >
+          {% set entity_id = 'sensor.docker_cpu' %}
+          {{ (state_attr(entity_id, 'memory_stats')['usage'] / 
+          state_attr(entity_id, 'memory_stats')['limit'] * 100) | round(1) | default(0) }}
+
+      # imac_vpn:
+      #   friendly_name: VPN
+      #   value_template: >
+      #     {{ 'Ej Ansluten' if is_state('switch.computer_imac', 'on') and
+      #     states('sensor.imac_ip') == states('sensor.public_ip') else 'Ansluten' }}
+      #   icon_template: >
+      #     mdi:shield-{{ 'alert' if is_state('switch.computer_imac', 'on') and
+      #     states('sensor.imac_ip') == states('sensor.public_ip') else 'check' }}
+
+      # computer_imac_uptime:
+      #   friendly_name: Drifttid
+      #   icon_template: mdi:calendar-clock
+      #   value_template: >
+      #     {% set uptime = (as_timestamp(now()) - as_timestamp(states('sensor.imac_uptime') | int | timestamp_local)) | default(0) %}
+      #     {% if uptime | timestamp_custom('%d') | int -1 == 1 %} {{ uptime | timestamp_custom('%d') | int -1 }} dag
+      #     {% elif uptime | timestamp_custom('%d') | int -1 >= 2 %} {{ uptime | timestamp_custom('%d') | int -1 }} dagar
+      #     {% elif uptime | timestamp_custom('%H') | int -1 == 1 %} {{ uptime | timestamp_custom('%H') | int -1 }} timme
+      #     {% elif uptime | timestamp_custom('%H') | int -1 >= 2 %} {{ uptime | timestamp_custom('%H') | int -1 }} timmar
+      #     {% elif uptime | timestamp_custom('%M') | int == 1 %} {{ uptime | timestamp_custom('%M') | int }} minut
+      #     {% elif uptime | timestamp_custom('%M') | int >= 2 %} {{ uptime | timestamp_custom('%M') | int }} minuter
+      #     {% else %} Minde än 1 minut
+      #     {% endif %}
+
+      hass_version:
+        icon_template: mdi:home-assistant
+        friendly_name_template: >
+          Installerad {{ states('sensor.hass_version_installed') }}
+        value_template: >
+          {{ 'Senaste' if states('sensor.hass_version_installed') == 
+          states('sensor.hass_version_latest') else states('sensor.hass_version_latest') }}
+
+      hass_dev_release:
+        icon_template: mdi:dev-to
+        friendly_name_template: >
+          {% if ((as_timestamp(state_attr('calendar.home_assistant_devs', 
+          'start_time')) - as_timestamp(now())) / 86400) > 20 %}
+            Planerad beta
+          {% else %}
+            {{ state_attr('calendar.home_assistant_devs','message') }}
+          {% endif %}
+        value_template: >
+          {% set dev = ((as_timestamp(state_attr('calendar.home_assistant_devs', 
+          'start_time')) - as_timestamp(now())) / 86400) %}
+          {% if dev < -1 %} Släppt
+          {% elif dev < 0 %} Idag
+          {% elif dev < 1 %} Imorgon
+          {% elif dev > 20 %} Ingen
+          {% else %} {{ dev | int + 1 }} dagar
+          {% endif %}
+
+      # printer_status:
+      #   friendly_name: Skrivare
+      #   icon_template: mdi:printer-wireless
+      #   value_template: >
+      #     {% set entity_id = 'sensor.hp_deskjet_2600_series' %}
+      #     {% if is_state(entity_id, 'On') %} På
+      #     {% elif is_state(entity_id, 'Scanning') %} Skannar
+      #     {% elif is_state(entity_id, 'Copying') %} Kopierar
+      #     {% elif is_state(entity_id, 'Printing') %} Skriver ut
+      #     {% elif is_state(entity_id, 'Cancelling Job') %} Avbryter
+      #     {% elif is_state(entity_id, 'idle') %} Viloläge
+      #     {% elif is_state(entity_id, 'trayEmptyOrOpen') %} Inga papper
+      #     {% elif is_state(entity_id, 'Off') %} Av
+      #     {% else %} {{ states(entity_id) }}
+      #     {% endif %}
+
+      # ####################################################
+      # #                                                  #
+      # #                      TABLET                      #
+      # #                                                  #
+      # ####################################################
+
+      #   fullykiosk_plugged:
+      #     friendly_name: Strömsladd ansluten
+      #     value_template: >
+      #       {{ 'Ja' if is_state_attr('sensor.fullykiosk', 'plugged', true) else 'Nej' }}
+      #     icon_template: >
+      #       mdi:power-plug{{ '-off' if is_state_attr('sensor.fullykiosk', 'plugged', false) }}
+
+      #   fullykiosk_storage:
+      #     friendly_name: Lagring
+      #     icon_template: mdi:sd
+      #     unit_of_measurement: '%'
+      #     value_template: >
+      #       {% set entity_id = 'sensor.fullykiosk' %}
+      #       {% set FreeSpace = state_attr(entity_id, 'internalStorageFreeSpace') %}
+      #       {% set TotalSpace = state_attr(entity_id, 'internalStorageTotalSpace') %}
+      #       {% if not (FreeSpace == None or TotalSpace == None) %}
+      #         {{ 100 - (FreeSpace / TotalSpace * 100) | int }}
+      #       {% endif %}
+
+      #   fullykiosk_memory:
+      #     friendly_name: Minne
+      #     icon_template: mdi:memory
+      #     unit_of_measurement: '%'
+      #     value_template: >
+      #       {% set entity_id = 'sensor.fullykiosk' %}
+      #       {% set FreeMemory = state_attr(entity_id, 'ramFreeMemory') %}
+      #       {% set TotalMemory = state_attr(entity_id, 'ramTotalMemory') %}
+      #       {% if not (FreeMemory == None or TotalMemory == None) %}
+      #         {{ 100 - (FreeMemory / TotalMemory * 100) | int }}
+      #       {% endif %}
+
+      #   fullykiosk_battery:
+      #     friendly_name: Batteri
+      #     unit_of_measurement: '%'
+      #     value_template: >
+      #       {{ state_attr('sensor.fullykiosk', 'batteryLevel') }}
+      #     icon_template: >
+      #       {% set battery = (state_attr('sensor.fullykiosk', 'batteryLevel') | int / 10) | int * 10 | default(0) %}
+      #         mdi:battery{% if battery == 100 %}{% elif battery > 0 %}-{{ battery }}{% else %}-alert
+      #       {% endif %}
+
+      ####################################################
+      #                                                  #
+      #                      DATE                        #
+      #                                                  #
+      ####################################################
+
+      sidebar_day:
+        icon_template: mdi:calendar
+        value_template: >
+          {% set days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Lördag', 'Saturday'] %}
+          {{ days[now().weekday()] }}
+
+      sidebar_date:
+        icon_template: mdi:calendar
+        value_template: >
+          {% set months = ['January', 'February', 'March', 'April', 'May', 'June', 
+          'July', 'August', 'September', 'October', 'November', 'December'] %}
+          {{ strptime(states('sensor.date'), '%Y-%m-%d').day }} {{ months[now().month-1] }}
+
+      # mathem_countdown:
+      #   friendly_name: Mathem
+      #   icon_template: mdi:calendar
+      #   value_template: >
+      #     {% set start_time = state_attr('calendar.mathem', 'start_time') %}
+      #     {% set end_time = state_attr('calendar.mathem', 'end_time') %}
+      #     {% if start_time != None %}
+      #       {% set time = as_timestamp(start_time) | timestamp_custom('%H:%M') %}
+      #       {% set time_end = as_timestamp(end_time) | timestamp_custom('%H:%M') %}
+      #       {% set hours = as_timestamp(start_time) | timestamp_custom('%H') | int / 24 %}
+      #       {% set count = (as_timestamp(start_time) - as_timestamp(now())) / 86400 - hours %}
+      #       {% set day = strptime(start_time, '%Y-%m-%d %H:%M:%S').strftime('%A')
+      #       | replace('Monday', 'Måndag')
+      #       | replace('Tuesday', 'Tisdag')
+      #       | replace('Wednesday', 'Onsdag')
+      #       | replace('Thursday', 'Torsdag')
+      #       | replace('Friday', 'Fredag')
+      #       | replace('Saturday', 'Lördag')
+      #       | replace('Sunday', 'Söndag') %}
+
+      #       {% if count <= 0.0 %}
+      #         {{'\U0001F6D2'}} Mathem idag mellan {{ time }}-{{ time_end }}
+      #       {% elif count <= 1.0 %}
+      #         Mathem imorgon mellan {{ time }}-{{ time_end }}
+      #       {% elif count <= 2.0 %}
+      #         Mathem i övermorgon mellan {{ time }}-{{ time_end }}
+      #       {% else %}
+      #         Mathem om {{ (count + hours) | round }} dagar på {{ day }} mellan {{ time }}-{{ time_end }}
+      #       {% endif %}
+      #     {% endif %}
+
+      # tvatta_countdown:
+      #   friendly_name: Tvätta
+      #   icon_template: mdi:calendar
+      #   value_template: >
+      #     {% set start_time = state_attr('calendar.tvatta', 'start_time') %}
+      #     {% if start_time != None %}
+      #       {% set time = as_timestamp(start_time) | timestamp_custom('%H:%M') %}
+      #       {% set hours = as_timestamp(start_time) | timestamp_custom('%H') | int / 24 %}
+      #       {% set count = (as_timestamp(start_time) - as_timestamp(now())) / 86400 - hours %}
+      #       {% set day = strptime(start_time, '%Y-%m-%d %H:%M:%S').strftime('%A')
+      #       | replace('Monday', 'Måndag')
+      #       | replace('Tuesday', 'Tisdag')
+      #       | replace('Wednesday', 'Onsdag')
+      #       | replace('Thursday', 'Torsdag')
+      #       | replace('Friday', 'Fredag')
+      #       | replace('Saturday', 'Lördag')
+      #       | replace('Sunday', 'Söndag') %}
+
+      #       {% if count <= 0.0 %}
+      #         {{'\U0001F4A6'}} Tvätt idag {{ time }}
+      #       {% elif count <= 1.0 %}
+      #         Tvätt imorgon
+      #         klockan {{ time }}
+      #       {% elif count <= 2.0 %}
+      #         Tvätt i övermorgon
+      #         klockan {{ time }}
+      #       {% else %}
+      #         Tvätt om {{ (count + hours) | round }} dagar på {{ day }} kl {{ time }}
+      #       {% endif %}
+      #     {% endif %}
+
+      # hass_uptime:
+      #   friendly_name: Senast omstart
+      #   icon_template: mdi:update
+      #   value_template: >
+      #     {% set uptime = (as_timestamp(now()) - as_timestamp(states('sensor.uptime'))) | float / 60 %}
+      #     {% if uptime < 1 %} {{ (uptime * 60) | int }} sekunder sedan
+      #     {% elif uptime | int == 1 %} 1 minut sedan
+      #     {% elif uptime | int > 1 %}
+      #       {% if uptime | int < 60 %} {{ uptime | int }} minuter sedan
+      #       {% elif uptime | int / 60 == 24 %} {{ (uptime | int / 60 / 24) | int }} dag sedan
+      #       {% elif uptime | int / 60 >= 24 %} {{ (uptime | int / 60 / 24) | int }} dagar sedan
+      #       {% elif uptime | int >= 60 and uptime | int < 120 %} {{ (uptime | int / 60) | int }} timme sedan
+      #       {% elif uptime | int >= 120 %} {{ (uptime | int / 60) | int }} timmar sedan
+      #       {% endif %}
+      #     {% endif %}
+
+    # ####################################################
+    # #                                                  #
+    # #                       NAS                        #
+    # #                                                  #
+    # ####################################################
+
+    #   nas_net_down:
+    #     value_template: ' '
+    #     icon_template: mdi:arrow-down-bold
+    #     friendly_name_template: >
+    #       {% set down = states('sensor.synology_network_down') | float %}
+    #       {% if down < 1000 %} {{ down | round(0) }} kb/s
+    #       {% elif down >= 1000 %} {{ ((down / 1000) | round(2) | string).rstrip('.0') }} Mb/s
+    #       {% endif %}
+
+    #   nas_net_up:
+    #     value_template: ' '
+    #     icon_template: mdi:arrow-up-bold
+    #     friendly_name_template: >
+    #       {% set up = states('sensor.synology_network_up') | float %}
+    #       {% if up < 1000 %} {{ up | round(0) }} kb/s
+    #       {% elif up >= 1000 %} {{ ((up / 1000) | round(2) | string).rstrip('.0') }} Mb/s
+    #       {% endif %}
+
+    #   nas_status:
+    #     friendly_name: Systemhälsa
+    #     icon_template: custom:synology-nas
+    #     value_template: >
+    #       {% set entity_id = 'sensor.synology_status_volume_1' %}
+    #       {% if is_state(entity_id, 'normal') %} Bra
+    #       {% elif is_state(entity_id, 'background') %} Verifierar
+    #       {% else %} {{ states(entity_id) }}
+    #       {% endif %}
+
+    #   nas_vpn:
+    #     friendly_name: VPN
+    #     value_template: >
+    #       {{ 'Ej Ansluten' if states('sensor.myip') == states('sensor.public_ip') else 'Ansluten' }}
+    #     icon_template: >
+    #       mdi:shield-{{ 'alert' if states('sensor.myip') == states('sensor.public_ip') else 'check' }}
