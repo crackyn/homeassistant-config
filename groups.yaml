@@ -1,0 +1,120 @@
+basement:
+  name: Basement
+  entities:
+    - light.basement_stairs
+    - light.garage_stairs
+    - switch.basement_stall_1
+    - switch.basement_stall_2
+    - switch.basement_stall_3
+bedroom:
+  name: Bedroom
+  entities:
+    - light.bedroom_closet_switch
+    - light.bedroom_switch
+    - light.bedroom_switch_2
+    - light.bedroom_desk_lamp
+    - switch.bedroom_fan
+    - switch.bedroom_ac
+bedroom2:
+  name: Bedroom 2
+  entities:
+    - light.bedroom_2_switch
+    - light.bedroom_2_switch_2
+    - light.reading
+    - light.reading_2
+dining_room:
+  name: Dining Room
+  entities:
+    - light.dining_room_switch
+garage:
+  name: Garage
+    - light.garage_light_switch
+    - light.garage_light_switch_2
+    - light.garage_security_light
+    - light.storage_room
+    - switch.garage_freezer
+    - switch.garage_main
+gazebo:
+  name: Gazebo
+  entities:
+    - switch.gazebo_1
+    - switch.gazebo_2
+    - switch.gazebo_3
+    - switch.gazebo_4
+    - switch.gazebo_5
+gym:
+  name: Gym
+  entities:
+    - switch.gym
+    - switch.gym_fan
+    - switch.gym_1
+    - switch.gym_2
+    - switch.gym_3
+hallway:
+  name: Hallway Lights
+  entities:
+    - light.a_c_closet_switch
+    - light.bathroom_1
+    - light.bathroom_1_2
+    - light.bathroom_2
+    - light.bathroom_2_2
+    - light.hallway_switch
+    - light.upper_hallway_switch
+    - light.upper_stairs_switch
+    - light.upper_hallway_closet_switch
+kitchen:
+  name: Kitchen Lights
+  entities:
+    - light.kitchen_switch
+    - light.sink_light_switch
+    - light.kitchen_cabinet_right
+    - light.kitchen_cabinet_left
+living_room:
+  name: Living Room
+  entities:
+    - light.living_room_left_flood
+    - light.living_room_right_flood
+    - light.living_room_switch
+    - light.tv
+    - light.tv_2
+    - switch.living_room_switch_1
+    - switch.living_room_switch_2
+    - switch.living_room_switch_3
+    - switch.living_room_switch_4
+    - switch.living_room_switch_usb
+master_bedroom:
+  name: Master Bedroom Lights
+  entities:
+    - light.master_bedroom_fan_1
+    - light.master_bedroom_fan_2
+outside:
+  name: Outside Lights
+  entities:
+    - light.backyard_floodlight_1
+    - light.backyard_floodlight_2
+    - light.floodlights_1
+    - light.front_porch_left
+    - light.outside_basement
+    - light.outside_backdoor
+    - light.front_porch_right
+    - switch.front_porch
+    - switch.front_porch_switch_1
+    - switch.front_porch_switch_2
+    - switch.front_porch_switch_3
+    - switch.front_porch_switch_4
+    - switch.front_porch_switch_usb
+    - switch.front_yard_lights
+holiday_switches:
+  name: Holday Switches
+  entities:
+    - switch.front_porch_switch_1
+    - switch.front_porch_switch_2
+    - switch.front_porch_switch_3
+    - switch.front_porch_switch_4
+    - switch.front_porch_switch_usb
+    - switch.front_yard_lights
+    - switch.living_room_switch_1
+    - switch.living_room_switch_2
+    - switch.living_room_switch_3
+    - switch.living_room_switch_4
+    - switch.living_room_switch_usb

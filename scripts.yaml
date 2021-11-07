@@ -1,0 +1,76 @@
+'1626356112626':
+  alias: Xfinity Voice Command - Bedroom
+  sequence:
+  - service: rest_command.xfinity_voice_command
+    data:
+      arToken: '{{ states.sensor.xfinity_bedroom_token.attributes.token }}'
+      command: '{{ states.input_text.bedroom_voice_command.state }}'
+  mode: single
+xfinity_voice_command_living_room:
+  alias: Xfinity Voice Command - Living Room
+  sequence:
+  - service: rest_command.xfinity_voice_command
+    data:
+      arToken: '{{ states.sensor.xfinity_livingroom_token.attributes.token }}'
+      command: '{{ states.input_text.livingroom_voice_command.state }}'
+  mode: single
+xfinity_voice_command_remote:
+  alias: Xfinity Voice Command - Remote
+  fields:
+    channel:
+      description: Channel name to change too
+      example: TruTV
+  sequence:
+  - service: input_text.set_value
+    target:
+      entity_id: input_text.remote_voice_command
+    data:
+      value: '{{ channel }}'
+  - service: rest_command.xfinity_voice_command
+    data_template:
+      arToken: "{% if is_state(\"input_select.tv_remote\", \"Living Room\") -%}\n\
+        \  {{ states.sensor.xfinity_livingroom_token.attributes.token }}\n{%- else\
+        \ -%}\n  {{ states.sensor.xfinity_bedroom_token.attributes.token }})\n{%-\
+        \ endif %}\n"
+      command: '{{ channel }}'
+  mode: single
+xfinity_voice_command_button_living_room:
+  alias: Xfinity Voice Command - Living Room - Button
+  fields:
+    channel_name:
+      name: Channel Name
+      description: the channel name to change the channel too
+      required: true
+      default: FOX
+  sequence:
+  - service: rest_command.xfinity_voice_command
+    data:
+      arToken: '{{ states.sensor.xfinity_livingroom_token.attributes.token }}'
+      command: '{{ channel_name }}'
+  - service: input_text.set_value
+    target:
+      entity_id: input_text.livingroom_voice_command
+    data:
+      value: '{{ channel_name }}'
+  mode: single
+'1630753771345':
+  sequence:
+  - service: remote.learn_command
+    target:
+      entity_id: remote.living_room
+    data:
+      device: television
+      command: power
+      command_type: rf
+  mode: single
+  alias: 'Remote: Learn Television Power'
+remote_living_room_power:
+  alias: 'Remote: Living Room TV Power'
+  sequence:
+  - service: remote.send_command
+    target:
+      entity_id: remote.living_room
+    data:
+      device: television
+      command: power
+  mode: single

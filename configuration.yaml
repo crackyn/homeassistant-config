@@ -1,0 +1,90 @@
+homeassistant:
+  name: Crackyn's Cave
+  latitude: !secret homeassistant_latitude
+  longitude: !secret homeassistant_longitude
+  elevation: !secret homeassistant_elevation
+  unit_system: imperial
+  time_zone: America/New_York
+  packages: !include_dir_named include
+  allowlist_external_dirs: [/config/]
+  customize: !include customize.yaml
+
+  auth_providers:
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - 172.16.0.0/16
+        - fd00::/8
+  #      trusted_users:
+  #        192.168.0.97: 0ef68b2711244f6291f6ba2c51135010
+  #        192.168.0.169: 0ef68b2711244f6291f6ba2c51135010
+  #        192.168.0.60: 6f76e68cffa740fa8c9de7540e834af6
+  #        192.168.0.59: 6f76e68cffa740fa8c9de7540e834af6
+  auth_mfa_modules:
+    - type: totp
+      name: Authenticator app
+    - type: notify
+      message: "Welcome Home, the magic password it {}"
+
+http:
+  cors_allowed_origins:
+    - https://cast.home-assistant.io
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+#default_config:
+api:
+browser_mod:
+cloud:
+dhcp:
+history:
+map:
+mobile_app:
+remote_syslog:
+system_health:
+timer:
+updater:
+wake_on_lan:
+zeroconf:
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+lovelace:
+  mode: storage
+  # Add yaml dashboards
+  dashboards:
+    lovelace-yaml:
+      mode: yaml
+      title: Information
+      icon: mdi:information-outline
+      show_in_sidebar: true
+      filename: ui-information.yaml
+
+logger:
+  default: info
+
+webostv:
+  - name: TV Living Room
+    host: 172.16.0.100
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet
+      data:
+        mac: 78:5D:C8:B1:B2:B6
+        broadcast_address: 172.16.255.255
+  - name: TV Bedroom
+    host: 172.16.0.101
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet
+      data:
+        mac: 20:17:42:E6:D1:51
+        broadcast_address: 172.16.255.255
+

@@ -1,0 +1,788 @@
+- id: '1623548347496'
+  name: Outside Lights - White
+  entities:
+    light.floodlights_1:
+      effect_list: []
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Floodlights 1
+      supported_features: 5
+      state: 'on'
+    light.backyard_floodlight_1:
+      min_mireds: 153
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 255
+      color_temp: 314
+      friendly_name: Backyard Floodlight 1
+      supported_features: 43
+      state: 'on'
+    light.ty55008855483fdac2ddec:
+      supported_color_modes:
+      - hs
+      color_mode: hs
+      rgb_color:
+      - 255
+      - 255
+      - 255
+      friendly_name: Back Door
+      supported_features: 17
+      state: 'on'
+    light.backyard_floodlight_2:
+      min_mireds: 153
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 255
+      color_temp: 314
+      friendly_name: Backyard Floodlight 2
+      supported_features: 43
+      state: 'on'
+    light.ty55008855483fda7356b4:
+      supported_color_modes:
+      - hs
+      color_mode: hs
+      brightness: 255
+      rgb_color:
+      - 255
+      - 255
+      - 255
+      friendly_name: Outside Basement
+      supported_features: 17
+      state: 'on'
+    light.ty55008855483fda105608:
+      supported_color_modes:
+      - hs
+      color_mode: hs
+      brightness: 255
+      rgb_color:
+      - 255
+      - 255
+      - 255
+      friendly_name: Front Porch - Left
+      supported_features: 17
+      state: 'on'
+    light.ty55008855483fdac2dfd8:
+      supported_color_modes:
+      - hs
+      color_mode: hs
+      brightness: 255
+      rgb_color:
+      - 255
+      - 255
+      - 255
+      friendly_name: Front Porch - Right
+      supported_features: 17
+      state: 'on'
+- id: '1623630985268'
+  name: Outside Lights - Blue
+  entities:
+    light.floodlights_1:
+      effect_list: []
+      supported_color_modes:
+      - brightness
+      friendly_name: Floodlights 1
+      supported_features: 5
+      state: 'off'
+    light.ty55008855483fdac2ddec:
+      supported_color_modes:
+      - hs
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 240
+      - 100
+      rgb_color:
+      - 0
+      - 0
+      - 255
+      xy_color:
+      - 0.136
+      - 0.04
+      friendly_name: Back Door
+      supported_features: 17
+      state: 'on'
+    light.backyard_floodlight_1:
+      min_mireds: 153
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      friendly_name: Backyard Floodlight 1
+      supported_features: 43
+      state: 'off'
+    light.backyard_floodlight_2:
+      min_mireds: 153
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      friendly_name: Backyard Floodlight 2
+      supported_features: 43
+      state: 'off'
+    light.ty55008855483fda7356b4:
+      supported_color_modes:
+      - hs
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 240
+      - 100
+      rgb_color:
+      - 0
+      - 0
+      - 255
+      xy_color:
+      - 0.136
+      - 0.04
+      friendly_name: Outside Basement
+      supported_features: 17
+      state: 'on'
+    light.ty55008855483fda105608:
+      supported_color_modes:
+      - hs
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 240
+      - 100
+      rgb_color:
+      - 0
+      - 0
+      - 255
+      xy_color:
+      - 0.136
+      - 0.04
+      friendly_name: Front Porch - Left
+      supported_features: 17
+      state: 'on'
+    light.ty55008855483fdac2dfd8:
+      supported_color_modes:
+      - hs
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 240
+      - 100
+      rgb_color:
+      - 0
+      - 0
+      - 255
+      xy_color:
+      - 0.136
+      - 0.04
+      friendly_name: Front Porch - Right
+      supported_features: 17
+      state: 'on'
+- id: '1623631060895'
+  name: Outside Lights - Off
+  entities:
+    light.floodlights_1:
+      effect_list: []
+      supported_color_modes:
+      - brightness
+      friendly_name: Floodlights 1
+      supported_features: 5
+      state: 'off'
+    light.ty55008855483fda7356b4:
+      supported_color_modes:
+      - hs
+      friendly_name: Outside Basement
+      supported_features: 17
+      state: 'off'
+    light.ty55008855483fdac2ddec:
+      supported_color_modes:
+      - hs
+      friendly_name: Back Door
+      supported_features: 17
+      state: 'off'
+    light.backyard_floodlight_1:
+      min_mireds: 153
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      friendly_name: Backyard Floodlight 1
+      supported_features: 43
+      state: 'off'
+    light.backyard_floodlight_2:
+      min_mireds: 153
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      friendly_name: Backyard Floodlight 2
+      supported_features: 43
+      state: 'off'
+    light.ty55008855483fda105608:
+      supported_color_modes:
+      - hs
+      friendly_name: Front Porch - Left
+      supported_features: 17
+      state: 'off'
+    light.ty55008855483fdac2dfd8:
+      supported_color_modes:
+      - hs
+      friendly_name: Front Porch - Right
+      supported_features: 17
+      state: 'off'
+- id: '1623680129938'
+  name: Gym - Off
+  entities:
+    media_player.gym_xbox:
+      restored: true
+      supported_features: 149385
+      friendly_name: GYM-XBOX
+      state: off
+    remote.gym_xbox_remote:
+      restored: true
+      supported_features: 0
+      friendly_name: GYM-XBOX Remote
+      state: off
+    media_player.basement_tv:
+      friendly_name: Basement TV
+      supported_features: 21389
+      state: 'off'
+    remote.roku_yw00hg377574:
+      friendly_name: Gym TV
+      supported_features: 0
+      state: 'off'
+    media_player.roku_yw00hg377574:
+      source_list:
+      - Home
+      - AT&T TV
+      - Amazon Music
+      - Bally Sports
+      - Disney Plus
+      - ESPN
+      - FOX Sports
+      - FitOn - Free Fitness Workouts
+      - FitYou
+      - Free Workout Channel
+      - HBO Max
+      - Hulu
+      - Magic Night Landscapes
+      - NBC Sports
+      - Netflix
+      - Paramount Plus
+      - Peacock TV
+      - Plex - Free Movies & TV
+      - Prime Video
+      - SiriusXM
+      - Sling TV
+      - Soundbar
+      - Streaming box
+      - The Weather Network
+      - Xbox
+      - Xfinity Stream Beta
+      supported_features: 151481
+      device_class: tv
+      state: standby
+    switch.ty332306745002914b1ffb:
+      friendly_name: Basement Stall 1 - 1
+      state: 'off'
+    switch.ty332306745002914b1ffb_2:
+      friendly_name: Basement Stall 1 - 2
+      state: 'off'
+    switch.ty332306745002914b1ffb_3:
+      friendly_name: Basement Stall 1 - 3
+      state: 'off'
+    switch.ty02200507600194a1da19:
+      friendly_name: Gym Fan
+      state: 'off'
+    media_player.gym_echo_dot:
+      source_list:
+      - Local Speaker
+      volume_level: 0
+      is_volume_muted: true
+      media_content_type: standby
+      media_position_updated_at: '2021-07-15T03:21:54.338560+00:00'
+      source: Local Speaker
+      available: true
+      last_called:
+      last_called_timestamp:
+      last_called_summary:
+      connected_bluetooth: iHome iBTS70
+      bluetooth_list:
+      - iHome iBTS70
+      friendly_name: Gym Echo Dot
+      supported_features: 56253
+      state: standby
+    switch.gym_echo_dot_do_not_disturb_switch:
+      friendly_name: Gym Echo Dot do not disturb switch
+      icon: mdi:do-not-disturb
+      device_class: switch
+      state: 'on'
+    switch.gym_echo_dot_shuffle_switch:
+      friendly_name: Gym Echo Dot shuffle switch
+      icon: mdi:shuffle-disabled
+      device_class: switch
+      state: unavailable
+    switch.gym_echo_dot_repeat_switch:
+      friendly_name: Gym Echo Dot repeat switch
+      icon: mdi:repeat-off
+      device_class: switch
+      state: unavailable
+- id: '1626315404286'
+  name: Living Room - Off
+  entities:
+    light.tv_2:
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      rate_limit_total: 100
+      rate_limit_remaining: 97
+      rate_limit_reset_seconds: 31.828489065170288
+      rate_limit_reset: 1626315682.19821
+      rate_limit_on: 5
+      manufacturer: Govee
+      model: H6159
+      friendly_name: TV
+      supported_features: 19
+      state: 'off'
+    media_player.tv_living_room:
+      source_list:
+      - Live TV
+      friendly_name: TV Living Room
+      supported_features: 20413
+      device_class: tv
+      state: 'off'
+    fan.living_room_fan:
+      speed_list:
+      - 'off'
+      - low
+      - medium
+      - high
+      preset_modes: []
+      speed: 'off'
+      percentage: 0
+      percentage_step: 33.333333333333336
+      preset_mode:
+      friendly_name: Living Room Fan
+      supported_features: 1
+      state: 'off'
+    light.living_room_switch:
+      supported_color_modes:
+      - brightness
+      friendly_name: Living Room Switch
+      supported_features: 32
+      state: unavailable
+    light.living_room_left_flood:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      friendly_name: living room left flood
+      supported_features: 63
+      state: 'off'
+    light.living_room_right_flood:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      friendly_name: living room right flood
+      supported_features: 63
+      state: 'off'
+  icon: mdi:lamp-outline
+- id: '1626315569054'
+  name: Living Room - Morning
+  entities:
+    light.tv_2:
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 26.723
+      - 46.667
+      rgb_color:
+      - 255
+      - 189
+      - 135
+      xy_color:
+      - 0.462
+      - 0.375
+      rate_limit_total: 100
+      rate_limit_remaining: 93
+      rate_limit_reset_seconds: 29.93047022819519
+      rate_limit_reset: 1626315880.039374
+      rate_limit_on: 5
+      manufacturer: Govee
+      model: H6159
+      friendly_name: TV
+      supported_features: 19
+      state: 'on'
+    media_player.tv_living_room:
+      source_list:
+      - AV
+      - Accessibility
+      - AirPlay
+      - Amazon Prime Video
+      - Apple TV
+      - Bluetooth Audio Playback
+      - Chromecast
+      - Component
+      - Device Connector
+      - Disney+
+      - FireTV
+      - Gaming
+      - Guide
+      - Hulu
+      - LG Channels
+      - LG Content Store
+      - LG Remote Service
+      - Live TV
+      - Music
+      - Netflix
+      - Notifications
+      - Paramount+
+      - Peacock
+      - Photo & Video
+      - Plex
+      - Screen Share
+      - Set Up TV for Amazon Alexa
+      - Set Up TV for Google Assistant
+      - Shop Time
+      - SiriusXM
+      - Sling TV
+      - TV Scheduler
+      - User Guide
+      - Web Browser
+      - Xfinity
+      - Xfinity Stream Beta
+      volume_level: 0.1
+      is_volume_muted: false
+      source: Xfinity
+      sound_output: external_optical
+      friendly_name: TV Living Room
+      entity_picture: /api/media_player_proxy/media_player.tv_living_room?token=dc824c7e0b2d7bb6dc45ee4f35d05885acd9c4380968d9ac234a2852205418d0&cache=ae24374c37245115
+      supported_features: 20413
+      device_class: tv
+      state: 'on'
+    fan.living_room_fan:
+      speed_list:
+      - 'off'
+      - low
+      - medium
+      - high
+      preset_modes: []
+      speed: high
+      percentage: 100
+      percentage_step: 33.333333333333336
+      preset_mode:
+      friendly_name: Living Room Fan
+      supported_features: 1
+      state: 'on'
+    light.living_room_switch:
+      supported_color_modes:
+      - brightness
+      friendly_name: Living Room Switch
+      supported_features: 32
+      state: unavailable
+    light.living_room_left_flood:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: color_temp
+      brightness: 255
+      color_temp: 314
+      effect: none
+      friendly_name: living room left flood
+      supported_features: 63
+      state: 'on'
+    light.living_room_right_flood:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: color_temp
+      brightness: 255
+      color_temp: 315
+      effect: none
+      friendly_name: living room right flood
+      supported_features: 63
+      state: 'on'
+  icon: mdi:lamp
+- id: '1626319179593'
+  name: Gym - On
+  entities:
+    media_player.gym_xbox:
+      restored: true
+      supported_features: 149385
+      friendly_name: GYM-XBOX
+      state: 'on'
+    remote.gym_xbox_remote:
+      restored: true
+      supported_features: 0
+      friendly_name: GYM-XBOX Remote
+      state: on
+    media_player.basement_tv:
+      volume_level: 0.10000000149011612
+      is_volume_muted: false
+      media_content_id: https://www.home-assistant.io/images/cast/splash.png
+      media_position: 0
+      media_position_updated_at: '2021-07-15T03:22:24.601716+00:00'
+      app_id: CC1AD845
+      app_name: Default Media Receiver
+      entity_picture_local:
+      friendly_name: Basement TV
+      supported_features: 21391
+      state: idle
+    remote.roku_yw00hg377574:
+      friendly_name: Gym TV
+      supported_features: 0
+      state: 'on'
+    media_player.roku_yw00hg377574:
+      source_list:
+      - Home
+      - AT&T TV
+      - Amazon Music
+      - Bally Sports
+      - Disney Plus
+      - ESPN
+      - FOX Sports
+      - FitOn - Free Fitness Workouts
+      - FitYou
+      - Free Workout Channel
+      - HBO Max
+      - Hulu
+      - Magic Night Landscapes
+      - NBC Sports
+      - Netflix
+      - Paramount Plus
+      - Peacock TV
+      - Plex - Free Movies & TV
+      - Prime Video
+      - SiriusXM
+      - Sling TV
+      - Soundbar
+      - Streaming box
+      - The Weather Network
+      - Xbox
+      - Xfinity Stream Beta
+      media_content_type: app
+      app_id: tvinput.hdmi2
+      app_name: Streaming box
+      source: Streaming box
+      entity_picture: /api/media_player_proxy/media_player.roku_yw00hg377574?token=56fc2110f18067e850e182b7db832ccd8756f5cb6f1b9df2d9b9c07a22cf9674&cache=cbdd53fc5a9f60e1
+      supported_features: 151481
+      device_class: tv
+      state: 'on'
+    switch.ty332306745002914b1ffb:
+      friendly_name: Basement Stall 1_1
+      state: 'on'
+    switch.ty332306745002914b1ffb_2:
+      friendly_name: Basement Stall 1_2
+      state: 'on'
+    switch.ty332306745002914b1ffb_3:
+      friendly_name: Basement Stall 1_3
+      state: 'on'
+    switch.ty02200507600194a1da19:
+      friendly_name: Gym Fan
+      state: 'on'
+    light.basement_stairs:
+      min_mireds: 154
+      max_mireds: 370
+      effect_list:
+      - Night
+      - Read
+      - Meeting
+      - Leasure
+      - Soft
+      - Rainbow
+      - Shine
+      - Beautiful
+      supported_color_modes:
+      - color_temp
+      - hs
+      friendly_name: Basement Stairs
+      supported_features: 23
+      state: 'off'
+    media_player.gym_echo_dot:
+      source_list:
+      - Local Speaker
+      volume_level: 1
+      is_volume_muted: false
+      media_content_type: standby
+      media_position_updated_at: '2021-07-15T03:22:44.949725+00:00'
+      source: Local Speaker
+      available: true
+      last_called:
+      last_called_timestamp:
+      last_called_summary:
+      connected_bluetooth:
+      bluetooth_list:
+      - iHome iBTS70
+      friendly_name: Gym Echo Dot
+      supported_features: 56253
+      state: standby
+    switch.gym_echo_dot_do_not_disturb_switch:
+      friendly_name: Gym Echo Dot do not disturb switch
+      icon: mdi:do-not-disturb-off
+      device_class: switch
+      state: 'off'
+    switch.gym_echo_dot_shuffle_switch:
+      friendly_name: Gym Echo Dot shuffle switch
+      icon: mdi:shuffle-disabled
+      device_class: switch
+      state: unavailable
+    switch.gym_echo_dot_repeat_switch:
+      friendly_name: Gym Echo Dot repeat switch
+      icon: mdi:repeat-off
+      device_class: switch
+      state: unavailable
+- id: '1626319780535'
+  name: 'Bathroom: On'
+  entities:
+    light.bathroom_1:
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 0
+      - 0
+      rgb_color:
+      - 255
+      - 255
+      - 255
+      xy_color:
+      - 0.323
+      - 0.329
+      color_temp: 275
+      friendly_name: Bathroom 1
+      supported_features: 51
+      state: 'on'
+    light.bathroom_2:
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 0
+      - 0
+      rgb_color:
+      - 255
+      - 255
+      - 255
+      xy_color:
+      - 0.323
+      - 0.329
+      color_temp: 274
+      friendly_name: Bathroom 2
+      supported_features: 51
+      state: 'on'
+    media_player.bathroom_echo_dot:
+      source_list:
+      - Local Speaker
+      volume_level: 0.8
+      is_volume_muted: false
+      media_content_type: standby
+      media_position_updated_at: '2021-07-15T03:31:03.491542+00:00'
+      source: Local Speaker
+      available: true
+      last_called:
+      last_called_timestamp:
+      last_called_summary:
+      connected_bluetooth:
+      bluetooth_list: []
+      friendly_name: Bathroom Echo Dot
+      supported_features: 56253
+      state: standby
+    switch.bathroom_echo_dot_do_not_disturb_switch:
+      friendly_name: Bathroom Echo Dot do not disturb switch
+      icon: mdi:do-not-disturb-off
+      device_class: switch
+      state: 'off'
+    switch.bathroom_echo_dot_shuffle_switch:
+      friendly_name: Bathroom Echo Dot shuffle switch
+      icon: mdi:shuffle-disabled
+      device_class: switch
+      state: unavailable
+    switch.bathroom_echo_dot_repeat_switch:
+      friendly_name: Bathroom Echo Dot repeat switch
+      icon: mdi:repeat-off
+      device_class: switch
+      state: unavailable
+- id: '1626319824231'
+  name: 'Bathroom: Off'
+  entities:
+    light.bathroom_1:
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      friendly_name: Bathroom 1
+      supported_features: 51
+      state: 'off'
+    light.bathroom_2:
+      min_mireds: 111
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      friendly_name: Bathroom 2
+      supported_features: 51
+      state: 'off'
+    media_player.bathroom_echo_dot:
+      source_list:
+      - Local Speaker
+      volume_level: 0
+      is_volume_muted: true
+      media_content_type: standby
+      media_position_updated_at: '2021-07-15T03:30:49.144909+00:00'
+      source: Local Speaker
+      available: true
+      last_called:
+      last_called_timestamp:
+      last_called_summary:
+      connected_bluetooth:
+      bluetooth_list: []
+      friendly_name: Bathroom Echo Dot
+      supported_features: 56253
+      state: standby
+    switch.bathroom_echo_dot_do_not_disturb_switch:
+      friendly_name: Bathroom Echo Dot do not disturb switch
+      icon: mdi:do-not-disturb
+      device_class: switch
+      state: 'on'
+    switch.bathroom_echo_dot_shuffle_switch:
+      friendly_name: Bathroom Echo Dot shuffle switch
+      icon: mdi:shuffle-disabled
+      device_class: switch
+      state: unavailable
+    switch.bathroom_echo_dot_repeat_switch:
+      friendly_name: Bathroom Echo Dot repeat switch
+      icon: mdi:repeat-off
+      device_class: switch
+      state: unavailable

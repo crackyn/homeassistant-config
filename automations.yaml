@@ -1,0 +1,1051 @@
+- id: '1623546021453'
+  alias: 'Motion: Detected - Upper Stairs'
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 6f2a7fa46bc4bd70dff965e759ea4bd8
+    entity_id: binary_sensor.upper_stairs_motion_sensor_motion
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 75
+      transition: 0
+    target:
+      entity_id: light.upper_stairs_switch
+  mode: restart
+- id: '1623546152301'
+  alias: 'Motion: Detected - Upper Hallway'
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 78a40da065efeb141f47928bf486c016
+    entity_id: binary_sensor.upper_hallway_motion_sensor_motion
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 33
+    target:
+      entity_id:
+      - light.upper_hallway_switch
+  mode: restart
+- id: '1623546274756'
+  alias: 'Motion: Detected - Hallway'
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: f9d7af62ffa529744fecc2abaa72b4e7
+    entity_id: binary_sensor.hallway_motion_sensor_motion
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 75
+    target:
+      entity_id: light.hallway_switch
+  mode: restart
+- id: '1623546630456'
+  alias: 'Light: Garage Switch'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.garage_light_switch
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.garage_light_switch
+    data:
+      brightness_pct: 100
+  mode: restart
+- id: '1623546793582'
+  alias: 'Light: Front Porch Switch'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: switch.front_porch_switch
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.front_porch_switch
+  mode: restart
+- id: '1623547372525'
+  alias: 'Container: Ring To MQTT - Restart'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: switch.ring_unavailable
+    to: 'on'
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.container_ring_mqtt
+  - wait_template: 00:00:15
+  - service: switch.turn_on
+    target:
+      entity_id: switch.container_ring_mqtt
+  mode: restart
+- id: '1623587122406'
+  alias: 'Motion: Detected - Dining Room'
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: a7ecdb0078f3e1f292cc2d6f29417d51
+    entity_id: binary_sensor.dining_room_motion_sensor_motion
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 75
+    target:
+      entity_id:
+      - light.dining_room_switch
+  mode: restart
+- id: '1623587167125'
+  alias: 'Motion: Stopped - Dining Room'
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: a7ecdb0078f3e1f292cc2d6f29417d51
+    entity_id: binary_sensor.dining_room_motion_sensor_motion
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      entity_id:
+      - light.dining_room_switch
+  mode: restart
+- id: '1623608390733'
+  alias: 'Light: Kitchen - On'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.kitchen_switch
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.sink_light_switch
+    data:
+      brightness_pct: 100
+  - service: light.turn_on
+    data:
+      brightness_pct: 100
+      color_name: white
+    target:
+      device_id:
+      - 0d015946c718fa34bd3ffcea53f756cf
+      - c7fc778ec57f44626e384725599f7362
+  mode: restart
+- id: '1623608492677'
+  alias: 'Light: Kitchen - Off'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.kitchen_switch
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.sink_light_switch
+  - service: light.turn_on
+    data:
+      brightness_pct: 100
+      color_name: blue
+    target:
+      entity_id:
+      - light.cabinet_left
+      - light.cabinet_right
+  mode: restart
+- id: '1623609024803'
+  alias: 'Motion: Detected - Garage'
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 0c0f33ae60e79af6c2dae385b9d456a8
+    domain: cover
+    entity_id: cover.stall_1
+    type: opening
+  - platform: device
+    device_id: a4546faa7c22865cb987e045b94a1244
+    domain: cover
+    entity_id: cover.stall_2
+    type: opening
+  - type: opened
+    platform: device
+    device_id: f3b82ed15250ef82cfec777a55ecf7e2
+    entity_id: binary_sensor.garage_house_door_sensor_contact
+    domain: binary_sensor
+  - type: motion
+    platform: device
+    device_id: 7bf515fc83fecf5ae87c8628e9df1b38
+    entity_id: binary_sensor.garage_motion_sensor_motion
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id:
+      - switch.garage_freezer
+      - switch.garage_main
+  mode: restart
+- id: '1623609055857'
+  alias: 'Motion: Stopped - Garage'
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 0c0f33ae60e79af6c2dae385b9d456a8
+    domain: cover
+    entity_id: cover.stall_1
+    type: closed
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+      milliseconds: 0
+  - platform: device
+    device_id: a4546faa7c22865cb987e045b94a1244
+    domain: cover
+    entity_id: cover.stall_2
+    type: closed
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+      milliseconds: 0
+  - type: not_opened
+    platform: device
+    device_id: efb5b144e6c9f921cf1ae1e82017fd12
+    entity_id: binary_sensor.garage_door
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+      milliseconds: 0
+  - type: no_motion
+    platform: device
+    device_id: 7bf515fc83fecf5ae87c8628e9df1b38
+    entity_id: binary_sensor.motion_sensor_garage
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+      milliseconds: 0
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id:
+      - switch.garage_freezer
+      - switch.garage_main
+  mode: restart
+- id: '1623624835379'
+  alias: 'Motion: Stopped - Hallway'
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: f9d7af62ffa529744fecc2abaa72b4e7
+    entity_id: binary_sensor.hallway_motion_sensor_motion
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.hallway_switch
+  mode: restart
+- id: '1623624948915'
+  alias: 'Motion: Stopped - Upper Hallway'
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: 78a40da065efeb141f47928bf486c016
+    entity_id: binary_sensor.upper_hallway_motion_sensor_motion
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.upper_hallway_switch
+  mode: restart
+- id: '1623625048086'
+  alias: 'Motion: Stopped - Upper Stairs'
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: 6f2a7fa46bc4bd70dff965e759ea4bd8
+    entity_id: binary_sensor.upper_stairs_motion_sensor_motion
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.upper_stairs_switch
+  mode: restart
+- id: '1623626898708'
+  alias: 'Lights: Sunset'
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -00:30:00
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.new_scene
+  mode: single
+- id: '1623627025112'
+  alias: 'Lights: Sunrise'
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: 00:30:00
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.outside_lights_off
+  mode: single
+- id: '1623630176446'
+  alias: 'Lights: Outside - White'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: switch.outside_lights_white
+    to: 'on'
+    from: 'off'
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.new_scene
+  mode: single
+- id: '1623630245217'
+  alias: 'Lights: Outside - Blue'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: switch.outside_lights_white
+    to: 'off'
+    from: 'on'
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.outside_color_lights_blue
+  mode: single
+- id: '1623630768315'
+  alias: 'Evening: Outside White'
+  description: ''
+  trigger:
+  - platform: time
+    at: input_datetime.lights_out
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.outside_lights_white
+  mode: restart
+- id: '1623630794739'
+  alias: 'Weekend: Evening - Outside White'
+  description: ''
+  trigger:
+  - platform: time
+    at: '21:00:00'
+  condition:
+  - condition: time
+    weekday:
+    - fri
+    - sat
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.outside_lights_white
+  mode: single
+- id: '1623630832322'
+  alias: 'Weekend: Morning - Outside White'
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:00:00
+  condition:
+  - condition: time
+    weekday:
+    - sat
+    - sun
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.outside_lights_white
+  mode: single
+- id: '1623630893905'
+  alias: 'Weekday: Morning - Outside White'
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:00:00
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.outside_lights_white
+  mode: single
+- id: '1623633885945'
+  alias: Test
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.blink_inside
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.55008855483fda105608
+    data:
+      kelvin: 6500
+  mode: single
+- id: '1623836353971'
+  alias: 'Bedroom: A/C On'
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.bedroom_temperature
+    above: '70'
+  condition: []
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.a_c
+  mode: single
+- id: '1623836397040'
+  alias: 'Bedroom: A/C Off'
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.bedroom_temperature
+    below: '68'
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.a_c
+  mode: single
+- id: '1623839230354'
+  alias: 'Ring: Unavailable'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.crackyns_cave_alarm
+    to: unavailable
+  condition: []
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.ring_unavailable
+  mode: single
+- id: '1623839290691'
+  alias: 'Ring: Available'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.crackyns_cave_alarm
+    from: unavailable
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.ring_unavailable
+  mode: single
+- id: '1626008960217'
+  alias: 'Bedroom: Fan On'
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.bedroom_temperature
+    above: '69'
+  condition: []
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id:
+      - switch.fan
+  mode: single
+- id: '1626008976565'
+  alias: 'Bedroom: Fan Off'
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.bedroom_temperature
+    below: '66'
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id:
+      - switch.fan
+  mode: single
+- id: '1626311992758'
+  alias: 'Morning: Living Room'
+  description: ''
+  trigger:
+  - platform: time
+    at: input_datetime.lights_on
+  condition: []
+  action:
+  - scene: scene.living_room_morning
+  - service: input_text.set_value
+    target:
+      entity_id: input_text.livingroom_voice_command
+    data:
+      value: FOX
+  - wait_template: ''
+    timeout: 00:00:10
+    continue_on_timeout: true
+  - service: script.xfinity_voice_command_living_room
+  mode: single
+- id: '1626312129280'
+  alias: 'Evening: Living Room'
+  description: ''
+  trigger:
+  - platform: time
+    at: input_datetime.lights_out
+  condition: []
+  action:
+  - scene: scene.living_room_off
+  mode: restart
+- id: '1626316480406'
+  alias: 'Helper: Weekday Time Morning '
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:00:15
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday
+    state: 'on'
+  action:
+  - service: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.lights_on
+    data:
+      time: '5:00:00'
+  mode: single
+- id: '1626316641790'
+  alias: 'Helper: Weekday Time Evening'
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:00:15
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_tomorrow
+    state: 'on'
+  action:
+  - service: input_datetime.set_datetime
+    data:
+      time: '22:00:00'
+    target:
+      entity_id: input_datetime.lights_out
+  mode: single
+- id: '1626316831673'
+  alias: 'Helper: Weekend Time Evening'
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:00:15
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_tomorrow
+    state: 'off'
+  action:
+  - service: input_datetime.set_datetime
+    data:
+      time: '23:00:00'
+    target:
+      entity_id: input_datetime.lights_out
+  mode: single
+- id: '1626316944167'
+  alias: 'Helper: Weekend Time Morning '
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:00:15
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday
+    state: 'off'
+  action:
+  - service: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.lights_on
+    data:
+      time: '6:00:00'
+  mode: single
+- id: '1626319626131'
+  alias: 'Bathroom: Door Opened'
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 1b47f9000e862cd721ce88b4e89f2acc
+    entity_id: binary_sensor.upstairs_bathroom_door_sensor_contact
+    domain: binary_sensor
+  condition: []
+  action:
+  - scene: scene.bathroom_on
+  mode: restart
+- id: '1626319923186'
+  alias: 'Bathroom: Lights Off'
+  description: ''
+  trigger:
+  - type: not_opened
+    platform: device
+    device_id: 1b47f9000e862cd721ce88b4e89f2acc
+    entity_id: binary_sensor.upstairs_bathroom_door_sensor_contact
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  condition: []
+  action:
+  - scene: scene.bathroom_on_duplicate
+  mode: restart
+- id: '1626320046261'
+  alias: Bedroom Closet Auto Off
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 39d612b0d922482963be9ef08d069ef2
+    entity_id: light.bedroom_closet_switch
+    domain: light
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+      milliseconds: 0
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 39d612b0d922482963be9ef08d069ef2
+    entity_id: light.bedroom_closet_switch
+    domain: light
+  mode: restart
+- id: '1626320089353'
+  alias: A/C Closet Auto Off
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: e9dcc795ca3cd3b5325ba8d38c0b4e87
+    entity_id: light.a_c_closet_switch
+    domain: light
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  condition: []
+  action:
+  - type: turn_off
+    device_id: e9dcc795ca3cd3b5325ba8d38c0b4e87
+    entity_id: light.a_c_closet_switch
+    domain: light
+  mode: restart
+- id: '1626320197373'
+  alias: Upstairs Hallway Closet Auto Off
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 5a96f313d4c73cdec7e2abd4ee1ffa32
+    entity_id: light.upper_hallway_closet_switch
+    domain: light
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+      milliseconds: 0
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 5a96f313d4c73cdec7e2abd4ee1ffa32
+    entity_id: light.upper_hallway_closet_switch
+    domain: light
+  mode: restart
+- id: '1626320402565'
+  alias: 'Bedroom: Auto Off'
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 5c8ab48d751d5409a25acf4640a336f8
+    entity_id: light.bedroom_switch
+    domain: light
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 5c8ab48d751d5409a25acf4640a336f8
+    entity_id: light.bedroom_switch
+    domain: light
+  mode: restart
+- id: '1626320591524'
+  alias: 'Bedroom: Alarm'
+  description: ''
+  trigger:
+  - platform: time
+    at: sensor.sm_n986u1_next_alarm
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.tyeb770feee42cc686f1ymlj
+    data:
+      color_name: white
+  - service: media_player.turn_on
+    target:
+      entity_id: media_player.tv_bedroom
+  mode: restart
+- id: '1626377363590'
+  alias: 'TV: Bedroom - Fox 5 Weekday Mornings'
+  description: ''
+  trigger:
+  - platform: time
+    at: 04:30
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: input_text.set_value
+    target:
+      entity_id: input_text.bedroom_voice_command
+    data:
+      value: FOX
+  - service: script.1626356112626
+  mode: single
+- id: '1626377493122'
+  alias: 'TV: Bedroom - Fox 5 Weekend Mornings'
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:00
+  condition:
+  - condition: time
+    weekday:
+    - sat
+    - sun
+  action:
+  - service: input_text.set_value
+    target:
+      entity_id: input_text.bedroom_voice_command
+    data:
+      value: FOX
+  - service: script.1626356112626
+  mode: single
+- id: '1626525450221'
+  alias: 'TV: All - Monday Night Raw'
+  description: ''
+  trigger:
+  - platform: time
+    at: '20:00:00'
+  condition:
+  - condition: time
+    weekday:
+    - mon
+  action:
+  - service: input_text.set_value
+    target:
+      entity_id:
+      - input_text.livingroom_voice_command
+      - input_text.bedroom_voice_command
+    data:
+      value: USA
+  - service: script.xfinity_voice_command_living_room
+  - service: script.1626356112626
+  - service: light.turn_on
+    target:
+      entity_id:
+      - light.tv_2
+      - light.tv
+    data:
+      brightness: 255
+      color_name: red
+  mode: single
+- id: '1626525576225'
+  alias: 'TV: All - Friday Night Smackdown'
+  description: ''
+  trigger:
+  - platform: time
+    at: '20:00:00'
+  condition:
+  - condition: time
+    weekday:
+    - fri
+  action:
+  - service: input_text.set_value
+    target:
+      entity_id:
+      - input_text.livingroom_voice_command
+      - input_text.bedroom_voice_command
+    data:
+      value: FOX
+  - service: script.xfinity_voice_command_living_room
+  - service: script.1626356112626
+  - service: light.turn_on
+    target:
+      entity_id: light.tv_2
+    data:
+      color_name: blue
+  mode: single
+- id: '1628564995629'
+  alias: 'Bedroom: Desklamp - Red'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.sm_n986u1_do_not_disturb_sensor
+    to: priority_only
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.tyeb770feee42cc686f1ymlj
+    data:
+      color_name: red
+      brightness: 25
+  mode: single
+- id: '1628565080457'
+  alias: 'Bedroom: Desklamp - White'
+  description: ''
+  trigger:
+  - platform: time
+    at: 05:30
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.tyeb770feee42cc686f1ymlj
+    data:
+      color_name: white
+      brightness: 15
+  mode: single
+- id: '1628565128977'
+  alias: 'Bedroom: Desklamp - Blue'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.sm_n986u1_do_not_disturb_sensor
+    from: priority_only
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.tyeb770feee42cc686f1ymlj
+    data:
+      color_name: blue
+      brightness: 255
+  mode: single
+- id: '1628817014941'
+  alias: 'Bedroom: Desklamp - After Alarm Red'
+  description: ''
+  trigger:
+  - platform: time
+    at: sensor.sm_n986u1_next_alarm
+  condition:
+  - condition: state
+    entity_id: sensor.sm_n986u1_do_not_disturb_sensor
+    state: priority_only
+  action:
+  - wait_template: 00:01:00
+  - service: light.turn_on
+    target:
+      entity_id: light.tyeb770feee42cc686f1ymlj
+    data:
+      color_name: red
+  mode: single
+- id: '1628817258968'
+  alias: 'Bedroom: Desklamp - After Alarm Blue'
+  description: ''
+  trigger:
+  - platform: time
+    at: sensor.sm_n986u1_next_alarm
+  condition:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: sensor.sm_n986u1_do_not_disturb_sensor
+      state: priority_only
+  action:
+  - wait_template: 00:01:00
+  - service: light.turn_on
+    target:
+      entity_id: light.tyeb770feee42cc686f1ymlj
+    data:
+      color_name: blue
+  mode: single
+- id: '1628817372434'
+  alias: Test Automation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alexa_guard_46f87
+    id: bob
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.tyeb770feee42cc686f1ymlj
+    data:
+      color_name: black
+  mode: single
+- id: auto-lovelace-theme
+  alias: Auto Lovelace Theme
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: 00:10:00
+  - platform: sun
+    event: sunset
+    offset: 00:10:00
+  condition: []
+  action:
+  - service: frontend.set_theme
+    data:
+      name: "{% if is_state('sun.sun', 'above_horizon') %}\n  \"Custom Light Mode\"\
+        \n{% else %}\n  \"Custom Dark Mode\"\n{% endif %}\n"
+  mode: single
+- id: '1633368790825'
+  alias: 'Living Room TV: Set on volume'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: media_player.tv_living_room
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  condition: []
+  action:
+  - service: media_player.volume_set
+    target:
+      entity_id: media_player.tv_living_room
+    data:
+      volume_level: 0.15
+  mode: single
+- id: '1635085542077'
+  alias: 'TV: Livingroom - Off '
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: media_player.tv_living_room
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.tv_backlight
+  - service: media_player.turn_off
+    target:
+      entity_id:
+      - media_player.livingroom_xbox_2
+      - media_player.livingroom_xbox
+  mode: single
+- id: '1635085577315'
+  alias: 'TV: Livingroom - On'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: media_player.tv_living_room
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: media_player.turn_on
+    target:
+      entity_id:
+      - media_player.livingroom_xbox_2
+      - media_player.livingroom_xbox
+  - service: media_player.volume_set
+    target:
+      entity_id: media_player.tv_living_room
+    data:
+      volume_level: 0.1
+  - service: light.turn_on
+    target:
+      entity_id: light.tv_backlight
+    data:
+      color_name: white
+      brightness_pct: 100
+  mode: single

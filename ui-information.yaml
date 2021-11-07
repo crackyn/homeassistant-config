@@ -1,0 +1,136 @@
+title: Information
+views:
+  - title: Batteries
+    path: batteries
+    icon: 'mdi:battery'
+    panel: false
+    badges: []
+    cards:
+      - type: 'custom:battery-state-card'
+        title: Battery Levels
+        color_thresholds:
+          - value: 10
+            color: red
+          - value: 25
+            color: yellow
+          - value: 100
+            color: green
+        entities:
+          - entity: sensor.basement_motion_sensor_battery
+            name: Basement Motion Sensor Battery
+          - entity: sensor.chips_phone_battery_level_2
+            name: Chip's Phone Battery Level
+          - entity: sensor.dining_room_motion_sensor_battery
+            name: Dining Room Motion Sensor Battery
+          - entity: sensor.garage_house_door_sensor_battery
+            name: Garage House Door Sensor Battery
+          - entity: sensor.garage_motion_sensor_battery
+            name: Garage Motion Sensor Battery
+          - entity: sensor.hallway_motion_sensor_battery
+            name: Hallway Motion Sensor Battery
+          - entity: sensor.upper_hallway_motion_sensor_battery
+            name: Upper Hallway Motion Sensor Battery
+          - entity: sensor.upper_stairs_motion_sensor_battery
+            name: Upper Stairs Motion Sensor Battery
+          - entity: sensor.upstairs_bathroom_door_battery
+            name: Upstairs Bathroom Door Battery
+  - title: Temperatures
+    path: temperatures
+    icon: 'mdi:thermometer'
+    panel: false
+    badges: []
+    cards:
+      - type: 'custom:battery-state-card'
+        title: Temperatures
+        color_thresholds:
+          - value: 50
+            color: blue
+          - value: 79
+            color: green
+          - value: 120
+            color: red
+        entities:
+          - entity: sensor.basement_motion_sensor_temperature_measurement
+            name: Basement Motion Sensor Temperature Measurement
+            icon: 'mdi:thermometer'
+          - entity: sensor.bedroom_2_temperature
+            name: Bedroom 2 Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.bedroom_temperature
+            name: Bedroom Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.broadlink_temperature
+            name: Broadlink Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.blink_cat_bowl_temperature
+            name: Cat Bowl Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.chips_phone_battery_temperature_2
+            name: Chip's Phone Battery Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.crackyn_s_cave_dew_point
+            name: Crackyn's Cave_Dew Point
+            icon: 'mdi:thermometer'
+          - entity: sensor.crackyn_s_cave_feels_like
+            name: Crackyn's Cave_Feels Like
+            icon: 'mdi:thermometer'
+          - entity: sensor.crackyn_s_cave_inside_temp
+            name: Crackyn's Cave_Inside Temp
+            icon: 'mdi:thermometer'
+          - entity: sensor.crackyn_s_cave_temp
+            name: Crackyn's Cave_Temp
+            icon: 'mdi:thermometer'
+          - entity: sensor.dining_room_motion_sensor_temperature_measurement
+            name: Dining Room Motion Sensor Temperature Measurement
+            icon: 'mdi:thermometer'
+          - entity: sensor.dining_room_temperature
+            name: Dining Room Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.blink_dining_room_temperature
+            name: Dining Room Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.blink_front_porch_temperature
+            name: Front Porch Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.garage_motion_sensor_temperature_measurement
+            name: Garage Motion Sensor Temperature Measurement
+            icon: 'mdi:thermometer'
+          - entity: sensor.blink_garage_temperature
+            name: Garage Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.hallway_motion_sensor_temperature_measurement
+            name: Hallway Motion Sensor Temperature Measurement
+            icon: 'mdi:thermometer'
+          - entity: sensor.kitchen_temperature
+            name: Kitchen Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.living_room_temperature
+            name: Living Room Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.blink_livingroom_temperature
+            name: Living room Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.blink_lower_driveway_temperature
+            name: Lower Driveway Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.blink_lower_stairs_temperature
+            name: Lower Stairs Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.master_bedroom_temperature
+            name: Master Bedroom Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.blink_stairs_temperature
+            name: Stairs Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.thermostat_temperature
+            name: Thermostat Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.blink_upper_driveway_temperature
+            name: Upper Driveway Temperature
+            icon: 'mdi:thermometer'
+          - entity: sensor.upper_hallway_motion_sensor_temperature_measurement
+            name: Upper Hallway Motion Sensor Temperature Measurement
+            icon: 'mdi:thermometer'
+          - entity: sensor.upper_stairs_motion_sensor_temperature_measurement
+            name: Upper Stairs Motion Sensor Temperature Measurement
+            icon: 'mdi:thermometer'
