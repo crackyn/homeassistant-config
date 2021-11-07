@@ -1,0 +1,25 @@
+var:
+  wwe_red:
+    friendly_name: WWE Red
+    initial_value: BA1A2A
+    icon: mdi:palette
+  wwe_blue:
+    friendly_name: WWE Blue
+    initial_value: 006BC9
+    icon: mdi:palette
+  blacklight:
+    friendly_name: Blacklight
+    initial_value: 5D0CED
+    icon: mdi:palette
+  white:
+    friendly_name: White
+    initial_value: FFFFFF
+    icon: mdi:palette
+  acc_lights:
+    friendly_name: Accessory Lights Color
+    initial_value: 5D0CED
+    icon: hue:lightstrip
+  tv_lights:
+    friendly_name: TV Backlight Color
+    initial_value: FFFFFF
+    icon: hue:lightstrip

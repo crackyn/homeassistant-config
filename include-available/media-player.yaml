@@ -1,0 +1,6 @@
+media_player:
+  # Use the Python ADB implementation
+  - platform: androidtv
+    name: FireTV - Living Room
+    host: !secret livingtoom_firetv_host 
+    device_class: firetv

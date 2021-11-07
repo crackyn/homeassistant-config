@@ -1,0 +1,12 @@
+template:
+  sensor:
+    - name: Xfinity Bedroom Token
+      unique_id: xfinity_bedroom_token
+      state: on
+      attributes:
+        token: !secret xfinity_bedroom_arToken
+    - name: Xfinity Livingroom Token
+      unique_id: xfinity_livingroom_token
+      state: on
+      attributes:
+        token: !secret xfinity_livingroom_arToken

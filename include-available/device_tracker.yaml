@@ -1,0 +1,3 @@
+device_tracker:
+  - platform: nmap_tracker
+    hosts: !secret local_subnet

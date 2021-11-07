@@ -1,0 +1,38 @@
+light:
+  - platform: decora_wifi
+    username: !secret email_chip
+    password: !secret leviton_password
+  - platform: group
+    unique_id: fireplace
+    name: Fireplace
+    entities:
+      - light.living_room_right_flood
+      - light.living_room_left_flood
+  - platform: group
+    unique_id: backyard_floodlights
+    name: Backyard Floodlights
+    entities:
+      - light.backyard_floodlight_1
+      - light.backyard_floodlight_2
+  - platform: group
+    unique_id: front_porch_lights
+    name: Front Porch Lights
+    entities:
+      - light.front_porch_left
+      - light.front_porch_right
+  - platform: group
+    unique_id: outside_color
+    name: Outside Color Lights
+    entities:
+      - light.front_porch_left
+      - light.outside_basement
+      - light.outside_backdoor
+      - light.front_porch_right
+  - platform: group
+    unique_id: outside_white
+    name: Outside White Lights
+    entities:
+      - light.backyard_floodlight_1
+      - light.backyard_floodlight_2
+      - light.floodlights_1
+

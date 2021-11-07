@@ -1,0 +1,15 @@
+webostv:
+  - name: TV Living Room
+    host: !secret living_room_host
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet
+      data:
+        mac: !secret living_room_mac
+        broadcast_address: !secret home_broadcast
+  - name: TV Bedroom
+    host: !secret bedroom_host
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet
+      data:
+        mac: !secret bedroom_mac
+        broadcast_address: !secret home_broadcast

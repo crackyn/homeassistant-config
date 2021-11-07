@@ -13,13 +13,7 @@ homeassistant:
     - type: homeassistant
     - type: trusted_networks
       trusted_networks:
-        - 172.16.0.0/16
-        - fd00::/8
-  #      trusted_users:
-  #        192.168.0.97: 0ef68b2711244f6291f6ba2c51135010
-  #        192.168.0.169: 0ef68b2711244f6291f6ba2c51135010
-  #        192.168.0.60: 6f76e68cffa740fa8c9de7540e834af6
-  #        192.168.0.59: 6f76e68cffa740fa8c9de7540e834af6
+        - !secret home_broadcast
   auth_mfa_modules:
     - type: totp
       name: Authenticator app
@@ -28,7 +22,7 @@ homeassistant:
 
 http:
   cors_allowed_origins:
-    - https://cast.home-assistant.io
+    - !secret cors_allowed1
 
 # Configure a default setup of Home Assistant (frontend, api, etc)
 #default_config:
@@ -74,17 +68,17 @@ logger:
 
 webostv:
   - name: TV Living Room
-    host: 172.16.0.100
+    host: !secret living_room_host
     turn_on_action:
       service: wake_on_lan.send_magic_packet
       data:
-        mac: 78:5D:C8:B1:B2:B6
-        broadcast_address: 172.16.255.255
+        mac: !secret living_room_mac
+        broadcast_address: !secret home_broadcast
   - name: TV Bedroom
-    host: 172.16.0.101
+    host: !secret bedroom_host
     turn_on_action:
       service: wake_on_lan.send_magic_packet
       data:
-        mac: 20:17:42:E6:D1:51
-        broadcast_address: 172.16.255.255
+        mac: !secret bedroom_mac
+        broadcast_address: !secret home_broadcast
 

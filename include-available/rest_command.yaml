@@ -1,0 +1,17 @@
+rest_command:
+  xfinity_voice_command:
+    url: https://accrem.apps.cloud.comcast.net/api/v1/text
+    method: POST
+    content_type:  'application/json; charset=utf-8'
+    headers:
+      accept: "application/json, text/html"
+      user-agent: 'Mozilla/5.0'
+    payload: '{"arToken":"{{ arToken }}","cmd":"{{ command }}"}'
+  xfinity_remote_command:
+    url: https://accrem.apps.cloud.comcast.net/api/v1/processKey
+    method: POST
+    content_type:  'application/json; charset=utf-8'
+    headers:
+      accept: "application/json, text/html"
+      user-agent: 'Mozilla/5.0'
+    payload: '{"arToken":"{{ arToken }}","vcode":"{{ button }}"}'
