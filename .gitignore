@@ -11,6 +11,9 @@
 !/include/*.yaml
 !/include-available
 !/include-available/*.yaml
+!/www
+!/www/images
+!/www/images/**
 
 # Ignore folders.
 .storage
