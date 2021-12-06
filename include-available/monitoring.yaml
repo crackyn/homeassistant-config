@@ -1,11 +1,24 @@
+#influxdb:
+#  host: !secret influx_host
+#  port: !secret influx_port
+#  database: !secret influx_db
+#  username: !secret influx_username
+#  password: !secret influx_password
+#  max_retries: 3
+#  default_measurement: state
 influxdb:
+  api_version: 2
+  ssl: false
   host: !secret influx_host
   port: !secret influx_port
-  database: !secret influx_db
-  username: !secret influx_username
-  password: !secret influx_password
-  max_retries: 3
-  default_measurement: state
+  token: !secret influx_token
+  organization: !secret influx_hex
+  bucket: !secret influx_bucket
+  tags:
+    source: HA
+  tags_attributes:
+    - friendly_name
+  default_measurement: units
 recorder:
   db_url: !secret db_mysql
 prometheus:

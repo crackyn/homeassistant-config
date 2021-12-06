@@ -4,15 +4,14 @@
   trigger:
   - type: motion
     platform: device
-    device_id: 6f2a7fa46bc4bd70dff965e759ea4bd8
+    device_id: 900af50461defb384d28131ddc31068d
     entity_id: binary_sensor.upper_stairs_motion_sensor_motion
     domain: binary_sensor
   condition: []
   action:
   - service: light.turn_on
     data:
-      brightness_pct: 75
-      transition: 0
+      brightness_pct: 50
     target:
       entity_id: light.upper_stairs_switch
   mode: restart
@@ -22,17 +21,16 @@
   trigger:
   - type: motion
     platform: device
-    device_id: 78a40da065efeb141f47928bf486c016
+    device_id: 77ebbbaf043cea9e1dbc376839c09ff1
     entity_id: binary_sensor.upper_hallway_motion_sensor_motion
     domain: binary_sensor
   condition: []
   action:
   - service: light.turn_on
     data:
-      brightness_pct: 33
+      brightness_pct: 50
     target:
-      entity_id:
-      - light.upper_hallway_switch
+      entity_id: light.upper_hallway_switch
   mode: restart
 - id: '1623546274756'
   alias: 'Motion: Detected - Hallway'
@@ -40,14 +38,14 @@
   trigger:
   - type: motion
     platform: device
-    device_id: f9d7af62ffa529744fecc2abaa72b4e7
+    device_id: 794919f2ebf71db6d2d320958986969e
     entity_id: binary_sensor.hallway_motion_sensor_motion
     domain: binary_sensor
   condition: []
   action:
   - service: light.turn_on
     data:
-      brightness_pct: 75
+      brightness_pct: 50
     target:
       entity_id: light.hallway_switch
   mode: restart
@@ -273,7 +271,7 @@
   trigger:
   - type: no_motion
     platform: device
-    device_id: f9d7af62ffa529744fecc2abaa72b4e7
+    device_id: 794919f2ebf71db6d2d320958986969e
     entity_id: binary_sensor.hallway_motion_sensor_motion
     domain: binary_sensor
     for:
@@ -294,13 +292,13 @@
   trigger:
   - type: no_motion
     platform: device
-    device_id: 78a40da065efeb141f47928bf486c016
+    device_id: 77ebbbaf043cea9e1dbc376839c09ff1
     entity_id: binary_sensor.upper_hallway_motion_sensor_motion
     domain: binary_sensor
     for:
       hours: 0
-      minutes: 0
-      seconds: 30
+      minutes: 1
+      seconds: 0
       milliseconds: 0
   condition: []
   action:
@@ -314,13 +312,13 @@
   trigger:
   - type: no_motion
     platform: device
-    device_id: 6f2a7fa46bc4bd70dff965e759ea4bd8
+    device_id: 900af50461defb384d28131ddc31068d
     entity_id: binary_sensor.upper_stairs_motion_sensor_motion
     domain: binary_sensor
     for:
       hours: 0
-      minutes: 0
-      seconds: 30
+      minutes: 1
+      seconds: 0
       milliseconds: 0
   condition: []
   action:

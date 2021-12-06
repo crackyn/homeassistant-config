@@ -15,3 +15,9 @@ rest_command:
       accept: "application/json, text/html"
       user-agent: 'Mozilla/5.0'
     payload: '{"arToken":"{{ arToken }}","vcode":"{{ button }}"}'
+  bedroom_wake_on_lan_commanf:
+    url: http://172.16.0.30:1880/wol/bedroomtv
+    method: POST
+    headers:
+      accept: "application/json, text/html"
+      user-agent: 'Mozilla/5.0'

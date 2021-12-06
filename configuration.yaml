@@ -27,13 +27,13 @@ http:
 # Configure a default setup of Home Assistant (frontend, api, etc)
 #default_config:
 api:
-browser_mod:
+#browser_mod:
 cloud:
 dhcp:
 history:
 map:
 mobile_app:
-remote_syslog:
+#remote_syslog:
 system_health:
 timer:
 updater:
@@ -66,19 +66,19 @@ lovelace:
 logger:
   default: info
 
-webostv:
-  - name: TV Living Room
-    host: !secret living_room_host
-    turn_on_action:
-      service: wake_on_lan.send_magic_packet
-      data:
-        mac: !secret living_room_mac
-        broadcast_address: !secret home_broadcast
-  - name: TV Bedroom
-    host: !secret bedroom_host
-    turn_on_action:
-      service: wake_on_lan.send_magic_packet
-      data:
-        mac: !secret bedroom_mac
-        broadcast_address: !secret home_broadcast
+#webostv:
+#  - name: TV Living Room
+#    host: !secret living_room_host
+#    turn_on_action:
+#      service: wake_on_lan.send_magic_packet
+#      data:
+#        mac: !secret living_room_mac
+#        broadcast_address: !secret home_broadcast
+#  - name: TV Bedroom
+#    host: !secret bedroom_host
+#    turn_on_action:
+#      service: wake_on_lan.send_magic_packet
+#      data:
+#        mac: !secret bedroom_mac
+#        broadcast_address: !secret home_broadcast
 

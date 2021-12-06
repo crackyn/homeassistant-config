@@ -74,3 +74,8 @@ remote_living_room_power:
       device: television
       command: power
   mode: single
+wake_bedroom_tv:
+  alias: Wake Bedroom TV
+  sequence:
+  - service: rest_command.bedroom_wake_on_lan_commanf
+  mode: single

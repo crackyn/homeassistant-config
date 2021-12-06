@@ -9,7 +9,7 @@ webostv:
   - name: TV Bedroom
     host: !secret bedroom_host
     turn_on_action:
-      service: wake_on_lan.send_magic_packet
-      data:
-        mac: !secret bedroom_mac
-        broadcast_address: !secret home_broadcast
+      service: rest_command.bedroom_wake_on_lan_commanf
+#      data:
+#        mac: !secret bedroom_mac
+#        broadcast_address: !secret home_broadcast
