@@ -1,0 +1,266 @@
+type: custom:masonry-layout
+max_columns: 3
+title: Home
+icon: mdi:home
+show_icon_and_title: true
+subview: false
+dense_section_placement: true
+cards:
+  - type: vertical-stack
+    cards:
+      - type: heading
+        heading_style: subtitle
+        heading: Weather
+      - type: weather-forecast
+        entity: weather.forecast_home
+        forecast_type: daily
+        show_current: true
+        show_forecast: true
+  - type: vertical-stack
+    cards:
+      - type: heading
+        heading_style: subtitle
+        heading: People
+      - square: true
+        type: grid
+        cards:
+          - type: custom:streamline-card
+            template: person_card
+            variables:
+              slug: chip
+          - type: custom:streamline-card
+            template: person_card
+            variables:
+              slug: nikki
+        columns: 2
+  - type: vertical-stack
+    cards:
+      - type: heading
+        heading_style: subtitle
+        heading: Climate
+      - type: thermostat
+        entity: climate.thermostat
+        features:
+          - type: climate-hvac-modes
+            hvac_modes:
+              - 'off'
+              - heat
+              - cool
+              - heat_cool
+              - auto
+  - type: vertical-stack
+    cards:
+      - type: heading
+        heading_style: subtitle
+        heading: Floors
+      - square: false
+        type: grid
+        columns: 3
+        cards:
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Main <br> Floor
+              icon: mdi:home-floor-1
+              background: var(--gradient-blue)
+              navigation_path: floor-main-floor
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Upstairs
+              icon: mdi:home-floor-2
+              background: var(--gradient-purple)
+              navigation_path: floor-upstairs
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Basement
+              icon: mdi:home-floor-negative-1
+              background: var(--gradient-grey-cold)
+              navigation_path: floor-basement
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Home
+              icon: mdi:home
+              background: var(--gradient-teal)
+              navigation_path: floor-home-areas
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Outside
+              icon: mdi:weather-sunny
+              background: var(--gradient-green)
+              navigation_path: floor-outside-areas
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: System
+              icon: mdi:cog
+              background: var(--gradient-orange)
+              navigation_path: floor-system-areas
+  - type: vertical-stack
+    cards:
+      - type: heading
+        heading_style: subtitle
+        heading: Security
+      - type: custom:alarm-and-security-card
+        entity: alarm_control_panel.home_alarm
+        title: Home Alarm
+        colors:
+          disarm_active: darkgreen
+          disarm_inactive: grey
+          disarming: orange
+          armed_away: green
+          armed_stay: blue
+          armed_night: blue
+          armed_vacation: blue
+          armed_custom_bypass: yellow
+          arming: orange
+          pending: orange
+          triggered: red
+        name_mapping:
+          disarm_button: Disarm
+          disarmed: Disarmed
+          disarming: Disarming
+          armed_away: Armed
+          armed_stay: Armed (Home)
+          armed_night: Armed (Night)
+          armed_vacation: Armed (Vacation)
+          armed_custom_bypass: Armed (Bypass)
+          arming: Arming Soon
+          pending: Enter Code and Disarm
+          triggered: Alarm Triggered
+        zones:
+          - entity: binary_sensor.alarm_zone_1
+            name: Main Door
+            board_zone: 1
+          - entity: binary_sensor.alarm_zone_2
+            name: Downstairs
+            board_zone: 2
+          - entity: binary_sensor.alarm_zone_3
+            name: Upstairs
+            board_zone: 3
+          - entity: binary_sensor.alarm_zone_4
+            name: Upstairs
+            board_zone: 4
+          - entity: binary_sensor.alarm_zone_5
+            name: Motion
+            board_zone: 5
+          - entity: binary_sensor.alarm_zone_6
+            name: Fire
+            board_zone: 6
+          - entity: binary_sensor.alarm_zone_7
+            name: Gas
+            board_zone: 7
+          - entity: binary_sensor.alarm_zone_8
+            name: Panic
+            board_zone: 8
+        keypad:
+          hide_keypad_and_show_as_icon: false
+          show_keypad_borders: true
+          keypad_width: 100
+          keypad_height: 290
+          keypad_border_color:
+          enable_3d_effects: true
+          effect_variant: soft
+          action_button_1: disarm
+          action_button_1_name:
+          action_button_2: arm_away
+          action_button_2_name: Away
+          action_button_3: false
+          action_button_3_name:
+          action_button_4: false
+          action_button_4_name:
+          action_button_5: false
+          action_button_5_name:
+        zone_view: open_only
+        view_open_only:
+          zone_section_title: Zones
+          hide_zone_section_icon: true
+          hide_zone_section_name: true
+          show_zone_numbers: true
+          show_zone_name: false
+          color: red
+        view_all_zones:
+          zone_section_title: Zones
+          hide_zone_section_icon: false
+          hide_zone_section_name: false
+          show_zone_numbers: true
+          show_zone_name: true
+          color_on: red
+          color_off: green
+          show_on: bottom
+        history:
+          hide_history: false
+          history_section_title: Activity
+          hide_history_section_icon: false
+          hide_history_section_name: false
+          max_items: 2
+          list_height: 105px
+          hours_to_show: 6
+          show_on: bottom
+        automations:
+          hide_automations: false
+          automation_section_title: Automations
+          hide_automation_section_icon: false
+          hide_automation_section_name: false
+          hide_last_triggered: false
+          automation_toggle_color: green
+          automation_list:
+            - automation.alarm_disam
+            - automation.alarm_armed_home
+            - automation.alarm_armed_away
+        grid_options:
+          columns: 12
+          rows: auto
+  - type: vertical-stack
+    cards:
+      - type: heading
+        heading_style: subtitle
+        heading: Network
+      - title: Main
+        state_color: false
+        type: entities
+        entities:
+          - entity: binary_sensor.pi_hole_main_status
+            name: Status
+          - entity: switch.pi_hole_main
+            name: Enabled
+          - entity: sensor.pi_hole_main_ads_blocked
+            name: Ads Blocked Today
+          - entity: sensor.pi_hole_main_ads_percentage_blocked
+            name: Percentage Blocked
+          - entity: sensor.pi_hole_main_dns_queries
+            name: DNS Queries Today
+      - type: custom:stack-in-card
+        cards:
+          - title: Main
+            state_color: false
+            type: entities
+            entities:
+              - entity: binary_sensor.pi_hole_main_status
+                name: Status
+              - entity: switch.pi_hole_main
+                name: Enabled
+              - entity: sensor.pi_hole_main_ads_blocked
+                name: Ads Blocked Today
+              - entity: sensor.pi_hole_main_ads_percentage_blocked
+                name: Percentage Blocked
+              - entity: sensor.pi_hole_main_dns_queries
+                name: DNS Queries Today
+          - title: Slave
+            state_color: false
+            type: entities
+            entities:
+              - entity: binary_sensor.pi_hole_slave_status
+                name: Status
+              - entity: switch.pi_hole_slave
+                name: Enabled
+              - entity: sensor.pi_hole_slave_ads_blocked
+                name: Ads Blocked Today
+              - entity: sensor.pi_hole_slave_ads_percentage_blocked
+                name: Percentage Blocked
+              - entity: sensor.pi_hole_slave_dns_queries
+                name: DNS Queries Today
+        title: Pi-Hole

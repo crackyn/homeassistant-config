@@ -1,0 +1,76 @@
+  ###############################################################
+  ## Packages / Automatic Fan Control
+  ################################################################
+
+  ################################################
+  ## Customize
+  ################################################
+automatic_fan_control:
+  homeassistant:
+    customize:
+
+
+      ################################################
+      ## Entities
+      ################################################
+
+      input_boolean.automatic_fan_control_enabled:
+        package: 'automatic_fan_control'
+        persistent: true
+        alexa_hidden: false
+        smartthings_hidden: false        
+        ui_hidden: false
+
+      input_number.bedroom_target_temperature:
+        package: 'automatic_fan_control'
+        persistent: true
+        alexa_hidden: false
+        smartthings_hidden: false        
+        ui_hidden: false
+
+      input_number.dining_room_target_temperature:
+        package: 'automatic_fan_control'
+        persistent: true
+        alexa_hidden: false
+        smartthings_hidden: false        
+        ui_hidden: false
+
+      input_number.living_room_target_temperature:
+        package: 'automatic_fan_control'
+        persistent: true 
+        alexa_hidden: false
+        smartthings_hidden: false        
+        ui_hidden: false
+
+      ################################################
+      ## End Customize    
+      ################################################
+
+  input_boolean:
+    automatic_fan_control_enabled:
+      name: "Automatic Fan Control Enabled"
+      initial: true
+      icon: "mdi:fan-auto"
+
+  input_number:
+    bedroom_target_temperature:
+      name: Bedroom Target Temperature
+      icon: "mdi:thermometer-auto"
+      initial: 72
+      min: 60
+      max: 80
+      step: 1
+    dining_room_target_temperature:
+      name: Dining Room Target Temperature
+      icon: "mdi:thermometer-auto"
+      initial: 72
+      min: 60
+      max: 80
+      step: 1
+    living_room_target_temperature:
+      name: Living Room Target Temperature
+      icon: "mdi:thermometer-auto"
+      initial: 72
+      min: 60
+      max: 80
+      step: 1

@@ -1,0 +1,10 @@
+id: fan_upstairs_halway_bathroom
+alias: Upstairs Hallway Bathroom Exhaust Fan
+description: ""
+use_blueprint:
+  path: Blackshome/bathroom-humidity-exhaust-fan.yaml
+  input:
+    bathroom_humidity_sensor: sensor.upstairs_hallway_bathroom_average_humidity
+    fan_switch:
+      device_id: ebc32e36c5a7d5e1f908b3c43ae7dbaa
+    trigger: sensor.upstairs_hallway_bathroom_derivative_humidity_sensor

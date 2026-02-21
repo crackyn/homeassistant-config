@@ -1,0 +1,9 @@
+alias: "Automatic Fan Control - Bedroom"
+description: ""
+use_blueprint:
+  path: SirGoodenough/AutoFanControl_HA_fan.yaml
+  input:
+    fan: fan.bedroom_fan
+    fan_control: input_boolean.automatic_fan_control_enabled
+    room_temp_now: sensor.bedroom_average_temperature
+    room_set_temp: input_number.bedroom_target_temperature

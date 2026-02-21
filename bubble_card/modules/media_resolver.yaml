@@ -1,0 +1,34 @@
+media_resolver:
+  name: "Media Resolver"
+  description: "Optional helper: formats media title/subtitle into '.bubble-state' when entity is a media_player."
+  supported:
+    - media-player
+    - button
+  code: |
+    ${(() => {
+      const st = hass?.states?.[entity];
+      if (!st || !card) return;
+
+      const domain = String(entity || '').split('.')[0]?.toLowerCase();
+      if (domain !== 'media_player') return;
+
+      const attrs = st.attributes || {};
+      const state = String(st.state ?? '').toLowerCase();
+
+      const title = attrs.media_title || attrs.app_name || attrs.source || '';
+      const artist = attrs.media_artist || attrs.media_series_title || '';
+      const app = attrs.app_name || attrs.source || '';
+
+      let sub = '';
+      if (artist && app) sub = `${artist} • ${app}`;
+      else if (artist) sub = artist;
+      else if (app) sub = app;
+      else if (state === 'playing') sub = 'Playing';
+      else if (state === 'paused') sub = 'Paused';
+      else if (state === 'idle') sub = 'Idle';
+      else if (state === 'off') sub = 'Off';
+
+      const el = card.querySelector('.bubble-state');
+      if (!el) return;
+      el.innerText = title ? (sub ? `${title} • ${sub}` : title) : el.innerText;
+    })()}

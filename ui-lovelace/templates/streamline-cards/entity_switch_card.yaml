@@ -1,0 +1,49 @@
+default:
+  - entity_id: ''
+  - name: ''
+card:
+  type: custom:bubble-card
+  entity: '[[entity_id]]'
+  name: '[[name]]'
+  card_type: button
+  button_type: slider
+  sub_button:
+    main: []
+    bottom: []
+  slider_fill_orientation: left
+  slider_value_position: right
+  light_slider_type: brightness
+  min_value: 0
+  max_value: 100
+  step: 5
+  show_state: true
+  columns: 2
+  card_layout: large
+  modules:
+    - attribute_resolver
+    - color_resolver
+    - icon_resolver
+    - state_resolver
+  use_accent_color: false
+  show_icon: true
+  force_icon: true
+  show_last_changed: false
+  show_last_updated: false
+  show_attribute: false
+  attribute: brightness
+  show_name: true
+  tap_action:
+    action: toggle
+  styles: |
+    .bubble-name {
+      font-weight: 700;
+      font-size: 13px;
+      font-family: var(--bubble-font-family, 'Exo 2');
+    }
+    .background-on {
+      background-color: var(--m3-primary-container, var(--light-primary-color));
+    }
+    .bubble-state::after {
+      content: " - ${hass.states['[[entity]]'].attributes.percentage}%";
+      margin-left: 4px;
+    }

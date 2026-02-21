@@ -1,0 +1,62 @@
+id: alarm_set_automation_times
+alias: 'Alarm: Set automation times'
+description: ''
+triggers:
+- trigger: time
+  at: 00:00:00
+  id: Midnight
+- trigger: time
+  at: '12:00:00'
+  id: Noon
+conditions: []
+actions:
+- choose:
+  - conditions:
+    - condition: trigger
+      id:
+      - Midnight
+    sequence:
+    - if:
+      - condition: state
+        entity_id: binary_sensor.workday_tomorrow
+        state:
+        - 'on'
+      then:
+      - action: input_datetime.set_datetime
+        metadata: {}
+        target:
+          entity_id: input_datetime.alarm_arm_home_time
+        data:
+          time: '21:00:00'
+      else:
+      - action: input_datetime.set_datetime
+        metadata: {}
+        target:
+          entity_id: input_datetime.alarm_arm_home_time
+        data:
+          time: '22:00:00'
+  - conditions:
+    - condition: trigger
+      id:
+      - Noon
+    sequence:
+    - if:
+      - condition: state
+        entity_id: binary_sensor.workday_tomorrow
+        state:
+        - 'on'
+      then:
+      - action: input_datetime.set_datetime
+        metadata: {}
+        data:
+          time: 05:00:00
+        target:
+          entity_id: input_datetime.alarm_disarm_time
+      else:
+      - action: input_datetime.set_datetime
+        metadata: {}
+        data:
+          time: 06:00:00
+        target:
+          entity_id: input_datetime.alarm_disarm_time
+mode: single

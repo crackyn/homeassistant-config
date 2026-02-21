@@ -1,0 +1,53 @@
+attribute_resolver:
+  name: "Attribute Resolver"
+  description: "Optional helper: writes a derived attribute into any '.bubble-attribute' element if present."
+  code: |
+    ${(() => {
+      const st = hass?.states?.[entity];
+      if (!st || !card) return;
+
+      const domain = String(entity || '').split('.')[0]?.toLowerCase();
+      const state = String(st.state ?? '').toLowerCase();
+      const attrs = st.attributes || {};
+
+      const primaryAttribute = () => {
+        if (domain === 'light') {
+          if (attrs.brightness != null) {
+            const pct = Math.round((attrs.brightness / 255) * 100);
+            return `${pct}%`;
+          }
+          return null;
+        }
+
+        if (domain === 'fan') {
+          if (attrs.percentage != null) return `${attrs.percentage}%`;
+          if (attrs.speed != null) return String(attrs.speed);
+          return null;
+        }
+
+        if (domain === 'climate') {
+          const t = attrs.temperature ?? attrs.target_temp_low ?? attrs.target_temp_high ?? null;
+          return t != null ? `${t}°` : null;
+        }
+
+        if (domain === 'media_player') return attrs.app_name || attrs.source || null;
+
+        if (domain === 'cover') {
+          if (attrs.current_position != null) return `${attrs.current_position}%`;
+          return null;
+        }
+
+        if (domain === 'sensor') {
+          if (attrs.unit_of_measurement != null) return `${st.state} ${attrs.unit_of_measurement}`;
+          return String(st.state ?? '');
+        }
+
+        return null;
+      };
+
+      const val = primaryAttribute();
+      if (!val) return;
+
+      const el = card.querySelector('.bubble-attribute');
+      if (el) el.innerText = val;
+    })()}

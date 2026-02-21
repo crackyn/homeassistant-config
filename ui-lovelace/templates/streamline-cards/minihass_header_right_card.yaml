@@ -1,0 +1,14 @@
+default:
+  - entity1: ''
+  - icon1: ''
+  - entity2: ''
+  - icon2: ''
+card:
+  type: "custom:button-card"
+  template:
+    - custom_card_header_right
+  variables: 
+    entity1: "[[entity1]]"
+    icon1: "[[icon1]]"
+    entity2: "[[entity2]]"
+    icon2: "[[icon2]]"

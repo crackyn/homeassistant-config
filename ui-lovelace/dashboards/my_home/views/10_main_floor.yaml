@@ -1,0 +1,81 @@
+title: Main Floor
+path: floor-main-floor
+type: sections
+max_columns: 3
+icon: mdi:home-floor-1
+show_icon_and_title: true
+subview: true
+dense_section_placement: true
+cards: []
+sections:
+  - type: grid
+    cards:
+      - type: heading
+        heading: Rooms
+      - type: grid
+        columns: 3
+        square: false
+        cards:
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Living <br>Room
+              icon: hue:room-living
+              background: var(--gradient-teal)
+              navigation_path: main-floor-living-room
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Kitchen
+              icon: hue:room-kitchen
+              background: var(--gradient-orange)
+              navigation_path: main-floor-kitchen
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Dining <br>Room
+              icon: hue:room-dining
+              background: var(--gradient-red)
+              navigation_path: main-floor-dining-room
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Laundry <br>Room
+              icon: mdi:washing-machine
+              background: var(--gradient-blue)
+              navigation_path: main-floor-laundry-room
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Master <br>Bedroom
+              icon: hue:room-bedroom
+              background: var(--gradient-purple)
+              navigation_path: main-floor-master-bedroom
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Master <br>Bathroom
+              icon: hue:room-bathroom
+              background: var(--gradient-teal-purple)
+              navigation_path: main-floor-master-bathroom
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Garage
+              icon: mdi:garage
+              background: var(--gradient-grey-cold)
+              navigation_path: main-floor-garage
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Garage <br>Storage
+              icon: mdi:garage-lock
+              background: var(--gradient-yellow)
+              navigation_path: main-floor-garage-storage
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Hallway <br>Bathroom
+              icon: hue:room-bathroom
+              background: var(--gradient-green)
+              navigation_path: main-floor-hallway-bathroom

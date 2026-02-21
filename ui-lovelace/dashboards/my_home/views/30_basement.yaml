@@ -1,0 +1,39 @@
+title: Basement
+path: floor-basement
+type: sections
+max_columns: 3
+icon: mdi:home-floor-negative-1
+show_icon_and_title: true
+subview: true
+dense_section_placement: true
+cards: []
+sections:
+  - type: grid
+    cards:
+      - type: heading
+        heading: Rooms
+      - type: grid
+        columns: 3
+        square: false
+        cards:
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Basement
+              icon: mdi:home-floor-negative-1
+              background: var(--gradient-grey-cold)
+              navigation_path: basement-basement
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Gym
+              icon: mdi:dumbbell
+              background: var(--gradient-red)
+              navigation_path: basement-gym
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Storage
+              icon: mdi:package-variant
+              background: var(--gradient-yellow)
+              navigation_path: basement-storage

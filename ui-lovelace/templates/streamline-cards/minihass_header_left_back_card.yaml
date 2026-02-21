@@ -1,0 +1,10 @@
+default:
+  - icon: ''
+  - navigation_path: ''
+card:
+  type: "custom:button-card"
+  template:
+    - custom_card_header_left_back
+  variables: 
+    icon: "[[icon]]"
+    navigation_path: "[[navigation_path]]"

@@ -1,0 +1,43 @@
+id: alarm_set_arm_home_switch
+alias: 'Alarm: Set Arm Home Switch'
+description: ''
+triggers:
+- trigger: time
+  at: input_datetime.alarm_arm_home_time
+  id: Armed Home Start
+- trigger: time
+  at: input_datetime.alarm_disarm_time
+  id: Armed Home End
+- trigger: homeassistant
+  event: start
+conditions: []
+actions:
+- choose:
+  - conditions:
+    - condition: or
+      conditions:
+      - condition: time
+        after: input_datetime.alarm_arm_home_time
+        before: '23:59:59'
+      - condition: time
+        after: 00:00:00
+        before: input_datetime.alarm_disarm_time
+    sequence:
+    - action: input_boolean.turn_on
+      metadata: {}
+      target:
+        entity_id: input_boolean.alarm_armed_home_time
+      data: {}
+  - conditions:
+    - condition: or
+      conditions:
+      - condition: time
+        before: input_datetime.alarm_arm_home_time
+        after: input_datetime.alarm_disarm_time
+    sequence:
+    - action: input_boolean.turn_off
+      metadata: {}
+      target:
+        entity_id: input_boolean.alarm_armed_home_time
+      data: {}
+mode: single

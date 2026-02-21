@@ -1,0 +1,14 @@
+default:
+  - state_name_on: ''
+  - state_name_off: ''
+  - state_icon_color_on: ''
+  - animation: ''
+card:
+  type: "custom:button-card"
+  template:
+    - custom_card_alarm
+  variables: 
+    state_name_on: "[[state_name_on]]"
+    state_name_off: "[[state_name_off]]"
+    state_icon_color_on: "[[state_icon_color_on]]"
+    animation: "[[animation]]"

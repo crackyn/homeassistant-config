@@ -1,0 +1,16 @@
+id: motion_lights_dining_room
+alias: 'Motion Lights: Dining Room'
+description: ''
+use_blueprint:
+  path: Blackshome/sensor-light.yaml
+  input:
+    motion_trigger:
+    - binary_sensor.motion_dining_room
+    light_switch:
+      entity_id: light.dining_room_light
+    time_delay: 1
+    include_light_control:
+    - use_brightness
+    light_transition_on: 0.5
+    light_transition_off: 1
+    light_brightness: 50

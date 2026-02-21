@@ -1,0 +1,106 @@
+---
+pkg_univ_notifier:
+  universal_notifier:
+    assistant_name: "Jarvis"       # Name displayed in text messages
+    date_format: "%H:%M"           # Time format
+    include_time: true             # Include the time in text message prefixes?
+
+    # --- TIME SLOTS AND VOLUMES ---
+    # Defines when a slot starts and the default volume for voice assistants (0.0 - 1.0)
+    time_slots:
+      morning:
+        start: "04:30"
+        volume: 0.35
+      afternoon:
+        start: "12:00"
+        volume: 0.60
+      evening:
+        start: "18:30"
+        volume: 0.45
+      night:
+        start: "22:30"
+        volume: 0.15
+
+    # --- DO NOT DISTURB (DND) ---
+    # Voice channels ('is_voice: true') are skipped during this time (unless priority: true)
+    dnd:
+      start: "22:30"
+      end: "05:30"
+      
+    # --- CUSTOM GREETINGS (Optional) ---
+    greetings:
+      morning:
+        - "Good morning, sir"
+        - "Welcome back"
+      afternoon:
+        - Good afternoon, sir
+        - "Hope you're having a great day"
+      evening:
+        - "Good evening, sir"
+        - "How was your day?"
+      night:
+        - "Good night"
+        - "Shh, it's late"
+
+    # --- CHANNELS (Aliases) ---
+    channels:
+      ## Amazon Alexa -------------------------------------------------------------------
+      alexa_bedroom:
+        service: notify.alexa_media_echo_spot_bedroom
+        target: media_player.echo_spot_bedroom
+        is_voice: true
+
+      alexa_dining_room:
+        service: notify.alexa_media_tv_dining_room
+        target: media_player.tv_dining_room
+        is_voice: false
+
+      alexa_kitchen:
+        service: notify.alexa_media_echo_show_kitchen
+        target: media_player.echo_show_kitchen
+        is_voice: true
+
+      alexa_garage:
+        service: notify.alexa_media_echo_garage
+        target: media_player.echo_garage
+        is_voice: true
+
+      alexa_gym:
+        service: notify.alexa_media_echo_gym
+        target: media_player.echo_gym
+        is_voice: true
+
+      alexa_living_room:
+        service: notify.alexa_media_living_room_echo_show
+        target: media_player.living_room_echo_show
+        is_voice: true
+
+      alexa_master_bedroom:
+        service: notify.alexa_media_firetv_cube_master_bedroom
+        target: media_player.firetv_cube_master_bedroom
+        is_voice: true
+
+      alexa_office:
+        service: notify.alexa_media_office_echo
+        target: media_player.office_echo
+        is_voice: true
+
+      alexa_upstairs_hallway_bathroom:
+        service: notify.alexa_media_echo_bathroom
+        target: media_player.echo_bathroom
+        is_voice: true
+
+      # Example TELEGRAM (Text)
+      telegram_bot:
+        service: telegram_bot.send_message
+        target: 7594821819
+        is_voice: false
+        
+      # Example MOBILE APP
+      chips_phone:
+        service: notify.mobile_app_chip_s_phone
+
+      nikkis_phone:
+        service: notify.mobile_app_nikki_s_phone
+
+        

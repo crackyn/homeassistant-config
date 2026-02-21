@@ -1,0 +1,47 @@
+id: alarm_disarm
+alias: 'Alarm: Disam'
+description: ''
+triggers:
+- trigger: state
+  entity_id:
+  - input_boolean.alarm_armed_home_time
+  from:
+  - 'on'
+  to:
+  - 'off'
+- trigger: state
+  entity_id:
+  - person.chip
+  - person.nikki
+  from:
+  - not_home
+  to:
+  - home
+  for:
+    hours: 0
+    minutes: 1
+    seconds: 0
+  alias: Someone arrives home
+conditions:
+- condition: or
+  conditions:
+  - condition: state
+    entity_id: person.chip
+    state:
+    - home
+  - condition: state
+    entity_id: person.nikki
+    state:
+    - home
+actions:
+  - action: alarm_control_panel.alarm_disarm
+    metadata: {}
+    target:
+      entity_id: alarm_control_panel.home
+    data:
+      code: '8355'
+  - action: script.send_alarm_state_notification
+    metadata: {}
+    data:
+      alarm_status: Disarmed
+mode: single

@@ -1,0 +1,51 @@
+default:
+  - area_id: ''
+  - domain: 'fan'
+  - group_name: 'Fans'
+  - group_icon: 'mdi:fan'
+card:
+  type: vertical-stack
+  visibility:
+    - condition: numeric_state
+      entity: 'sensor.[[area_id]]_[[domain]]_count'
+      above: 0
+  cards:
+    - type: custom:bubble-card
+      card_type: separator
+      sub_button:
+        main: []
+        bottom: []
+      name: '[[group_name]]'
+      icon: '[[group_icon]]'
+      styles: |
+        .bubble-name {
+          font-weight: 400;
+          font-size: 20px;
+          font-family: var(--bubble-font-family, 'Exo 2');
+        }
+        .bubble-line {
+          background-color: var(--m3-outline-variant, var(--divider-color));
+          opacity: 1;
+        }
+    - type: custom:auto-entities
+      card:
+        type: grid
+        columns: 3
+        square: false
+      card_param: cards
+      filter:
+        include:
+          - area: '[[area_id]]'
+            domain: '[[domain]]'
+            sort:
+              method: friendly_name
+            options:
+              type: custom:streamline-card
+              template: 'entity_[[domain]]_card'
+              variables:
+                entity_id: this.entity_id
+        exclude:
+          - options: {}
+            hidden_by: user
+          - options: {}
+            hidden_by: integration

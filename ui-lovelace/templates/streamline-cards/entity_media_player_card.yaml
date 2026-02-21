@@ -1,0 +1,43 @@
+default:
+  - entity_id: ''
+  - name: ''
+card:
+  type: custom:bubble-card
+  entity: '[[entity_id]]'
+  name: '[[name]]'
+  card_type: media-player
+  card_layout: large
+  hide:
+    power_button: true
+  sub_button:
+    main: []
+    bottom: []
+  modules:
+    - attribute_resolver
+    - color_resolver
+    - icon_resolver
+    - media_resolver
+    - state_resolver
+  columns: 4
+  styles: |
+    .bubble-name {
+      font-weight: 700;
+      font-size: 13px;
+      font-family: var(--bubble-font-family, 'Exo 2');
+    }
+    .bubble-icon-container {
+      animation: ${state === 'playing' ? 'player' : 'none'} 2s infinite;
+    }
+    @keyframes player {
+      from { transform: scale(1); filter: blur(0); }
+      5% { transform: scale(1); filter: blur(0); }
+      10% { transform: scale(1.1); filter: blur(1px); }
+      15% { transform: scale(1); filter: blur(0); }
+      45% { transform: scale(1); filter: blur(0); }
+      50% { transform: scale(1.1); filter: blur(1px); }
+      55% { transform: scale(1); filter: blur(0); }
+      65% { transform: scale(1); filter: blur(0); }
+      70% { transform: scale(1.1); filter: blur(1px); }
+      75% { transform: scale(1); filter: blur(0); }
+      to { transform: scale(1); filter: blur(0); }
+    }

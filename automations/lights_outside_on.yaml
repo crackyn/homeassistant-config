@@ -1,0 +1,37 @@
+id: lights_outside_on
+alias: 'Lights: Outside On'
+description: ''
+triggers:
+- trigger: time
+  at:
+    entity_id: input_datetime.alarm_disarm_time
+    offset: -01:00:00
+- trigger: state
+  entity_id:
+  - binary_sensor.nighttime
+  from:
+  - 'off'
+  to:
+  - 'on'
+  for:
+    hours: 0
+    minutes: 1
+    seconds: 0
+conditions: []
+actions:
+- action: light.turn_on
+  metadata: {}
+  target:
+    entity_id:
+    - light.house_lights
+    - light.gazebo_lights
+  data:
+    brightness_pct: 100
+    effect: '{{ states(''sensor.lighting_effect'') }}'
+- action: light.turn_on
+  metadata: {}
+  target:
+    entity_id: light.gazebo_flood_lights
+  data:
+    brightness_pct: 33
+mode: single

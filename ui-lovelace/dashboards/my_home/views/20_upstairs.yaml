@@ -1,0 +1,60 @@
+title: Upstairs
+path: floor-upstairs
+type: sections
+max_columns: 3
+icon: mdi:home-floor-2
+show_icon_and_title: true
+subview: true
+dense_section_placement: true
+cards: []
+sections:
+  - type: grid
+    cards:
+      - type: heading
+        heading: Rooms
+      - type: grid
+        columns: 3
+        square: false
+        cards:
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Bedroom
+              icon: hue:room-bedroom
+              background: var(--gradient-purple)
+              navigation_path: upstairs-bedroom
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Office
+              icon: hue:room-office
+              background: var(--gradient-blue)
+              navigation_path: upstairs-office
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Hallway <br>Bathroom
+              icon: hue:room-bathroom
+              background: var(--gradient-teal)
+              navigation_path: upstairs-upstairs-hallway-bathroom
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Hallway <br>Closet
+              icon: mdi:wardrobe
+              background: var(--gradient-yellow)
+              navigation_path: upstairs-upstairs-hallway-closet
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Office <br>Closet
+              icon: mdi:wardrobe
+              background: var(--gradient-orange)
+              navigation_path: upstairs-office-closet
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Bedroom <br>Closet
+              icon: mdi:wardrobe
+              background: var(--gradient-green)
+              navigation_path: upstairs-bedroom-closet

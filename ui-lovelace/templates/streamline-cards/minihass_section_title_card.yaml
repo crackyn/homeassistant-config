@@ -1,0 +1,10 @@
+default:
+  - section_title: ''
+  - section_label: ''
+card:
+  type: "custom:button-card"
+  template:
+    - custom_card_section_title
+  variables: 
+    section_title: "[[section_title]]"
+    section_label: "[[section_label]]"

@@ -1,0 +1,395 @@
+type: sections
+max_columns: 3
+path: home
+title: Home
+icon: mdi:home
+show_icon_and_title: true
+subview: true
+dense_section_placement: true
+cards: []
+badges:
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: sensor.upstairs_hallway_average_temperature
+    visibility:
+      - condition: state
+        entity: sensor.upstairs_hallway_average_temperature
+        state_not: unavailable
+      - condition: state
+        entity: sensor.upstairs_hallway_average_temperature
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: sensor.upstairs_hallway_average_humidity
+    visibility:
+      - condition: state
+        entity: sensor.upstairs_hallway_average_humidity
+        state_not: unavailable
+      - condition: state
+        entity: sensor.upstairs_hallway_average_humidity
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: binary_sensor.motion_upstairs_hallway
+    visibility:
+      - condition: state
+        entity: binary_sensor.motion_upstairs_hallway
+        state_not: unavailable
+      - condition: state
+        entity: binary_sensor.motion_upstairs_hallway
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: binary_sensor.occupancy_upstairs_hallway
+    visibility:
+      - condition: state
+        entity: binary_sensor.occupancy_upstairs_hallway
+        state_not: unavailable
+      - condition: state
+        entity: binary_sensor.occupancy_upstairs_hallway
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: sensor.hallway_average_temperature
+    visibility:
+      - condition: state
+        entity: sensor.hallway_average_temperature
+        state_not: unavailable
+      - condition: state
+        entity: sensor.hallway_average_temperature
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: sensor.hallway_average_humidity
+    visibility:
+      - condition: state
+        entity: sensor.hallway_average_humidity
+        state_not: unavailable
+      - condition: state
+        entity: sensor.hallway_average_humidity
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: binary_sensor.motion_hallway
+    visibility:
+      - condition: state
+        entity: binary_sensor.motion_hallway
+        state_not: unavailable
+      - condition: state
+        entity: binary_sensor.motion_hallway
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: binary_sensor.occupancy_hallway
+    visibility:
+      - condition: state
+        entity: binary_sensor.occupancy_hallway
+        state_not: unavailable
+      - condition: state
+        entity: binary_sensor.occupancy_hallway
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: sensor.stairs_average_temperature
+    visibility:
+      - condition: state
+        entity: sensor.stairs_average_temperature
+        state_not: unavailable
+      - condition: state
+        entity: sensor.stairs_average_temperature
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: sensor.stairs_average_humidity
+    visibility:
+      - condition: state
+        entity: sensor.stairs_average_humidity
+        state_not: unavailable
+      - condition: state
+        entity: sensor.stairs_average_humidity
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: binary_sensor.motion_stairs
+    visibility:
+      - condition: state
+        entity: binary_sensor.motion_stairs
+        state_not: unavailable
+      - condition: state
+        entity: binary_sensor.motion_stairs
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: binary_sensor.occupancy_stairs
+    visibility:
+      - condition: state
+        entity: binary_sensor.occupancy_stairs
+        state_not: unavailable
+      - condition: state
+        entity: binary_sensor.occupancy_stairs
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: sensor.basement_stairs_average_temperature
+    visibility:
+      - condition: state
+        entity: sensor.basement_stairs_average_temperature
+        state_not: unavailable
+      - condition: state
+        entity: sensor.basement_stairs_average_temperature
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: sensor.basement_stairs_average_humidity
+    visibility:
+      - condition: state
+        entity: sensor.basement_stairs_average_humidity
+        state_not: unavailable
+      - condition: state
+        entity: sensor.basement_stairs_average_humidity
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: binary_sensor.motion_basement_stairs
+    visibility:
+      - condition: state
+        entity: binary_sensor.motion_basement_stairs
+        state_not: unavailable
+      - condition: state
+        entity: binary_sensor.motion_basement_stairs
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: binary_sensor.occupancy_basement_stairs
+    visibility:
+      - condition: state
+        entity: binary_sensor.occupancy_basement_stairs
+        state_not: unavailable
+      - condition: state
+        entity: binary_sensor.occupancy_basement_stairs
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+sections:
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: upstairs_hallway
+          domain: light
+          group_name: Upstairs Hallway Lights
+          group_icon: mdi:lightbulb=group
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: upstairs_hallway
+          domain: fan
+          group_name: Upstairs Hallway Fans
+          group_icon: mdi:fan
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: upstairs_hallway
+          domain: media_player
+          group_name: Upstairs Hallway Media
+          group_icon: mdi:television-play
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: upstairs_hallway
+          domain: switch
+          group_name: Upstairs Hallway Switches
+          group_icon: mdi:light-switch
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: hallway
+          domain: light
+          group_name: Hallway Lights
+          group_icon: mdi:lightbulb=group
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: hallway
+          domain: fan
+          group_name: Hallway Fans
+          group_icon: mdi:fan
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: hallway
+          domain: media_player
+          group_name: Hallway Media
+          group_icon: mdi:television-play
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: hallway
+          domain: switch
+          group_name: Hallway Switches
+          group_icon: mdi:light-switch
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: stairs
+          domain: light
+          group_name: Stairs Lights
+          group_icon: mdi:lightbulb=group
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: stairs
+          domain: fan
+          group_name: Stairs Fans
+          group_icon: mdi:fan
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: stairs
+          domain: media_player
+          group_name: Stairs Media
+          group_icon: mdi:television-play
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: stairs
+          domain: switch
+          group_name: Stairs Switches
+          group_icon: mdi:light-switch
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: basement_stairs
+          domain: light
+          group_name: Basement Stairs Lights
+          group_icon: mdi:lightbulb=group
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: basement_stairs
+          domain: fan
+          group_name: Basement Stairs Fans
+          group_icon: mdi:fan
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: basement_stairs
+          domain: media_player
+          group_name: Basement Stairs Media
+          group_icon: mdi:television-play
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: basement_stairs
+          domain: switch
+          group_name: Basement Stairs Switches
+          group_icon: mdi:light-switch

@@ -1,0 +1,61 @@
+id: alarm_arm_home
+alias: 'Alarm: Armed home'
+description: ''
+triggers:
+- trigger: state
+  entity_id:
+  - input_boolean.alarm_armed_home_time
+  from:
+  - 'off'
+  to:
+  - 'on'
+- trigger: state
+  entity_id:
+  - person.chip
+  - person.nikki
+  from:
+  - not_home
+  to:
+  - home
+  for:
+    hours: 0
+    minutes: 30
+    seconds: 0
+  alias: Someone arrived home
+conditions:
+- condition: and
+  conditions:
+  - condition: state
+    entity_id: input_boolean.alarm_armed_home_time
+    state:
+    - 'on'
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: person.chip
+      state:
+      - home
+      for:
+        hours: 0
+        minutes: 30
+        seconds: 0
+    - condition: state
+      entity_id: person.nikki
+      state:
+      - home
+      for:
+        hours: 0
+        minutes: 30
+        seconds: 0
+actions:
+  - action: alarm_control_panel.alarm_arm_home
+    metadata: {}
+    target:
+      entity_id: alarm_control_panel.home
+    data:
+      code: '8355'
+  - action: script.send_alarm_state_notification
+    metadata: {}
+    data:
+      alarm_status: Armed Home
+mode: single

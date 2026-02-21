@@ -1,0 +1,68 @@
+sync_alarm_ti_alarmo:
+  alias: Sync Alarm to Alarmo
+  description: ""
+  sequence:
+    - choose:
+        - conditions:
+            - condition: and
+              conditions:
+                - condition: state
+                  entity_id: alarm_control_panel.home_alarm
+                  state:
+                    - disarmed
+                - condition: not
+                  conditions:
+                    - condition: state
+                      entity_id: alarm_control_panel.home
+                      state:
+                        - disarmed
+          sequence:
+            - action: alarm_control_panel.alarm_disarm
+              metadata: {}
+              target:
+                entity_id: alarm_control_panel.home
+              data:
+                code: "8355"
+          alias: Alarm Disarmed
+        - conditions:
+            - condition: and
+              conditions:
+                - condition: state
+                  entity_id: alarm_control_panel.home_alarm
+                  state:
+                    - armed_home
+                - condition: not
+                  conditions:
+                    - condition: state
+                      entity_id: alarm_control_panel.home
+                      state:
+                        - armed_home
+          sequence:
+            - action: alarm_control_panel.alarm_arm_home
+              metadata: {}
+              target:
+                entity_id: alarm_control_panel.home
+              data:
+                code: "8355"
+          alias: Alarm Armed Home
+        - conditions:
+            - condition: and
+              conditions:
+                - condition: state
+                  entity_id: alarm_control_panel.home_alarm
+                  state:
+                    - armed_away
+                - condition: not
+                  conditions:
+                    - condition: state
+                      entity_id: alarm_control_panel.home
+                      state:
+                        - armed_away
+          sequence:
+            - action: alarm_control_panel.alarm_arm_away
+              metadata: {}
+              target:
+                entity_id: alarm_control_panel.home
+              data:
+                code: "8355"
+          alias: Alarm Armed Away

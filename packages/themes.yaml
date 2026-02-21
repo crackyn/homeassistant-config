@@ -1,0 +1,107 @@
+pkg_themes:
+  homeassistant:
+    customize:
+
+      input_select.theme_selector:
+        persistent: true
+
+      input_text.selected_theme:
+        persistent: true
+
+      sensor.theme_previews:
+        persistent: true
+
+      theme_previews_raw:
+        persistent: true
+
+  ###############################################################################
+  # Shell command to run external Python script (allowed to read filesystem)
+  ###############################################################################
+  shell_command:
+    scan_themes: "python3 /config/scripts/scan_themes.py"
+
+  ###############################################################################
+  # Input Select: Theme Selector (auto-populated)
+  ###############################################################################
+  input_select:
+    theme_selector:
+      name: Theme Selector
+      options:
+        - Loading…
+
+  input_text:
+    selected_theme:
+      name: Selected Theme
+
+  ###############################################################################
+  # Modern Template Sensor for Theme Preview Data
+  ###############################################################################
+  template:
+    - sensor:
+        - name: Theme previews
+          unique_id: theme_previews
+          state: "{{ now().timestamp() }}"     # forces UI updates
+          attributes:
+            themes: >
+              {{ state_attr('sensor.raw_theme_preview', 'themes') or {} }}
+
+  ###############################################################################
+  # Raw JSON Loader (command_line sensor)
+  ###############################################################################
+  command_line:
+    - sensor:
+        name: Theme Previews Raw
+        unique_id: theme_previews_raw
+        command: "cat /config/www/theme_scan.json"
+        value_template: "OK"
+        json_attributes:
+          - themes
+          
+
+  ###############################################################################
+  # Automations
+  ###############################################################################
+  automation:
+
+    # 1. Scan themes at startup
+    - alias: Scan Themes On Startup
+      id: scan_themes_on_startup
+      trigger:
+        - platform: homeassistant
+          event: start
+      action:
+        - service: shell_command.scan_themes
+
+    # 2. Refresh themes every X minutes (change X below)
+    - alias: Scan Themes Periodically
+      id: scan_themes_periodically
+      trigger:
+        - platform: time_pattern
+          minutes: "/10"  # <---- change this to your preferred refresh interval
+      action:
+        - service: shell_command.scan_themes
+
+    # 3. Rebuild theme selector when theme JSON updates
+    - alias: Update Theme Selector
+      id: update_theme_selector
+      trigger:
+        - platform: state
+          entity_id: sensor.raw_theme_preview
+      action:
+        - service: input_select.set_options
+          data:
+            entity_id: input_select.theme_selector
+            options: >
+              {{ (state_attr('sensor.raw_theme_preview', 'themes') or {}).keys() | list }}
+
+    # 4. Apply theme when user selects one
+    - alias: Apply Theme From Selector
+      id: apply_theme_from_selector
+      trigger:
+        - platform: state
+          entity_id: input_select.theme_selector
+      action:
+        - service: frontend.set_theme
+          data:
+            name: "{{ states('input_select.theme_selector') }}"
+            

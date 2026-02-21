@@ -1,0 +1,79 @@
+id: motion_lights_garage
+alias: "Motion Lights: Garage"
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - binary_sensor.upper_garage_motion_sensor_motion
+      - binary_sensor.upper_garage_motion
+      - binary_sensor.upper_garage_motion_2
+    from:
+      - "off"
+    to:
+      - "on"
+  - trigger: state
+    entity_id:
+      - binary_sensor.garage_door
+    from:
+      - "off"
+    to:
+      - "on"
+  - trigger: state
+    entity_id:
+      - cover.stall_1_door_1_2
+      - cover.stall_2_door_1_2
+    from:
+      - closed
+  - trigger: state
+    entity_id:
+      - device_tracker.2021_elantra_location
+    to:
+      - home
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+conditions: []
+actions:
+  - action: switch.turn_on
+    metadata: {}
+    target:
+      entity_id:
+        - switch.floodlights_1
+        - switch.garage_switch_1
+        - switch.garage_freezer_light
+        - switch.garage_light_main_area
+    data: {}
+  - action: light.turn_on
+    metadata: {}
+    target:
+      entity_id:
+        - light.storage_room_light_1
+      device_id: 9acc5c1de3909c98971d3dee24bb6482
+    data:
+      brightness_pct: 100
+      color_temp_kelvin: 4254
+  - delay:
+      hours: 0
+      minutes: 15
+      seconds: 0
+      milliseconds: 0
+  - action: light.turn_off
+    metadata: {}
+    target:
+      entity_id:
+        - light.storage_room_light_1
+      device_id: 9acc5c1de3909c98971d3dee24bb6482
+    data:
+      brightness_pct: 100
+      color_temp_kelvin: 4254
+  - action: switch.turn_off
+    metadata: {}
+    target:
+      entity_id:
+        - switch.floodlights_1
+        - switch.garage_switch_1
+        - switch.garage_freezer_light
+        - switch.garage_light_main_area
+    data: {}
+mode: restart

@@ -1,0 +1,27 @@
+alarm_disarm:
+  alias: "Alarm: Disarm"
+  description: ""
+  sequence:
+    - if:
+        - condition: not
+          conditions:
+            - condition: state
+              entity_id: alarm_control_panel.home_alarm
+              state:
+                - disarmed
+      then:
+        - wait_for_trigger:
+            - trigger: state
+              entity_id:
+                - alarm_control_panel.home_alarm
+              to:
+                - disarmed
+        - action: alarm_control_panel.alarm_disarm
+          metadata: {}
+          target:
+            entity_id: alarm_control_panel.home_alarm
+          data: {}
+        - action: script.send_alarm_state_notification
+          metadata: {}
+          data:
+            alarm_status: Disarmed

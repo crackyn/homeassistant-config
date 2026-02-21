@@ -1,0 +1,46 @@
+title: Outside
+path: floor-outside
+type: sections
+max_columns: 3
+icon: mdi:weather-sunny
+show_icon_and_title: true
+subview: true
+dense_section_placement: true
+cards: []
+sections:
+  - type: grid
+    cards:
+      - type: heading
+        heading: Areas
+      - type: grid
+        columns: 3
+        square: false
+        cards:
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Front <br>Yard
+              icon: mdi:flower
+              background: var(--gradient-green)
+              navigation_path: outside-front-yard
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Back <br>Yard
+              icon: mdi:grill
+              background: var(--gradient-orange)
+              navigation_path: outside-back-yard
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Gazebo
+              icon: mdi:pergola
+              background: var(--gradient-purple-teal)
+              navigation_path: outside-gazebo
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Outside
+              icon: mdi:weather-sunny
+              background: var(--gradient-yellow)
+              navigation_path: outside-outside

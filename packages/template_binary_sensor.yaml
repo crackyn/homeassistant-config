@@ -1,0 +1,585 @@
+pkg_template_binary_sensors:
+  template:
+    - binary_sensor:
+
+    ## Basement stairs ------------------------------------------------------------  
+      - unique_id: 'motion_basement_stairs'
+        name: 'Motion: Basement stairs'
+        device_class: motion
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('basement_stairs'))
+            | selectattr('attributes.device_class', 'in', ['motion', 'door'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.motion_basement_stairs'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## bedroom ------------------------------------------------------------  
+      - unique_id: 'motion_bedroom'
+        name: 'Motion: bedroom'
+        device_class: motion
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('bedroom'))
+            | selectattr('attributes.device_class', 'in', ['motion', 'door'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.motion_bedroom'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Dining room ------------------------------------------------------------  
+      - unique_id: 'motion_dining_room'
+        name: 'Motion: Dining room'
+        device_class: motion
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('dining_room'))
+            | selectattr('attributes.device_class', 'in', ['motion', 'door'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.motion_dining_room'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Garage ------------------------------------------------------------  
+      - unique_id: 'motion_garage'
+        name: 'Motion: Garage'
+        device_class: motion
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('garage'))
+            | selectattr('attributes.device_class', 'in', ['motion', 'door'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.motion_garage'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Gazebo ------------------------------------------------------------  
+      - unique_id: 'motion_gazebo'
+        name: 'Motion: Gazebo'
+        device_class: motion
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('gazebo'))
+            | selectattr('attributes.device_class', 'in', ['motion', 'door'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.motion_gazebo'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Gym ------------------------------------------------------------  
+      - unique_id: 'motion_gym'
+        name: 'Motion: Gym'
+        device_class: motion
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('gym'))
+            | selectattr('attributes.device_class', 'in', ['motion', 'door'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.motion_gym'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Hallway ------------------------------------------------------------  
+      - unique_id: 'motion_hallway'
+        name: 'Motion: Hallway'
+        device_class: motion
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('hallway'))
+            | selectattr('attributes.device_class', 'in', ['motion', 'door'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.motion_hallway'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Kitchen ------------------------------------------------------------  
+      - unique_id: 'motion_kitchen'
+        name: 'Motion: Kitchen'
+        device_class: motion
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('kitchen'))
+            | selectattr('attributes.device_class', 'in', ['motion', 'door'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.motion_kitchen'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Living Room ------------------------------------------------------------  
+      - unique_id: 'motion_living_room'
+        name: 'Motion: Living Room'
+        device_class: motion
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('living_room'))
+            | selectattr('attributes.device_class', 'in', ['motion', 'door'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.motion_living_room'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Master bathroom ------------------------------------------------------------  
+      - unique_id: 'motion_master_bathroom'
+        name: 'Motion: Master bathroom'
+        device_class: motion
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('master_bathroom'))
+            | selectattr('attributes.device_class', 'in', ['motion', 'door'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.motion_master_bathroom'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Master bedroom ------------------------------------------------------------  
+      - unique_id: 'motion_master_bedroom'
+        name: 'Motion: Master bedroom'
+        device_class: motion
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('master_bedroom'))
+            | selectattr('attributes.device_class', 'in', ['motion', 'door'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.motion_master_bedroom'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Office ------------------------------------------------------------  
+      - unique_id: 'motion_office'
+        name: 'Motion: Office'
+        device_class: motion
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('office'))
+            | selectattr('attributes.device_class', 'in', ['motion', 'door'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.motion_office'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Stairs ------------------------------------------------------------  
+      - unique_id: 'motion_stairs'
+        name: 'Motion: Stairs'
+        device_class: motion
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('stairs'))
+            | selectattr('attributes.device_class', 'in', ['motion', 'door'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.motion_stairs'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Upstairs hallway ------------------------------------------------------------  
+      - unique_id: 'motion_upstairs_hallway'
+        name: 'Motion: Upstairs hallway'
+        device_class: motion
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway'))
+            | selectattr('attributes.device_class', 'in', ['motion', 'door'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.motion_upstairs_hallway'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Upstairs hallway bathroom ------------------------------------------------------------  
+      - unique_id: 'motion_upstairs_hallway_bathroom'
+        name: 'Motion: Upstairs hallway bathroom'
+        device_class: motion
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway_bathroom'))
+            | selectattr('attributes.device_class', 'in', ['motion', 'door'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.motion_upstairs_hallway_bathroom'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    - binary_sensor:
+
+    ## Basement stairs ------------------------------------------------------------  
+      - unique_id: 'occupancy_basement_stairs'
+        name: 'Occupancy: Basement stairs'
+        device_class: occupancy
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('basement_stairs'))
+            | selectattr('attributes.device_class', 'in', ['occupancy'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.occupancy_basement_stairs'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Dining room ------------------------------------------------------------  
+      - unique_id: 'occupancy_dining_room'
+        name: 'Occupancy: Dining room'
+        device_class: occupancy
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('dining_room'))
+            | selectattr('attributes.device_class', 'in', ['occupancy'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.occupancy_dining_room'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Garage ------------------------------------------------------------  
+      - unique_id: 'occupancy_garage'
+        name: 'Occupancy: Garage'
+        device_class: occupancy
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('garage'))
+            | selectattr('attributes.device_class', 'in', ['occupancy'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.occupancy_garage'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Gazebo ------------------------------------------------------------  
+      - unique_id: 'occupancy_gazebo'
+        name: 'Occupancy: Gazebo'
+        device_class: occupancy
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('gazebo'))
+            | selectattr('attributes.device_class', 'in', ['occupancy'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.occupancy_gazebo'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Gym ------------------------------------------------------------  
+      - unique_id: 'occupancy_gym'
+        name: 'Occupancy: Gym'
+        device_class: occupancy
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('gym'))
+            | selectattr('attributes.device_class', 'in', ['occupancy'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.occupancy_gym'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Hallway ------------------------------------------------------------  
+      - unique_id: 'occupancy_hallway'
+        name: 'Occupancy: Hallway'
+        device_class: occupancy
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('hallway'))
+            | selectattr('attributes.device_class', 'in', ['occupancy'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.occupancy_hallway'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Kitchen ------------------------------------------------------------  
+      - unique_id: 'occupancy_kitchen'
+        name: 'Occupancy: Kitchen'
+        device_class: occupancy
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('kitchen'))
+            | selectattr('attributes.device_class', 'in', ['occupancy'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.occupancy_kitchen'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Living Room ------------------------------------------------------------  
+      - unique_id: 'occupancy_living_room'
+        name: 'Occupancy: Living Room'
+        device_class: occupancy
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('living_room'))
+            | selectattr('attributes.device_class', 'in', ['occupancy'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.occupancy_living_room'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Master bathroom ------------------------------------------------------------  
+      - unique_id: 'occupancy_master_bathroom'
+        name: 'Occupancy: Master bathroom'
+        device_class: occupancy
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('master_bathroom'))
+            | selectattr('attributes.device_class', 'in', ['occupancy'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.occupancy_master_bathroom'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Master bedroom ------------------------------------------------------------  
+      - unique_id: 'occupancy_master_bedroom'
+        name: 'Occupancy: Master bedroom'
+        device_class: occupancy
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('master_bedroom'))
+            | selectattr('attributes.device_class', 'in', ['occupancy'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.occupancy_master_bedroom'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Office ------------------------------------------------------------  
+      - unique_id: 'occupancy_office'
+        name: 'Occupancy: Office'
+        device_class: occupancy
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('office'))
+            | selectattr('attributes.device_class', 'in', ['occupancy'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.occupancy_office'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Stairs ------------------------------------------------------------  
+      - unique_id: 'occupancy_stairs'
+        name: 'Occupancy: Stairs'
+        device_class: occupancy
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('stairs'))
+            | selectattr('attributes.device_class', 'in', ['occupancy'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.occupancy_stairs'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Upstairs hallway ------------------------------------------------------------  
+      - unique_id: 'occupancy_upstairs_hallway'
+        name: 'Occupancy: Upstairs hallway'
+        device_class: occupancy
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway'))
+            | selectattr('attributes.device_class', 'in', ['occupancy'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.occupancy_upstairs_hallway'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+    ## Upstairs hallway bathroom ------------------------------------------------------------  
+      - unique_id: 'occupancy_upstairs_hallway_bathroom'
+        name: 'Occupancy: Upstairs hallway bathroom'
+        device_class: occupancy
+        state: >
+          {% set binary_sensors = states.binary_sensor
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway_bathroom'))
+            | selectattr('attributes.device_class', 'in', ['occupancy'])
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['binary_sensor.occupancy_upstairs_hallway_bathroom'])
+            | map(attribute='state')
+            | list
+          %}
+          {% set active = binary_sensors | select('equalto', 'on') | list | count %}          
+          {% if active  > 0 %}
+            on
+          {% else %}
+            off
+          {% endif %}

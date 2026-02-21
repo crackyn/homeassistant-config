@@ -1,0 +1,287 @@
+###############################################################################
+#  Material 3 (Material You) – Home Assistant Theme
+#  -------------------------------------------------
+#  A single theme with automatic Light / Dark mode support.
+#  HA will pick the correct mode based on the user's dark-mode setting.
+#
+#  HOW TO CUSTOMIZE COLORS
+#  ───────────────────────
+#  Material 3 is built around a small set of "key colors".
+#  Adjust ONLY the m3-* variables inside  modes: → light: / dark:
+#  and everything else follows automatically.
+#
+#  To create your own variant:
+#    1. Copy this entire "Material 3:" block.
+#    2. Rename the top-level key (e.g. "Material 3 Ocean:").
+#    3. Change the m3-* hex values inside each mode.
+#    4. Reload themes in HA  →  Developer Tools  →  YAML  →  Themes.
+#
+#  Color reference (Material 3 roles):
+#    primary            – brand / accent color
+#    on-primary         – text/icons ON primary surfaces
+#    primary-container  – lighter variant for cards / chips
+#    secondary          – less prominent accent
+#    tertiary           – complementary accent
+#    error              – errors / destructive actions
+#    surface            – main background
+#    on-surface         – default text
+#    outline            – borders / dividers
+###############################################################################
+
+Material 3:
+
+  ## ── Home Assistant Core Mappings ────────────────────────────────────────
+  ## These reference m3-* tokens and are shared by BOTH modes.
+  ## You should rarely need to touch anything below – just edit the palettes
+  ## inside  modes: → light:  and  modes: → dark:  at the bottom.
+
+  # Background & surfaces
+  lovelace-background:                "var(--m3-surface)"
+  primary-background-color:           "var(--m3-surface)"
+  secondary-background-color:         "var(--m3-surface-container-low)"
+  ha-card-border-radius:              "16px"
+  ha-card-border-width:               "0px"
+  ha-card-border-color:               "var(--m3-outline-variant)"
+
+  # Primary accent
+  primary-color:                      "var(--m3-primary)"
+  accent-color:                       "var(--m3-primary)"
+  light-primary-color:                "var(--m3-primary-container)"
+  dark-primary-color:                 "var(--m3-on-primary-container)"
+
+  # Text
+  primary-text-color:                 "var(--m3-on-surface)"
+  secondary-text-color:               "var(--m3-on-surface-variant)"
+  text-primary-color:                 "var(--m3-on-primary)"
+  text-light-primary-color:           "var(--m3-on-primary-container)"
+  text-accent-color:                  "var(--m3-primary)"
+
+  # Header / App bar
+  app-header-background-color:        "var(--m3-surface-container)"
+  app-header-text-color:              "var(--m3-on-surface)"
+  app-header-selection-bar-color:     "var(--m3-primary)"
+
+  # Sidebar
+  sidebar-background-color:           "var(--m3-surface-container-low)"
+  sidebar-text-color:                 "var(--m3-on-surface)"
+  sidebar-icon-color:                 "var(--m3-on-surface-variant)"
+  sidebar-selected-background-color:  "var(--m3-secondary-container)"
+  sidebar-selected-text-color:        "var(--m3-on-secondary-container)"
+  sidebar-selected-icon-color:        "var(--m3-on-secondary-container)"
+
+  # Dividers & borders
+  divider-color:                      "var(--m3-outline-variant)"
+
+  # Switches & toggles
+  switch-checked-button-color:        "var(--m3-on-primary)"
+  switch-checked-track-color:         "var(--m3-primary)"
+  switch-unchecked-button-color:      "var(--m3-outline)"
+  switch-unchecked-track-color:       "var(--m3-surface-container-highest)"
+
+  # Sliders
+  paper-slider-knob-color:            "var(--m3-primary)"
+  paper-slider-active-color:          "var(--m3-primary)"
+  paper-slider-container-color:       "var(--m3-primary-container)"
+
+  # Inputs
+  input-fill-color:                   "var(--m3-surface-container-highest)"
+  input-ink-color:                    "var(--m3-on-surface)"
+  input-label-ink-color:              "var(--m3-on-surface-variant)"
+  input-idle-line-color:              "var(--m3-outline)"
+  input-hover-line-color:             "var(--m3-on-surface)"
+  input-dropdown-icon-color:          "var(--m3-on-surface-variant)"
+
+  # Chips / labels
+  ha-chip-background-color:           "var(--m3-surface-container-highest)"
+  ha-chip-text-color:                 "var(--m3-on-surface-variant)"
+
+  # States
+  state-active-color:                 "var(--m3-primary)"
+  state-icon-active-color:            "var(--m3-primary)"
+  state-icon-color:                   "var(--m3-on-surface-variant)"
+
+  state-light-active-color:           "var(--m3-primary)"
+  state-light-inactive-color:         "var(--m3-on-surface-variant)"
+
+  state-switch-active-color:          "var(--m3-primary)"
+  state-switch-inactive-color:        "var(--m3-on-surface-variant)"
+
+  state-fan-active-color:             "var(--m3-tertiary)"
+  state-fan-inactive-color:           "var(--m3-on-surface-variant)"
+
+  state-climate-cool-color:           "var(--m3-info)"
+  state-climate-heat-color:           "var(--m3-error)"
+  state-climate-auto-color:           "var(--m3-tertiary)"
+  state-climate-idle-color:           "var(--m3-on-surface-variant)"
+
+  # Severity / status
+  error-color:                        "var(--m3-error)"
+  warning-color:                      "var(--m3-warning)"
+  success-color:                      "var(--m3-success)"
+  info-color:                         "var(--m3-info)"
+
+  # Labels & badges
+  label-badge-background-color:       "var(--m3-primary-container)"
+  label-badge-text-color:             "var(--m3-on-primary-container)"
+
+  # MDC (Material Design Components)
+  mdc-theme-primary:                  "var(--m3-primary)"
+  mdc-theme-on-primary:               "var(--m3-on-primary)"
+  mdc-theme-secondary:                "var(--m3-secondary)"
+  mdc-theme-on-secondary:             "var(--m3-on-secondary)"
+  mdc-theme-surface:                  "var(--m3-surface)"
+  mdc-theme-on-surface:               "var(--m3-on-surface)"
+  mdc-theme-error:                    "var(--m3-error)"
+  mdc-theme-on-error:                 "var(--m3-on-error)"
+
+  # Code editor
+  code-editor-background-color:       "var(--m3-surface-container)"
+  codemirror-keyword:                 "var(--m3-primary)"
+  codemirror-string:                  "var(--m3-tertiary)"
+  codemirror-number:                  "var(--m3-secondary)"
+  codemirror-comment:                 "var(--m3-outline)"
+
+  # Ripple / interaction
+  mdc-ripple-color:                   "var(--m3-primary)"
+
+  # Scrollbar
+  scrollbar-thumb-color:              "var(--m3-outline-variant)"
+
+  # Energy
+  energy-grid-consumption-color:      "var(--m3-error)"
+  energy-grid-return-color:           "var(--m3-success)"
+  energy-solar-color:                 "var(--m3-warning)"
+  energy-battery-in-color:            "var(--m3-info)"
+  energy-battery-out-color:           "var(--m3-tertiary)"
+
+  # History / Graph
+  graph-color:                        "var(--m3-primary)"
+
+  # Toast / notification
+  toast-background-color:             "var(--m3-inverse-surface)"
+  toast-text-color:                   "var(--m3-inverse-on-surface)"
+  bubble-font-family:                 "'Exo 2', 'Exo', 'Share Tech', sans-serif"
+
+  ## ── Header Position (Bottom) ───────────────────────────────────────────
+  card-mod-theme: Material 3
+  header-height: "56px"
+  card-mod-root-yaml: |
+    .: |
+      .header {
+        top: auto !important;
+        bottom: 0px !important;
+        height: var(--header-height) !important;
+      }
+      #view {
+        transform: initial;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100%;
+        padding-top: calc(-1 * var(--header-height)) !important;
+        padding-bottom: var(--header-height) !important;
+      }
+
+  ## ── Mode-specific overrides ─────────────────────────────────────────────
+  modes:
+
+    ## ── LIGHT MODE ────────────────────────────────────────────────────────
+    light:
+      ## Key Color Palette (change THESE to re-theme light mode) ────────────
+      m3-primary:                       "#5B6BBF"
+      m3-on-primary:                    "#FFFFFF"
+      m3-primary-container:             "#DEE0FF"
+      m3-on-primary-container:          "#141B6F"
+      m3-secondary:                     "#5B5D72"
+      m3-on-secondary:                  "#FFFFFF"
+      m3-secondary-container:           "#E0E1F9"
+      m3-on-secondary-container:        "#181A2C"
+      m3-tertiary:                      "#775690"
+      m3-on-tertiary:                   "#FFFFFF"
+      m3-tertiary-container:            "#F3DAFF"
+      m3-on-tertiary-container:         "#2E0F47"
+      m3-error:                         "#BA1A1A"
+      m3-on-error:                      "#FFFFFF"
+      m3-error-container:               "#FFDAD6"
+      m3-on-error-container:            "#410002"
+      m3-surface:                       "#FBF8FF"
+      m3-surface-dim:                   "#DAD9E2"
+      m3-surface-bright:                "#FBF8FF"
+      m3-surface-container-lowest:      "#FFFFFF"
+      m3-surface-container-low:         "#F5F2FB"
+      m3-surface-container:             "#EFEDF5"
+      m3-surface-container-high:        "#E9E7F0"
+      m3-surface-container-highest:     "#E4E1EA"
+      m3-on-surface:                    "#1B1B22"
+      m3-on-surface-variant:            "#46464F"
+      m3-outline:                       "#777680"
+      m3-outline-variant:               "#C7C5D0"
+      m3-inverse-surface:               "#303037"
+      m3-inverse-on-surface:            "#F3F0F8"
+      m3-inverse-primary:               "#BAC3FF"
+      m3-shadow:                        "#000000"
+      m3-success:                       "#3B6B39"
+      m3-warning:                       "#7D5700"
+      m3-info:                          "#00658E"
+
+      ## Light-specific HA overrides ────────────────────────────────────────
+      card-background-color:            "var(--m3-surface-container-lowest)"
+      ha-card-background:               "var(--m3-surface-container-lowest)"
+      ha-card-box-shadow:               "0px 1px 3px 1px rgba(0,0,0,0.08), 0px 1px 2px 0px rgba(0,0,0,0.10)"
+      disabled-text-color:              "rgba(27, 27, 34, 0.38)"
+      mdc-dialog-scrim-color:           "rgba(0, 0, 0, 0.32)"
+      table-row-background-color:       "var(--m3-surface-container-lowest)"
+      table-row-alternative-background-color: "var(--m3-surface-container-low)"
+      data-table-background-color:      "var(--m3-surface-container-lowest)"
+      markdown-code-background-color:   "var(--m3-surface-container)"
+      map-filter:                       "none"
+
+    ## ── DARK MODE ─────────────────────────────────────────────────────────
+    dark:
+      ## Key Color Palette (change THESE to re-theme dark mode) ─────────────
+      m3-primary:                       "#BAC3FF"
+      m3-on-primary:                    "#242D7E"
+      m3-primary-container:             "#3D4696"
+      m3-on-primary-container:          "#DEE0FF"
+      m3-secondary:                     "#C4C4DD"
+      m3-on-secondary:                  "#2D2F42"
+      m3-secondary-container:           "#434559"
+      m3-on-secondary-container:        "#E0E1F9"
+      m3-tertiary:                      "#E1B8F8"
+      m3-on-tertiary:                   "#44265D"
+      m3-tertiary-container:            "#5D3D76"
+      m3-on-tertiary-container:         "#F3DAFF"
+      m3-error:                         "#FFB4AB"
+      m3-on-error:                      "#690005"
+      m3-error-container:               "#93000A"
+      m3-on-error-container:            "#FFDAD6"
+      m3-surface:                       "#131318"
+      m3-surface-dim:                   "#131318"
+      m3-surface-bright:                "#39393F"
+      m3-surface-container-lowest:      "#0E0E13"
+      m3-surface-container-low:         "#1B1B22"
+      m3-surface-container:             "#201F26"
+      m3-surface-container-high:        "#2A2A31"
+      m3-surface-container-highest:     "#35343B"
+      m3-on-surface:                    "#E4E1EA"
+      m3-on-surface-variant:            "#C7C5D0"
+      m3-outline:                       "#91909A"
+      m3-outline-variant:               "#46464F"
+      m3-inverse-surface:               "#E4E1EA"
+      m3-inverse-on-surface:            "#303037"
+      m3-inverse-primary:               "#5B6BBF"
+      m3-shadow:                        "#000000"
+      m3-success:                       "#8CD88A"
+      m3-warning:                       "#F5BF48"
+      m3-info:                          "#80CFFF"
+
+      ## Dark-specific HA overrides ─────────────────────────────────────────
+      card-background-color:            "var(--m3-surface-container)"
+      ha-card-background:               "var(--m3-surface-container)"
+      ha-card-box-shadow:               "0px 1px 3px 1px rgba(0,0,0,0.20), 0px 1px 2px 0px rgba(0,0,0,0.25)"
+      disabled-text-color:              "rgba(228, 225, 234, 0.38)"
+      mdc-dialog-scrim-color:           "rgba(0, 0, 0, 0.50)"
+      table-row-background-color:       "var(--m3-surface-container)"
+      table-row-alternative-background-color: "var(--m3-surface-container-high)"
+      data-table-background-color:      "var(--m3-surface-container)"
+      markdown-code-background-color:   "var(--m3-surface-container-high)"
+      map-filter:                       "invert(0.9) hue-rotate(170deg)"

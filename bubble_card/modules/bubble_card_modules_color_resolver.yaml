@@ -1,0 +1,61 @@
+color_resolver:
+  name: Color Resolver
+  description: Sets the Bubble Card icon color based on domain/state/device_class.
+  code: |
+    .bubble-icon {
+      color: ${(() => {
+        const st = hass?.states?.[entity];
+        if (!st) return 'var(--disabled-text-color)';
+
+        const domain = String(entity || '').split('.')[0]?.toLowerCase();
+        const state = String(st.state ?? '').toLowerCase();
+        const attrs = st.attributes || {};
+        const dc = String(attrs.device_class ?? '').toLowerCase();
+
+        const active = 'var(--primary-color)';
+        const inactive = 'var(--disabled-text-color)';
+        const warning = 'var(--error-color, var(--red))';
+
+        if (domain === 'light') return state === 'on' ? active : inactive;
+        if (domain === 'switch') return state === 'on' ? active : inactive;
+        if (domain === 'fan') return state === 'off' ? inactive : active;
+
+        if (domain === 'binary_sensor') {
+          if (['door', 'window', 'opening', 'moisture', 'smoke', 'gas'].includes(dc)) {
+            return state === 'on' ? warning : inactive;
+          }
+          return state === 'on' ? warning : inactive;
+        }
+
+        if (domain === 'sensor' && dc === 'battery') {
+          const level = attrs.battery_level ?? attrs.state_of_charge ?? null;
+          if (level === null) return inactive;
+          if (level < 20) return warning;
+          if (level < 50) return 'var(--amber-color, orange)';
+          return 'var(--success-color, var(--green))';
+        }
+
+        if (domain === 'climate') {
+          if (state === 'cooling') return 'var(--blue-color, #42a5f5)';
+          if (state === 'heating') return 'var(--orange-color, #ff9800)';
+          return inactive;
+        }
+
+        if (domain === 'media_player') {
+          if (state === 'playing') return active;
+          if (state === 'paused') return 'var(--amber-color, orange)';
+          return inactive;
+        }
+
+        if (domain === 'lock') return state === 'locked' ? active : warning;
+
+        if (domain === 'alarm_control_panel') {
+          if (state === 'triggered') return warning;
+          if (state.startsWith('armed')) return active;
+          return inactive;
+        }
+
+        return inactive;
+      })()} !important;
+    }
+  is_global: true

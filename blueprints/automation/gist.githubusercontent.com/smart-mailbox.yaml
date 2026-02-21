@@ -1,0 +1,239 @@
+blueprint:
+  name: "\U0001F4EC Smart mailbox"
+  description: "# \U0001F4EC Smart mailbox `v1.0.1`\nThis Blueprint detects mail deposits
+    and collections in your mailbox using a motion sensor, confirmation entities,
+    and optional counters or datetime entities.\n## ✨ Key features\n - Use a **mail
+    counter** ([Create a counter](https://my.home-assistant.io/redirect/config_flow_start?domain=counter))
+    to track the number of mails in the mailbox.\n - Record the **date and time**
+    ([Create an input_datetime](https://my.home-assistant.io/redirect/config_flow_start?domain=input_datetime))
+    of the last mail deposit and collection with datetime entities.\n - Trigger **custom
+    actions** for deposits or collections.\n\n## \U0001F3AC Scenarios\n<details> <summary><b>See
+    details...</b></summary>\n\n### \U0001F4ED Mail collection\nThe user checks their
+    mailbox, triggering the motion sensor inside the mailbox. The configured timeout
+    provides enough time for the automation to check if any mail collection confirmation
+    sensors (e.g., a door sensor or a switch) were triggered within that period.\n####
+    Scenario A\nThe user checks the mailbox **first**, then enters their home, triggering
+    the door sensor or a switch.\n#### Scenario B\nThe user exits their home (triggering
+    the door sensor or a switch) **first**, then checks the mailbox.\n\nIn both cases,
+    the timeout allows the automation to determine that this activity is most likely
+    a **collection** rather than a deposit.\n### \U0001F4EC Mail deposit\nWhen mail
+    is deposited, the motion sensor inside the mailbox is triggered. If no confirmation
+    entities (e.g., door or window sensors, switches) are activated during the timeout
+    period, the automation classifies this as a **deposit**. </details>\n"
+  domain: automation
+  author: Eroak
+  homeassistant:
+    min_version: 2024.6.0
+  input:
+    detection:
+      name: Detection configuration*
+      icon: mdi:eye-check
+      input:
+        motion_sensor:
+          name: "\U0001F575️ Motion sensor"
+          description: The motion sensor inside the mailbox that detects activity
+            in the mailbox (deposit or collection).
+          selector:
+            entity:
+              filter:
+              - domain:
+                - binary_sensor
+                device_class:
+                - occupancy
+                - moving
+                - motion
+              reorder: false
+              multiple: false
+    collection:
+      name: Collection detection settings*
+      description: '> These parameters allow you to configure which entities and within
+        what timeframe the verification will confirm that it is a collection and not
+        a mail deposit.
+
+        '
+      icon: mdi:call-split
+      input:
+        timeout_in_seconds:
+          name: ⏲️ Timeout delay
+          description: 'The delay (in seconds) after motion detection to determine
+            if it was a deposit or a collection.
+
+            '
+          default: 45
+          selector:
+            number:
+              min: 0.0
+              max: 120.0
+              step: 5.0
+              unit_of_measurement: seconds
+              mode: slider
+        collection_confirming_entities:
+          name: ⏻ Entities confirming collection
+          description: 'List of entities (e.g. door sensors, window sensors or switches)
+            that trigger an event during the configured timeout period.
+
+            These entities help to confirm if the motion detection in the mailbox
+            corresponds to a mail collection.
+
+            '
+          selector:
+            entity:
+              multiple: true
+              filter:
+              - domain:
+                - binary_sensor
+                - switch
+                device_class:
+                - door
+                - window
+              reorder: false
+    indicators:
+      name: Counter and datetimes indicators (optional)
+      icon: mdi:clipboard-text-clock-outline
+      collapsed: true
+      description: '> Count and save the date of the last deposit or collection
+
+        '
+      input:
+        mailbox_counter:
+          name: "\U0001F522 Mail counter (optional)"
+          description: 'A counter entity to track the number of mails in the mailbox.
+
+            '
+          default: ''
+          selector:
+            entity:
+              domain:
+              - counter
+              reorder: false
+              multiple: false
+        last_deposit_input_datetime:
+          name: "\U0001F4C5 Last deposit datetime (optional)"
+          description: 'An entity to store the date and time of the last mail deposit.
+
+            '
+          default: ''
+          selector:
+            entity:
+              domain:
+              - input_datetime
+              reorder: false
+              multiple: false
+        last_collect_input_datetime:
+          name: "\U0001F4C5 Last collection datetime (optional)"
+          description: 'An entity to store the date and time of the last mail collection.
+
+            '
+          default: ''
+          selector:
+            entity:
+              domain:
+              - input_datetime
+              reorder: false
+              multiple: false
+    actions:
+      name: Custom actions (optional)
+      description: '> These actions will be executed right after the timeout period
+        has elapsed, as the automation is only able to determine whether it is a collection
+        or a deposit once the timeout period has elapsed.
+
+        '
+      icon: mdi:checkbox-marked-circle-auto-outline
+      collapsed: true
+      input:
+        actions_in:
+          name: "\U0001F4EC Actions after mail deposit (optional)"
+          description: 'Actions to execute after a mail deposit is detected.
+
+            '
+          default: []
+          selector:
+            action: {}
+        actions_out:
+          name: "\U0001F4ED Actions after mail collection (optional)"
+          description: 'Actions to execute after a mail collection is detected.
+
+            '
+          default: []
+          selector:
+            action: {}
+  source_url: https://gist.githubusercontent.com/eroak/a57940cec74fe389fdd537ade11c4390/raw/d386135d8ca289ac4efbf565ef3326199a6feae9/smart-mailbox.yaml
+mode: single
+triggers:
+- platform: state
+  entity_id: !input motion_sensor
+  from: 'off'
+  to: 'on'
+variables:
+  scriptTriggeredAt: '{{ as_timestamp(now()) }}'
+  timeoutInSeconds: !input timeout_in_seconds
+  collectionConfirmingEntities: !input collection_confirming_entities
+  mailboxCounter: !input mailbox_counter
+  lastDepositInputDatetime: !input last_deposit_input_datetime
+  lastCollectInputDatetime: !input last_collect_input_datetime
+  actionsIn: !input actions_in
+  actionsOut: !input actions_out
+action:
+- alias: Wait before determining if it's a deposit or collection
+  delay: '{{ timeoutInSeconds }}'
+- if:
+  - alias: Check if no collection entities triggered within timeout
+    condition: template
+    value_template: "{% set result = namespace(allDurationsExceedTimeout = true) %}
+      {% for sensor in collectionConfirmingEntities %}\n    {% if result.allDurationsExceedTimeout
+      %}\n        {%- set delta = ((scriptTriggeredAt - as_timestamp(states[sensor].last_changed))
+      | round | abs) -%}\n        {% set result.allDurationsExceedTimeout = delta
+      > timeoutInSeconds %}\n    {% endif %}\n{% endfor %} {{ result.allDurationsExceedTimeout
+      }}"
+  then:
+  - alias: Mail deposited
+    parallel:
+    - alias: Increment mail counter if set
+      choose:
+      - conditions:
+        - condition: template
+          value_template: '{{ mailboxCounter != '''' }}'
+        sequence:
+        - service: counter.increment
+          target:
+            entity_id: '{{ mailboxCounter }}'
+    - alias: Set last deposit datetime if set
+      choose:
+      - conditions:
+        - condition: template
+          value_template: '{{ lastDepositInputDatetime != '''' }}'
+        sequence:
+        - service: input_datetime.set_datetime
+          target:
+            entity_id: '{{ lastDepositInputDatetime }}'
+          data:
+            timestamp: '{{ scriptTriggeredAt }}'
+    - alias: Trigger actions for deposit
+      choose: []
+      default: !input actions_in
+  else:
+  - alias: Mail collected
+    parallel:
+    - alias: Reset mail counter if set
+      choose:
+      - conditions:
+        - condition: template
+          value_template: '{{ mailboxCounter != '''' }}'
+        sequence:
+        - service: counter.reset
+          target:
+            entity_id: '{{ mailboxCounter }}'
+    - alias: Set last collection datetime if set
+      choose:
+      - conditions:
+        - condition: template
+          value_template: '{{ lastCollectInputDatetime != '''' }}'
+        sequence:
+        - service: input_datetime.set_datetime
+          target:
+            entity_id: '{{ lastCollectInputDatetime }}'
+          data:
+            timestamp: '{{ scriptTriggeredAt }}'
+    - alias: Trigger actions for collection
+      choose: []
+      default: !input actions_out

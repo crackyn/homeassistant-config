@@ -1,0 +1,46 @@
+title: Home
+path: floor-home-areas
+type: sections
+max_columns: 3
+icon: mdi:home
+show_icon_and_title: true
+subview: true
+dense_section_placement: true
+cards: []
+sections:
+  - type: grid
+    cards:
+      - type: heading
+        heading: Common Areas
+      - type: grid
+        columns: 3
+        square: false
+        cards:
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Upstairs <br>Hallway
+              icon: mdi:door-open
+              background: var(--gradient-purple)
+              navigation_path: home
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Hallway
+              icon: mdi:door-open
+              background: var(--gradient-teal)
+              navigation_path: home
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Stairs
+              icon: mdi:stairs
+              background: var(--gradient-blue)
+              navigation_path: home
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Basement <br>Stairs
+              icon: mdi:stairs-down
+              background: var(--gradient-orange)
+              navigation_path: home

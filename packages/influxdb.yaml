@@ -1,0 +1,26 @@
+pkg_influxdb:
+  influxdb:
+    api_version: 2
+    ssl: false
+    host: 192.168.0.10
+    port: 8086
+    token: !secret influxdb_token
+    organization: d0e0ee7d1269d9eb
+    bucket: homeassistant
+    tags:
+      source: HA
+    tags_attributes:
+      - friendly_name
+    default_measurement: units
+    exclude:
+      domains:
+        - persistent_notification
+        - person
+        - zone
+    include:
+      domains:
+        - sensor
+        - binary_sensor
+        - sun
+        - weather
+    

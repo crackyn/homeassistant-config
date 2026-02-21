@@ -1,0 +1,6 @@
+button_card_templates:
+  !include_dir_named ../../templates/button-cards/
+views:
+  !include_dir_list views/
+
+

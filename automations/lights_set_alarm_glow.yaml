@@ -1,0 +1,48 @@
+id: lights_set_alarm_glow
+alias: "Lights: Alarm Night Glow"
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - alarm_control_panel.home_alarm
+  - trigger: homeassistant
+    event: start
+conditions: []
+actions:
+  - choose:
+      - conditions:
+          - condition: state
+            entity_id: alarm_control_panel.home_alarm
+            state:
+              - disarmed
+        sequence:
+          - action: input_select.select_option
+            metadata: {}
+            target:
+              entity_id: input_select.night_glow
+            data:
+              option: green
+      - conditions:
+          - condition: state
+            entity_id: alarm_control_panel.home_alarm
+            state:
+              - armed_away
+              - armed_custom_bypass
+              - armed_home
+              - armed_night
+              - armed_vacation
+        sequence:
+          - action: input_select.select_option
+            metadata: {}
+            target:
+              entity_id: input_select.night_glow
+            data:
+              option: red
+    default:
+      - action: input_select.select_option
+        metadata: {}
+        target:
+          entity_id: input_select.night_glow
+        data:
+          option: blue
+mode: single

@@ -1,0 +1,32 @@
+title: System
+path: floor-system-areas
+type: sections
+max_columns: 3
+icon: mdi:cog
+show_icon_and_title: true
+subview: true
+dense_section_placement: true
+cards: []
+sections:
+  - type: grid
+    cards:
+      - type: heading
+        heading: System Areas
+      - type: grid
+        columns: 3
+        square: false
+        cards:
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Home
+              icon: mdi:home
+              background: var(--gradient-teal-purple)
+              navigation_path: system
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Unassigned
+              icon: mdi:help-circle-outline
+              background: var(--gradient-grey-cold)
+              navigation_path: system

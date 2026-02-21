@@ -1,0 +1,53 @@
+default_config:
+
+homeassistant:
+  name: Home
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  elevation: !secret home_elevation
+  time_zone: !secret home_timezone
+  unit_system: us_customary
+  customize: !include customize.yaml
+  packages: !include_dir_merge_named packages
+  auth_providers:
+    - type: trusted_networks
+      trusted_networks:
+        - !secret home_network_1
+        - !secret home_network_2
+    - type: homeassistant
+
+frontend:
+  themes: !include_dir_merge_named themes
+  extra_module_url:
+    - /hacsfiles/hass-hue-icons/hass-hue-icons.js
+    - /local/community/custom-brand-icons/custom-brand-icons.js
+    - /hacsfiles/material-you-utilities/material-you-utilities.min.js
+
+lovelace:
+  mode: storage
+  resources: !include_dir_list ui-lovelace/resources/
+  dashboards: !include ui-lovelace/dashboards.yaml
+
+http:
+  use_x_forwarded_for: true
+  ip_ban_enabled: false
+  trusted_proxies:
+    - !secret trusted_proxy_1
+    - !secret trusted_proxy_2
+    - !secret trusted_proxy_3
+
+  cors_allowed_origins:
+    - https://unpkg.com
+    - https://unpkg.com/lit-html@1/directives/style-map.js?module
+    - https://unpkg.com/lit-html@1/directives/if-defined?module
+    - https://unpkg.com/lit-html@%5E1.0.0?module
+    - https://unpkg.com/lit-html@1/directives/style-map.js?module
+
+automation ui: !include automations.yaml
+automation manual: !include_dir_list automations/
+scene ui: !include scenes.yaml
+scene manual: !include_dir_list scenes/
+script ui: !include scripts.yaml
+script manual: !include_dir_list scripts/
+
+python_script:

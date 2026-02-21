@@ -1,0 +1,203 @@
+type: sections
+max_columns: 3
+path: system
+title: System
+icon: mdi:cog
+show_icon_and_title: true
+subview: true
+dense_section_placement: true
+cards: []
+badges:
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: sensor.home_average_temperature
+    visibility:
+      - condition: state
+        entity: sensor.home_average_temperature
+        state_not: unavailable
+      - condition: state
+        entity: sensor.home_average_temperature
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: sensor.home_average_humidity
+    visibility:
+      - condition: state
+        entity: sensor.home_average_humidity
+        state_not: unavailable
+      - condition: state
+        entity: sensor.home_average_humidity
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: binary_sensor.motion_home
+    visibility:
+      - condition: state
+        entity: binary_sensor.motion_home
+        state_not: unavailable
+      - condition: state
+        entity: binary_sensor.motion_home
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: binary_sensor.occupancy_home
+    visibility:
+      - condition: state
+        entity: binary_sensor.occupancy_home
+        state_not: unavailable
+      - condition: state
+        entity: binary_sensor.occupancy_home
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: sensor.unassigned_average_temperature
+    visibility:
+      - condition: state
+        entity: sensor.unassigned_average_temperature
+        state_not: unavailable
+      - condition: state
+        entity: sensor.unassigned_average_temperature
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: sensor.unassigned_average_humidity
+    visibility:
+      - condition: state
+        entity: sensor.unassigned_average_humidity
+        state_not: unavailable
+      - condition: state
+        entity: sensor.unassigned_average_humidity
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: binary_sensor.motion_unassigned
+    visibility:
+      - condition: state
+        entity: binary_sensor.motion_unassigned
+        state_not: unavailable
+      - condition: state
+        entity: binary_sensor.motion_unassigned
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+  - type: entity
+    show_name: false
+    show_state: true
+    show_icon: true
+    entity: binary_sensor.occupancy_unassigned
+    visibility:
+      - condition: state
+        entity: binary_sensor.occupancy_unassigned
+        state_not: unavailable
+      - condition: state
+        entity: binary_sensor.occupancy_unassigned
+        state_not: unknown
+    card_mod:
+      style: ":host {\n  --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));\n  --label-badge-text-color:\
+        \ var(--m3-on-surface, var(--primary-text-color));\n}\n"
+sections:
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: home
+          domain: light
+          group_name: Home Lights
+          group_icon: mdi:lightbulb=group
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: home
+          domain: fan
+          group_name: Home Fans
+          group_icon: mdi:fan
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: home
+          domain: media_player
+          group_name: Home Media
+          group_icon: mdi:television-play
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: home
+          domain: switch
+          group_name: Home Switches
+          group_icon: mdi:light-switch
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: unassigned
+          domain: light
+          group_name: Unassigned Lights
+          group_icon: mdi:lightbulb=group
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: unassigned
+          domain: fan
+          group_name: Unassigned Fans
+          group_icon: mdi:fan
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: unassigned
+          domain: media_player
+          group_name: Unassigned Media
+          group_icon: mdi:television-play
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: unassigned
+          domain: switch
+          group_name: Unassigned Switches
+          group_icon: mdi:light-switch

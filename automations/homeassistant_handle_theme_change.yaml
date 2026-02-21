@@ -1,0 +1,45 @@
+id: homeassistant_handle_theme_change
+alias: Handle theme selection
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - input_select.theme_selector
+    from:
+      - Loading…
+    id: initilization
+  - trigger: state
+    entity_id:
+      - input_select.theme_selector
+    id: update
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+conditions: []
+actions:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id:
+              - initilization
+        sequence:
+          - action: input_select.select_option
+            metadata: {}
+            target:
+              entity_id: input_select.theme_selector
+            data:
+              option: |
+                {{ states('input_text.selected_theme') }}
+      - conditions:
+          - condition: trigger
+            id:
+              - update
+        sequence:
+          - action: input_text.set_value
+            metadata: {}
+            target:
+              entity_id: input_text.selected_theme
+            data:
+              value: "{{ states('input_select.theme_selector') }}"
+mode: single

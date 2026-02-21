@@ -1,0 +1,30 @@
+id: motion_lights_upstairs_hallway
+alias: "Motion Lights: Upstairs hallway"
+description: ""
+use_blueprint:
+  path: Blackshome/sensor-light.yaml
+  input:
+    motion_trigger:
+      - binary_sensor.motion_upstairs_hallway
+    light_switch:
+      entity_id: light.upstairs_hallway
+    time_delay: 1
+    include_light_control:
+      - use_brightness
+    light_brightness: 50
+    include_light_colour_control: use_colour_temperature
+    include_dim_before_off: dim_before_off_enabled
+    include_night_lights: night_lights_enabled
+    night_lights_conditions:
+      - entity_state_enabled
+    night_lights_entity_state:
+      - binary_sensor.nighttime
+    night_lights:
+      entity_id: light.upstairs_hallway
+    night_time_delay: 1
+    include_night_light_control:
+      - use_brightness
+      - if_lights_are_on_adjust_when_crossing_over
+    night_light_brightness: 10
+    night_light_transition_on: 0.5
+    night_glow_light_brightness: 20

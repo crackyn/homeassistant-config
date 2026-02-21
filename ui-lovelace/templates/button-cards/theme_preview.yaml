@@ -1,0 +1,62 @@
+---
+  theme_preview:
+    show_name: true
+    show_icon: false
+    show_state: false
+    name: '[[[ return variables.theme_name + " (" + (variables.mode || "light") + ")"; ]]]'
+    tap_action:
+      action: call-service
+      service: frontend.set_theme
+      service_data:
+        name: "[[[ return variables.theme_name; ]]]"
+        mode: '[[[ return variables.mode || "light"; ]]]'
+    styles:
+      card:
+        - padding: 12px
+        - border-radius: 12px
+        - background: |
+            [[[
+              const theme = (entity?.attributes?.themes || {})[variables.theme_name] || {};
+              const mode = variables.mode || "light";
+              const modeData = theme.modes?.[mode] || theme;
+              return modeData["card-background-color"] || modeData["primary-background-color"] || "#1c1c1c";
+            ]]]
+      name:
+        - font-size: 16px
+        - font-weight: bold
+        - justify-self: center
+        - color: |
+            [[[
+              const mode = variables.mode || "light";
+              return mode === "dark" ? "#e1e1e1" : "#1c1c1c";
+            ]]]
+      custom_fields:
+        swatches:
+          - margin-top: 10px
+    custom_fields:
+      swatches: |
+        [[[
+          const theme = (entity?.attributes?.themes || {})[variables.theme_name] || {};
+          const mode = variables.mode || "light";
+          
+          // Get the mode-specific data (Material 3 themes have modes.light/modes.dark)
+          // Legacy themes without modes are at the top level
+          const modeData = theme.modes?.[mode] || theme;
+          
+          // The scan_themes.py script resolves all var() to hex values
+          // and outputs standardized keys with actual colors
+          const colors = [
+            modeData["primary-color"] || "#808080",
+            modeData["accent-color"] || "#808080",
+            modeData["primary-background-color"] || "#808080",
+            modeData["card-background-color"] || "#808080"
+          ];
+
+          return `
+            <div style="display:flex; gap:8px; justify-content:center;">
+              ${colors.map(c => `
+                <div style="width:26px; height:26px; background:${c}; border-radius:4px; border:1px solid rgba(128,128,128,0.3);"></div>
+              `).join('')}
+            </div>
+          `;
+        ]]]

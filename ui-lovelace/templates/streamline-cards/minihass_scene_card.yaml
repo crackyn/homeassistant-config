@@ -1,0 +1,4 @@
+card:
+  type: "custom:button-card"
+  template:
+    - custom_card_scene

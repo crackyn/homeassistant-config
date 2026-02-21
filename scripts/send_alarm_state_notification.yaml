@@ -1,0 +1,45 @@
+send_alarm_state_notification:
+  sequence:
+  - parallel:
+    - action: universal_notifier.send
+      metadata: {}
+      data:
+        priority: true
+        skip_greeting: true
+        include_time: true
+        bold_prefix: true
+        title: Alarm Details
+        assistant_name: HA-Ring
+        message: Home alarm {{alarm_status}}
+        targets:
+        - chips_phone
+        - nikkis_phone
+        - telegram_bot
+    - action: universal_notifier.send
+      metadata: {}
+      data:
+        priority: true
+        skip_greeting: true
+        message: Alarm {{alarm_status}}
+        targets:
+        - alexa_bedroom
+        - alexa_dining_room
+        - alexa_kitchen
+        - alexa_garage
+        - alexa_gym
+        - alexa_living_room
+        - alexa_master_bedroom
+        - alexa_upstairs_hallway_bathroom
+  fields:
+    alarm_status:
+      selector:
+        select:
+          options:
+          - Armed Home
+          - Armed Away
+          - Disarmed
+      default: Disarmed
+  alias: Send Alarm details
+  description: ''
+  mode: parallel
+  max: 10

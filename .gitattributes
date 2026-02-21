@@ -1,0 +1,23 @@
+# Auto detect text files and normalise line endings
+* text eol=lf
+*.md   text eol=lf
+*.txt  text eol=lf
+
+# YAML files
+*.yaml text eol=lf
+*.yml  text eol=lf
+
+# Text
+*.md   text eol=lf
+*.txt  text eol=lf
+
+*      text eol=lf
+*.ts   whitespace=error
+*.js   whitespace=error
+*.py   whitesspace=error
+
+*.jpg  binary
+*.zip  binary
+*.mp3  binary
+*.ico  binary
+*.png  binary

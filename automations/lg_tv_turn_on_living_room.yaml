@@ -1,0 +1,8 @@
+id: lg_tv_turn_on_living_room
+alias: "LG TV: Turn on living room"
+description: ""
+use_blueprint:
+  path: cvroque/webostv_turn_on.yaml
+  input:
+    webostv: 143e02b0432bb005da3feff029b546fc
+    webostv_button: button.wake_on_lan_44_27_45_d2_f9_38

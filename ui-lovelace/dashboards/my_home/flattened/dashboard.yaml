@@ -1,0 +1,5012 @@
+button_card_templates:
+  custom_card_alarm:
+    variables:
+      state_name_on: null
+      state_name_off: null
+      state_icon_color_on: null
+      animation: null
+    state:
+      - value: 'off'
+        name: '[[[ return variables.state_name_off ]]]'
+        styles:
+          custom_fields:
+            icon:
+              - opacity: 0.25
+              - color: var(--contrast-33)
+          label:
+            - opacity: 0.25
+      - value: 'on'
+        name: '[[[ return variables.state_name_on ]]]'
+        styles:
+          custom_fields:
+            icon:
+              - color: '[[[ return variables.state_icon_color_on ]]]'
+              - animation: '[[[ return variables.animation ]]]'
+          label:
+            - font-weight: 700
+          name:
+            - animation: '[[[ return variables.animation ]]]'
+    extra_styles: |
+      @keyframes scale {
+        0% {transform: scale(1); opacity: 1}
+        25% {transform: scale(1.1);}
+        50% {transform: scale(.9); opacity: 0}
+        75% {transform: scale(1.1);}
+        100% {scale: rotate(1); opacity: 1}
+      }
+
+      @keyframes shake {
+        0% {transform: rotate(0deg);}
+        25% {transform: rotate(-15deg);}
+        75% {transform: rotate(15deg);}
+        100% {transform: rotate(0deg);}
+      }
+  custom_card_camera:
+    variables:
+      name: null
+      icon: null
+      background: null
+    name: '[[[ return variables.name ]]]'
+    label: Show
+    icon: mdi:arrow-right
+    show_name: true
+    show_icon: true
+    show_label: true
+    show_state: false
+    styles:
+      grid:
+        - grid-template-areas: '"n n" "i l"'
+        - grid-template-columns: 35px 1fr
+        - grid-template-rows: 65% 35%
+        - column-gap: 0px
+        - row-gap: 0px
+      card:
+        - height: 100%
+        - border-radius: var(--border-radius)
+        - box-shadow: var(--box-shadow)
+        - padding: 1rem
+        - background: '[[[ return variables.background ]]]'
+        - aspect-ratio: 5/3
+      name:
+        - text-align: left
+        - font-size: var(--fs-500)
+        - font-family: var(--bubble-font-family)
+        - font-weight: 600
+        - justify-self: start
+        - align-self: end
+        - color: var(--color-white)
+      label:
+        - text-align: left
+        - font-size: var(--fs-400)
+        - font-family: var(--bubble-font-family)
+        - font-weight: 500
+        - justify-self: start
+        - align-self: center
+        - color: var(--color-white)
+      icon:
+        - color: var(--color-white)
+        - justify-self: start
+        - padding: 0
+        - margin: 0
+        - width: 25px
+      img_cell:
+        - justify-content: start
+      custom_fields:
+        icon:
+          - position: absolute
+          - height: 200%
+          - transform: rotate(-10deg)
+          - right: '-15%'
+          - top: '-10%'
+          - opacity: 20%
+          - color: var(--color-white)
+          - overflow: hidden
+    custom_fields:
+      icon: '[[[ return variables.icon ]]]'
+  custom_card_garbage:
+    custom_card_garbage_collection:
+      variables:
+        label: null
+        counter: null
+      label: '[[[ return variables.label ]]]'
+      show_name: false
+      show_icon: false
+      show_label: true
+      show_state: false
+      tap_action: none
+      styles:
+        grid:
+          - grid-template-areas: '"item1 l" "item1 item2"'
+          - grid-template-rows: 3fr 2fr
+          - grid-template-columns: 40% 55%
+          - column-gap: 5%
+          - row-gap: 8px
+        card:
+          - height: 100%
+          - border-radius: var(--border-radius)
+          - padding: 2rem
+          - overflow: visible
+          - justify-items: center
+          - justify-content: center
+        label:
+          - text-align: left
+          - font-size: var(--fs-600)
+          - font-family: var(--bubble-font-family)
+          - font-weight: 600
+          - justify-self: start
+          - align-self: end
+          - color: var(--contrast-100)
+        custom_fields:
+          item1:
+            - text-align: center
+            - font-size: var(--fs-xl)
+            - font-family: var(--bubble-font-family)
+            - font-weight: 700
+            - justify-self: center
+            - align-self: center
+            - color: var(--contrast-100)
+            - overflow: visible
+            - z-index: 1
+          item2:
+            - align-self: start
+            - align-content: start
+            - align-items: start
+            - background: none
+      custom_fields:
+        item1: |
+          [[[ return variables.counter ]]]
+        item2:
+          card:
+            type: custom:button-card
+            entity: '[[[ return entity.entity_id ]]]'
+            show_name: false
+            show_icon: true
+            show_label: true
+            show_state: false
+            tap_action:
+              action: toggle
+            styles:
+              grid:
+                - grid-template-areas: '"i l"'
+                - grid-template-rows: 1fr
+                - grid-template-columns: min-content 1fr
+                - column-gap: 8px
+              card:
+                - background: none
+                - overflow: visible
+                - padding: 0
+              label:
+                - text-align: left
+                - font-size: var(--fs-400)
+                - font-family: var(--bubble-font-family)
+                - font-weight: 500
+                - color: var(--contrast-66)
+                - text-align: left
+                - justify-self: start
+              img_cell:
+                - justify-self: center
+              icon:
+                - width: var(--button-small)
+                - color: var(--contrast-66)
+                - padding: 0
+                - margin: 0
+            state:
+              - value: 'off'
+                label: Notification off
+                icon: mdi:toggle-switch-off-outline
+              - value: 'on'
+                label: Notification on
+                icon: mdi:toggle-switch-outline
+  custom_card_header_left_back:
+    variables:
+      icon: null
+      navigation_path: null
+    icon: '[[[ return variables.icon ]]]'
+    show_name: false
+    show_icon: true
+    show_label: false
+    show_state: false
+    tap_action:
+      action: navigate
+      navigation_path: '[[[ return variables.navigation_path ]]]'
+    styles:
+      card:
+        - height: 30px
+        - width: 68px
+        - border-radius: 50px
+        - background: var(--contrast-10)
+        - margin: 0
+        - padding: 0
+      img_cell:
+        - height: 100%
+      icon:
+        - width: 30%
+        - color: var(--contrast-33)
+  custom_card_header_people:
+    variables:
+      entity1: null
+      init1: null
+      entity2: null
+      init2: null
+      entity3: null
+      init3: null
+      entity4: null
+      init4: null
+      entity5: null
+      init5: null
+    show_name: false
+    show_icon: false
+    show_label: false
+    show_state: false
+    styles:
+      grid:
+        - grid-template-areas: '"item1 item2 item3 item4 item5"'
+        - grid-template-columns: min-content min-content min-content min-content 1fr
+        - column-gap: 8px
+      card:
+        - height: 100%
+        - border-radius: var(--border-radius)
+        - box-shadow: var(--border-radius)
+        - background: none
+        - padding: 0
+        - margin: 0
+        - overflow: visible
+        - z-index: 1
+    custom_fields:
+      item1:
+        card:
+          type: custom:button-card
+          entity: '[[[ return variables.entity1 ]]]'
+          name: '[[[ return variables.init1 ]]]'
+          show_name: true
+          show_icon: false
+          show_label: false
+          show_state: false
+          tap_action:
+            action: more-info
+          styles:
+            card:
+              - height: 30px
+              - width: 30px
+              - border-radius: 50px
+              - background: var(--contrast-10)
+              - margin: 0
+            name:
+              - text-align: center
+              - font-size: var(--fs-300)
+              - font-family: var(--bubble-font-family)
+              - font-weight: 600
+              - align-self: center
+              - color: var(--contrast-33)
+          state:
+            - value: home
+              styles:
+                card:
+                  - background: var(--color-green)
+                name:
+                  - color: var(--color-white)
+      item2:
+        card:
+          type: custom:button-card
+          entity: '[[[ return variables.entity2 ]]]'
+          name: '[[[ return variables.init2 ]]]'
+          show_name: true
+          show_icon: false
+          show_label: false
+          show_state: false
+          tap_action:
+            action: more-info
+          styles:
+            card:
+              - height: 30px
+              - width: 30px
+              - border-radius: 50px
+              - background: var(--contrast-10)
+              - margin: 0
+            name:
+              - text-align: center
+              - font-size: var(--fs-300)
+              - font-family: var(--bubble-font-family)
+              - font-weight: 600
+              - align-self: center
+              - color: var(--contrast-33)
+          state:
+            - value: home
+              styles:
+                card:
+                  - background: var(--color-green)
+                name:
+                  - color: var(--color-white)
+      item3:
+        card:
+          type: custom:button-card
+          entity: '[[[ return variables.entity3 ]]]'
+          name: '[[[ return variables.init3 ]]]'
+          show_name: true
+          show_icon: false
+          show_label: false
+          show_state: false
+          tap_action:
+            action: more-info
+          styles:
+            card:
+              - height: 30px
+              - width: 30px
+              - border-radius: 50px
+              - background: var(--contrast-10)
+              - margin: 0
+            name:
+              - text-align: center
+              - font-size: var(--fs-300)
+              - font-family: var(--bubble-font-family)
+              - font-weight: 600
+              - align-self: center
+              - color: var(--contrast-33)
+          state:
+            - value: home
+              styles:
+                card:
+                  - background: var(--color-green)
+                name:
+                  - color: var(--color-white)
+      item4:
+        card:
+          type: custom:button-card
+          entity: '[[[ return variables.entity4 ]]]'
+          name: '[[[ return variables.init4 ]]]'
+          show_name: true
+          show_icon: false
+          show_label: false
+          show_state: false
+          tap_action:
+            action: more-info
+          styles:
+            card:
+              - height: 30px
+              - width: 30px
+              - border-radius: 50px
+              - background: var(--contrast-10)
+              - margin: 0
+            name:
+              - text-align: center
+              - font-size: var(--fs-300)
+              - font-family: var(--bubble-font-family)
+              - font-weight: 600
+              - align-self: center
+              - color: var(--contrast-33)
+          state:
+            - value: home
+              styles:
+                card:
+                  - background: var(--color-green)
+                name:
+                  - color: var(--color-white)
+      item5:
+        card:
+          type: custom:button-card
+          entity: '[[[ return variables.entity5 ]]]'
+          name: '[[[ return variables.init5 ]]]'
+          show_name: true
+          show_icon: false
+          show_label: false
+          show_state: false
+          tap_action:
+            action: more-info
+          styles:
+            card:
+              - height: 30px
+              - width: 30px
+              - border-radius: 50px
+              - background: var(--contrast-10)
+              - margin: 0
+            name:
+              - text-align: center
+              - font-size: var(--fs-300)
+              - font-family: var(--bubble-font-family)
+              - font-weight: 600
+              - align-self: center
+              - color: var(--contrast-33)
+          state:
+            - value: home
+              styles:
+                card:
+                  - background: var(--color-green)
+                name:
+                  - color: var(--color-white)
+  custom_card_header_right:
+    variables:
+      entity1: null
+      icon1: null
+      entity2: null
+      icon2: null
+    show_name: false
+    show_icon: false
+    show_label: false
+    show_state: false
+    styles:
+      grid:
+        - grid-template-areas: '"item1 item2"'
+        - grid-template-columns: 1fr min-content
+        - column-gap: 8px
+      card:
+        - height: 100%
+        - border-radius: var(--border-radius)
+        - box-shadow: var(--border-radius)
+        - background: none
+        - overflow: visible
+        - margin: 0
+        - padding: 0
+      custom_fields:
+        item1:
+          - justify-self: end
+        item2:
+          - justify-self: end
+    custom_fields:
+      item1:
+        card:
+          type: custom:button-card
+          entity: '[[[ return variables.entity1 ]]]'
+          show_name: false
+          show_icon: true
+          show_label: false
+          show_state: false
+          tap_action:
+            action: more-info
+          styles:
+            card:
+              - height: 30px
+              - width: 30px
+              - margin: 0
+              - padding: 0
+              - border-radius: 50px
+              - background: var(--contrast-10)
+              - justify-self: end
+            img_cell:
+              - height: 100%
+            icon:
+              - width: 60%
+              - color: var(--contrast-33)
+          state:
+            - value: arming
+              icon: mdi:shield-refresh-outline
+              styles:
+                card:
+                  - animation:
+                      - flash 2s linear infinite
+            - value: armed_home
+              icon: mdi:shield-outline
+              styles:
+                icon:
+                  - color: var(--color-green)
+                  - animation:
+                      - rotate 4s linear infinite
+            - value: armed_away
+              icon: mdi:shield-outline
+              styles:
+                icon:
+                  - color: var(--color-red)
+                  - animation:
+                      - rotate 4s linear infinite
+            - value: disarmed
+              icon: mdi:shield-off-outline
+          extra_styles: |
+            @keyframes flash {
+              0% {opacity: 100%;}
+              50% {opacity: 0%;}
+              100% {opacity: 100%;}
+            }
+            @keyframes rotate {
+              from {transform: rotateY(-deg);}
+              to {transform: rotateY(360deg);}
+            }
+      item2:
+        card:
+          type: custom:button-card
+          entity: '[[[ return variables.entity2 ]]]'
+          icon: '[[[ return variables.icon2 ]]]'
+          show_name: false
+          show_icon: true
+          show_label: false
+          show_state: false
+          styles:
+            card:
+              - height: 30px
+              - width: 30px
+              - margin: 0
+              - padding: 0
+              - border-radius: 50px
+              - background: var(--contrast-10)
+              - justify-self: end
+            img_cell:
+              - height: 100%
+            icon:
+              - width: 60%
+              - color: var(--contrast-33)
+  custom_card_light:
+    variables:
+      light_name: null
+      light_label: null
+    entity: '[[[ return entity.entity_id ]]]'
+    name: '[[[ return variables.light_name ]]]'
+    label: '[[[ return variables.light_label ]]]'
+    show_name: true
+    show_icon: true
+    show_label: true
+    show_state: false
+    styles:
+      grid:
+        - grid-template-areas: '". icon" "n n" "l i"'
+        - grid-template-rows: 1fr 1fr 1fr
+        - grid-template-columns: 1fr 1fr
+        - row-gap: 8px
+      card:
+        - height: 100%
+        - border-radius: var(--border-radius)
+        - box-shadow: var(--box-shadow)
+        - padding: 1rem
+      img_cell:
+        - justify-content: end
+        - overflow: hidden
+        - padding: 0 0 0 0
+      icon:
+        - justify-self: end
+        - align-self: center
+        - color: var(--color-white)
+        - width: var(--button-small)
+        - padding: 0 0 0 0
+        - overflow: hidden
+      name:
+        - text-align: left
+        - font-size: var(--fs-500)
+        - font-family: var(--bubble-font-family)
+        - font-weight: 600
+        - justify-self: start
+        - align-self: end
+        - color: var(--contrast-100)
+        - overflow: visible
+      label:
+        - text-align: left
+        - font-size: var(--fs-400)
+        - font-family: var(--bubble-font-family)
+        - font-weight: 500
+        - justify-self: start
+        - align-self: center
+        - color: var(--contrast-100)
+        - overflow: visible
+      custom_fields:
+        icon:
+          - width: 12px
+          - justify-self: end
+          - color: var(--contrast-33)
+    state:
+      - value: 'off'
+        icon: mdi:toggle-switch-off-outline
+        styles:
+          icon:
+            - color: var(--contrast-33)
+      - value: 'on'
+        icon: mdi:toggle-switch-outline
+        styles:
+          card:
+            - background: var(--color-yellow)
+          name:
+            - color: var(--contrast-0)
+          label:
+            - color: var(--contrast-0)
+          icon:
+            - color: var(--contrast-0)
+          custom_fields:
+            icon:
+              - color: var(--contrast-0)
+    custom_fields:
+      icon: |
+        [[[
+          if (entity.state == "on"){
+            return '<ha-icon icon="fas:lightbulb"></ha-icon>';
+          } else {
+            return '<ha-icon icon="far:lightbulb"></ha-icon>';
+          }
+        ]]]
+    hold_action:
+      action: more-info
+  custom_card_navigate:
+    variables:
+      name: null
+      icon: null
+      background: null
+      navigation_path: null
+    name: '[[[ return variables.name ]]]'
+    icon: '[[[ return variables.icon ]]]'
+    show_name: true
+    show_icon: true
+    show_label: false
+    show_state: false
+    tap_action:
+      action: navigate
+      navigation_path: '[[[ return variables.navigation_path ]]]'
+    styles:
+      grid:
+        - grid-template-areas: '"n" "ent1"'
+        - grid-template-rows: 1fr 1fr
+        - column-gap: 10px
+      card:
+        - height: 100%
+        - border-radius: var(--border-radius)
+        - box-shadow: var(--box-shadow)
+        - padding: 1rem
+        - background: '[[[ return variables.background ]]]'
+        - overflow: hidden
+        - aspect-ratio: 3/2
+      name:
+        - position: absolute
+        - top: 1rem
+        - text-align: left
+        - font-size: var(--fs-500)
+        - font-family: var(--bubble-font-family)
+        - font-weight: 600
+        - justify-self: start
+        - align-self: start
+        - color: var(--color-white)
+        - z-index: 2
+        - overflow: visible
+      img_cell:
+        - position: absolute
+        - top: 20%
+        - left: 40%
+        - overflow: visible
+      icon:
+        - position: absolute
+        - width: 20em
+        - opacity: 20%
+        - color: var(--color-white)
+        - transform: rotate(-20deg)
+      custom_fields:
+        ent1:
+          - justify-self: start
+          - align-self: end
+  custom_card_scene:
+    show_name: true
+    show_icon: false
+    show_label: true
+    show_state: false
+    tap_action: none
+    styles:
+      grid:
+        - grid-template-areas: '"item1 item2 item3" "n n n" "l l l"'
+        - grid-template-columns: 1fr min-content min-content
+        - grid-template-rows: 1fr min-content min-content
+        - column-gap: .5rem
+        - row-gap: 4px
+      card:
+        - height: 100%
+        - border-radius: var(--border-radius)
+        - box-shadow: var(--box-shadow)
+        - padding: .5rem .5rem 1rem 1rem
+      name:
+        - text-align: left
+        - font-size: var(--fs-400)
+        - font-family: var(--bubble-font-family)
+        - font-weight: 500
+        - justify-self: start
+        - align-self: end
+        - color: rgba(var(--color-white),.66)
+      label:
+        - text-align: left
+        - font-size: var(--fs-800-resp)
+        - font-family: var(--bubble-font-family)
+        - font-weight: 500
+        - justify-self: start
+        - align-self: end
+        - color: rgba(var(--color-white),1)
+      custom_fields:
+        item1:
+          - justify-self: end
+          - align-self: start
+        item2:
+          - justify-self: end
+          - align-self: start
+        item3:
+          - justify-self: end
+          - align-self: start
+    state:
+      - value: None
+        styles:
+          name:
+            - color: rgba(var(--contrast-100),.66)
+            - opacity: 0.33
+          label:
+            - color: rgba(var(--contrast-100),.66)
+      - value: Office Mood
+        label: Office Mood
+        styles:
+          card:
+            - background: var(--gradient-orange)
+      - value: Movie Time
+        label: Movie Time
+        styles:
+          card:
+            - background: var(--gradient-purple)
+      - value: Night
+        label: Night
+        styles:
+          card:
+            - background: var(--gradient-blue)
+    custom_fields:
+      item1:
+        card:
+          type: custom:button-card
+          icon: mdi:laptop
+          entity: '[[[ return entity.entity_id ]]]'
+          show_state: false
+          show_icon: true
+          show_lable: false
+          show_name: false
+          tap_action:
+            action: call-service
+            service: |
+              [[[
+                if (states['input_select.scene_card'].state == "Office Mood"){
+                  return 'script.scene_none';
+                } else {
+                  return 'script.scene_office_mood';
+                }
+              ]]]
+          styles:
+            card:
+              - background: none
+            img_cell:
+              - height: 40px
+              - width: 40px
+              - background: rgba(var(--contrast-0),.5)
+              - border-radius: 50px
+              - align-self: start
+              - justify-self: end
+            icon:
+              - height: 100%
+              - justify-self: center
+              - color: rgba(var(--contrast-100),.25)
+          state:
+            - value: Office Mood
+              styles:
+                icon:
+                  - color: rgba(var(--color-white),1)
+            - value: None
+              styles:
+                icon:
+                  - color: rgba(var(--contrast-100),.25)
+                img_cell:
+                  - background: rgba(var(--contrast-0),.25)
+          extra_styles: |
+            :hover #icon{
+              transform: scale(1.25) !important;
+              transition: transform .3s ease-in-out;
+            }
+            :not(:hover) #icon{
+              transform: scale(1) !important;
+              transition: transform .6s ease-in-out;
+            }
+      item2:
+        card:
+          type: custom:button-card
+          icon: mdi:movie-roll
+          entity: '[[[ return entity.entity_id ]]]'
+          show_state: false
+          show_icon: true
+          show_lable: false
+          show_name: false
+          tap_action:
+            action: call-service
+            service: |
+              [[[
+                if (states['input_select.scene_card'].state == "Movie Time"){
+                  return 'script.scene_none';
+                } else {
+                  return 'script.scene_movie_time';
+                }
+              ]]]
+          styles:
+            card:
+              - background: none
+            img_cell:
+              - height: 40px
+              - width: 40px
+              - background: rgba(var(--contrast-0),.5)
+              - border-radius: 50px
+              - align-self: start
+              - justify-self: end
+            icon:
+              - height: 100%
+              - justify-self: center
+              - color: rgba(var(--contrast-100),.25)
+          state:
+            - value: Movie Time
+              styles:
+                icon:
+                  - color: rgba(var(--color-white),1)
+            - value: None
+              styles:
+                icon:
+                  - color: rgba(var(--contrast-100),.25)
+                img_cell:
+                  - background: rgba(var(--contrast-0),.25)
+          extra_styles: |
+            :hover #icon{
+              transform: scale(1.25) !important;
+              transition: transform .3s ease-in-out;
+            }
+            :not(:hover) #icon{
+              transform: scale(1) !important;
+              transition: transform .6s ease-in-out;
+            }
+      item3:
+        card:
+          type: custom:button-card
+          icon: mdi:weather-night
+          entity: '[[[ return entity.entity_id ]]]'
+          show_state: false
+          show_icon: true
+          show_lable: false
+          show_name: false
+          tap_action:
+            action: call-service
+            service: |
+              [[[
+                if (states['input_select.scene_card'].state == "Night"){
+                  return 'script.scene_none';
+                } else {
+                  return 'script.scene_night';
+                }
+              ]]]
+          styles:
+            card:
+              - background: none
+            img_cell:
+              - height: 40px
+              - width: 40px
+              - background: rgba(var(--contrast-0),.5)
+              - border-radius: 50px
+              - align-self: start
+              - justify-self: end
+            icon:
+              - height: 100%
+              - justify-self: center
+              - color: rgba(var(--contrast-100),.25)
+          state:
+            - value: Night
+              styles:
+                icon:
+                  - color: rgba(var(--color-white),1)
+            - value: None
+              styles:
+                icon:
+                  - color: rgba(var(--contrast-100),.25)
+                img_cell:
+                  - background: rgba(var(--contrast-0),.25)
+          extra_styles: |
+            :hover #icon{
+              transform: scale(1.25) !important;
+              transition: transform .3s ease-in-out;
+            }
+            :not(:hover) #icon{
+              transform: scale(1) !important;
+              transition: transform .6s ease-in-out;
+            }
+  custom_card_section_title:
+    variables:
+      section_title: null
+      section_label: null
+    name: '[[[ return variables.section_title ]]]'
+    label: '[[[ return variables.section_label ]]]'
+    show_icon: false
+    show_state: false
+    styles:
+      card:
+        - height: auto
+        - width: auto
+        - border-radius: var(--border-radius)
+        - box-shadow: var(--border-radius)
+        - background: none
+        - margin-top: 0.4rem
+        - margin-left: 1rem
+      name:
+        - color: var(--contrast-100)
+        - font-size: var(--fs-600)
+        - font-family: var(--bubble-font-family)
+        - font-weight: 600
+        - text-align: left
+        - justify-self: start
+      label:
+        - color: var(--contrast-100)
+        - opacity: 0.5
+        - font-size: var(--fs-400)
+        - font-family: var(--bubble-font-family)
+        - font-weight: 400
+        - text-align: left
+        - justify-self: start
+  custom_card_security:
+    show_name: false
+    show_icon: false
+    show_label: true
+    show_state: false
+    tap_action: none
+    styles:
+      grid:
+        - grid-template-areas: '"item1 l" "item1 item2"'
+        - grid-template-rows: min-content min-content
+        - grid-template-columns: 40% 55%
+        - column-gap: 5%
+        - row-gap: 8px
+      card:
+        - height: 100%
+        - border-radius: var(--border-radius)
+        - padding: 2rem
+        - overflow: visible
+        - justify-items: center
+        - justify-content: center
+      label:
+        - text-align: left
+        - font-size: var(--fs-600)
+        - font-family: var(--bubble-font-family)
+        - font-weight: 600
+        - justify-self: start
+        - align-self: end
+        - color: var(--contrast-100)
+      custom_fields:
+        item2:
+          - align-self: start
+          - align-content: start
+          - align-items: start
+          - background: none
+    state:
+      - value: arming
+        label: Stand by...
+        styles:
+          label:
+            - animation:
+                - flash 2s linear infinite
+      - value: armed_home
+        icon: mdi:shield-outline
+        label: Armed Home
+      - value: armed_away
+        label: Armed Away
+      - value: disarmed
+        label: Disarmed
+    custom_fields:
+      item1:
+        card:
+          type: custom:button-card
+          entity: '[[[ return entity.entity_id ]]]'
+          show_name: false
+          show_icon: true
+          show_label: false
+          show_state: false
+          styles:
+            img_cell:
+              - height: 100px
+              - width: 100px
+              - box-shadow: var(--box-shadow-neo)
+              - border-radius: 200px
+              - justify-self: center
+              - align-self: start
+            icon:
+              - color: var(--contrast-66)
+          state:
+            - value: arming
+              icon: mdi:shield-refresh-outline
+              styles:
+                icon:
+                  - color: var(--color-orange)
+                  - animation:
+                      - flash 2s linear infinite
+            - value: armed_home
+              icon: mdi:shield-outline
+              styles:
+                icon:
+                  - color: var(--color-green)
+                  - animation:
+                      - rotate 4s linear infinite
+            - value: armed_away
+              icon: mdi:shield-outline
+              styles:
+                icon:
+                  - color: var(--color-orange)
+                  - animation:
+                      - rotate 4s linear infinite
+            - value: disarmed
+              icon: mdi:shield-off-outline
+          extra_styles: |
+            @keyframes flash {
+              0% {opacity: 100%;}
+              50% {opacity: 0%;}
+              100% {opacity: 100%;}
+            }
+            @keyframes rotate {
+              from {transform: rotateY(-deg);}
+              to {transform: rotateY(360deg);}
+            }
+      item2:
+        card:
+          type: custom:button-card
+          entity: '[[[ return entity.entity_id ]]]'
+          icon: mdi:dots-grid
+          label: Numpad
+          show_name: false
+          show_icon: true
+          show_label: true
+          show_state: false
+          tap_action:
+            action: more-info
+          styles:
+            grid:
+              - grid-template-areas: '"i l"'
+              - grid-template-rows: 1fr
+              - grid-template-columns: min-content 1fr
+              - column-gap: 8px
+            card:
+              - background: none
+              - overflow: visible
+              - padding: 0
+            label:
+              - text-align: left
+              - font-size: var(--fs-400)
+              - font-family: var(--bubble-font-family)
+              - font-weight: 500
+              - color: var(--contrast-66)
+              - text-align: left
+              - justify-self: start
+            img_cell:
+              - justify-self: center
+            icon:
+              - width: var(--button-small)
+              - color: var(--contrast-66)
+              - padding: 0
+              - margin: 0
+          state:
+            - value: arming
+              label: Activating
+            - value: armed_home
+              label: Deactive
+            - value: armed_away
+              label: Deactive
+            - value: disarmed
+              label: Activate
+    extra_styles: |
+      @keyframes flash {
+        0% {opacity: 100%;}
+        50% {opacity: 0%;}
+        100% {opacity: 100%;}
+      }
+      @keyframes rotate {
+        from {transform: rotateY(-deg);}
+        to {transform: rotateY(360deg);}
+      }
+  custom_field_alarm_entity:
+    variables:
+      alarm_color: null
+    show_name: true
+    show_icon: true
+    show_label: false
+    show_state: false
+    state:
+      - value: 'off'
+        styles:
+          img_cell:
+            - background: var(--contrast-33)
+      - value: 'on'
+        styles:
+          img_cell:
+            - background: '[[[ return variables.alarm_color ]]]'
+    styles:
+      grid:
+        - grid-template-areas: '"i n"'
+        - grid-template-rows: 1fr
+        - grid-template-columns: min-content 1fr
+        - column-gap: 8px
+      card:
+        - height: 100%
+        - background: none
+        - border-radius: var(--border-radius)
+        - box-shadow: var(--box-shadow)
+        - padding: .25rem .5rem
+      name:
+        - color: var(--contrast-100)
+        - text-align: left
+        - font-size: var(--fs-300)
+        - font-family: var(--bubble-font-family)
+        - font-weight: 500
+        - justify-self: start
+        - align-self: center
+        - overflow: visible
+      img_cell:
+        - height: 10px
+        - width: 10px
+        - border-radius: 20px
+      icon:
+        - opacity: 0
+  custom_field_alarm_silence:
+    name: Silence
+    show_name: true
+    show_icon: false
+    show_label: false
+    show_state: false
+    styles:
+      card:
+        - margin: 0
+        - padding: 0
+      name:
+        - color: var(--contrast-100)
+        - text-align: left
+        - font-size: var(--fs-400)
+        - font-family: var(--bubble-font-family)
+        - font-weight: 500
+        - justify-self: center
+        - align-self: center
+        - overflow: visible
+    state:
+      - value: 'off'
+        styles:
+          name:
+            - opacity: 0.25
+      - value: 'on'
+        styles:
+          name:
+            - font-weight: 600
+views:
+  - type: custom:masonry-layout
+    max_columns: 3
+    title: Home
+    icon: mdi:home
+    show_icon_and_title: true
+    subview: false
+    dense_section_placement: true
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: heading
+            heading_style: subtitle
+            heading: Weather
+          - type: weather-forecast
+            entity: weather.forecast_home
+            forecast_type: daily
+            show_current: true
+            show_forecast: true
+      - type: vertical-stack
+        cards:
+          - type: heading
+            heading_style: subtitle
+            heading: People
+          - square: true
+            type: grid
+            cards:
+              - type: custom:streamline-card
+                template: person_card
+                variables:
+                  slug: chip
+              - type: custom:streamline-card
+                template: person_card
+                variables:
+                  slug: nikki
+            columns: 2
+      - type: vertical-stack
+        cards:
+          - type: heading
+            heading_style: subtitle
+            heading: Climate
+          - type: thermostat
+            entity: climate.thermostat
+            features:
+              - type: climate-hvac-modes
+                hvac_modes:
+                  - 'off'
+                  - heat
+                  - cool
+                  - heat_cool
+                  - auto
+      - type: vertical-stack
+        cards:
+          - type: heading
+            heading_style: subtitle
+            heading: Floors
+          - square: false
+            type: grid
+            columns: 3
+            cards:
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Main <br> Floor
+                  icon: mdi:home-floor-1
+                  background: var(--gradient-blue)
+                  navigation_path: floor-main-floor
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Upstairs
+                  icon: mdi:home-floor-2
+                  background: var(--gradient-purple)
+                  navigation_path: floor-upstairs
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Basement
+                  icon: mdi:home-floor-negative-1
+                  background: var(--gradient-grey-cold)
+                  navigation_path: floor-basement
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Home
+                  icon: mdi:home
+                  background: var(--gradient-teal)
+                  navigation_path: floor-home-areas
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Outside
+                  icon: mdi:weather-sunny
+                  background: var(--gradient-green)
+                  navigation_path: floor-outside-areas
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: System
+                  icon: mdi:cog
+                  background: var(--gradient-orange)
+                  navigation_path: floor-system-areas
+      - type: vertical-stack
+        cards:
+          - type: heading
+            heading_style: subtitle
+            heading: Security
+          - type: custom:alarm-and-security-card
+            entity: alarm_control_panel.home_alarm
+            title: Home Alarm
+            colors:
+              disarm_active: darkgreen
+              disarm_inactive: grey
+              disarming: orange
+              armed_away: green
+              armed_stay: blue
+              armed_night: blue
+              armed_vacation: blue
+              armed_custom_bypass: yellow
+              arming: orange
+              pending: orange
+              triggered: red
+            name_mapping:
+              disarm_button: Disarm
+              disarmed: Disarmed
+              disarming: Disarming
+              armed_away: Armed
+              armed_stay: Armed (Home)
+              armed_night: Armed (Night)
+              armed_vacation: Armed (Vacation)
+              armed_custom_bypass: Armed (Bypass)
+              arming: Arming Soon
+              pending: Enter Code and Disarm
+              triggered: Alarm Triggered
+            zones:
+              - entity: binary_sensor.alarm_zone_1
+                name: Main Door
+                board_zone: 1
+              - entity: binary_sensor.alarm_zone_2
+                name: Downstairs
+                board_zone: 2
+              - entity: binary_sensor.alarm_zone_3
+                name: Upstairs
+                board_zone: 3
+              - entity: binary_sensor.alarm_zone_4
+                name: Upstairs
+                board_zone: 4
+              - entity: binary_sensor.alarm_zone_5
+                name: Motion
+                board_zone: 5
+              - entity: binary_sensor.alarm_zone_6
+                name: Fire
+                board_zone: 6
+              - entity: binary_sensor.alarm_zone_7
+                name: Gas
+                board_zone: 7
+              - entity: binary_sensor.alarm_zone_8
+                name: Panic
+                board_zone: 8
+            keypad:
+              hide_keypad_and_show_as_icon: false
+              show_keypad_borders: true
+              keypad_width: 100
+              keypad_height: 290
+              keypad_border_color: null
+              enable_3d_effects: true
+              effect_variant: soft
+              action_button_1: disarm
+              action_button_1_name: null
+              action_button_2: arm_away
+              action_button_2_name: Away
+              action_button_3: false
+              action_button_3_name: null
+              action_button_4: false
+              action_button_4_name: null
+              action_button_5: false
+              action_button_5_name: null
+            zone_view: open_only
+            view_open_only:
+              zone_section_title: Zones
+              hide_zone_section_icon: true
+              hide_zone_section_name: true
+              show_zone_numbers: true
+              show_zone_name: false
+              color: red
+            view_all_zones:
+              zone_section_title: Zones
+              hide_zone_section_icon: false
+              hide_zone_section_name: false
+              show_zone_numbers: true
+              show_zone_name: true
+              color_on: red
+              color_off: green
+              show_on: bottom
+            history:
+              hide_history: false
+              history_section_title: Activity
+              hide_history_section_icon: false
+              hide_history_section_name: false
+              max_items: 2
+              list_height: 105px
+              hours_to_show: 6
+              show_on: bottom
+            automations:
+              hide_automations: false
+              automation_section_title: Automations
+              hide_automation_section_icon: false
+              hide_automation_section_name: false
+              hide_last_triggered: false
+              automation_toggle_color: green
+              automation_list:
+                - automation.alarm_disam
+                - automation.alarm_armed_home
+                - automation.alarm_armed_away
+            grid_options:
+              columns: 12
+              rows: auto
+      - type: vertical-stack
+        cards:
+          - type: heading
+            heading_style: subtitle
+            heading: Network
+          - title: Main
+            state_color: false
+            type: entities
+            entities:
+              - entity: binary_sensor.pi_hole_main_status
+                name: Status
+              - entity: switch.pi_hole_main
+                name: Enabled
+              - entity: sensor.pi_hole_main_ads_blocked
+                name: Ads Blocked Today
+              - entity: sensor.pi_hole_main_ads_percentage_blocked
+                name: Percentage Blocked
+              - entity: sensor.pi_hole_main_dns_queries
+                name: DNS Queries Today
+          - type: custom:stack-in-card
+            cards:
+              - title: Main
+                state_color: false
+                type: entities
+                entities:
+                  - entity: binary_sensor.pi_hole_main_status
+                    name: Status
+                  - entity: switch.pi_hole_main
+                    name: Enabled
+                  - entity: sensor.pi_hole_main_ads_blocked
+                    name: Ads Blocked Today
+                  - entity: sensor.pi_hole_main_ads_percentage_blocked
+                    name: Percentage Blocked
+                  - entity: sensor.pi_hole_main_dns_queries
+                    name: DNS Queries Today
+              - title: Slave
+                state_color: false
+                type: entities
+                entities:
+                  - entity: binary_sensor.pi_hole_slave_status
+                    name: Status
+                  - entity: switch.pi_hole_slave
+                    name: Enabled
+                  - entity: sensor.pi_hole_slave_ads_blocked
+                    name: Ads Blocked Today
+                  - entity: sensor.pi_hole_slave_ads_percentage_blocked
+                    name: Percentage Blocked
+                  - entity: sensor.pi_hole_slave_dns_queries
+                    name: DNS Queries Today
+            title: Pi-Hole
+  - title: Main Floor
+    path: floor-main-floor
+    type: sections
+    max_columns: 3
+    icon: mdi:home-floor-1
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Rooms
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Living <br>Room
+                  icon: hue:room-living
+                  background: var(--gradient-teal)
+                  navigation_path: main-floor-living-room
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Kitchen
+                  icon: hue:room-kitchen
+                  background: var(--gradient-orange)
+                  navigation_path: main-floor-kitchen
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Dining <br>Room
+                  icon: hue:room-dining
+                  background: var(--gradient-red)
+                  navigation_path: main-floor-dining-room
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Laundry <br>Room
+                  icon: mdi:washing-machine
+                  background: var(--gradient-blue)
+                  navigation_path: main-floor-laundry-room
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Master <br>Bedroom
+                  icon: hue:room-bedroom
+                  background: var(--gradient-purple)
+                  navigation_path: main-floor-master-bedroom
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Master <br>Bathroom
+                  icon: hue:room-bathroom
+                  background: var(--gradient-teal-purple)
+                  navigation_path: main-floor-master-bathroom
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Garage
+                  icon: mdi:garage
+                  background: var(--gradient-grey-cold)
+                  navigation_path: main-floor-garage
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Garage <br>Storage
+                  icon: mdi:garage-lock
+                  background: var(--gradient-yellow)
+                  navigation_path: main-floor-garage-storage
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Hallway <br>Bathroom
+                  icon: hue:room-bathroom
+                  background: var(--gradient-green)
+                  navigation_path: main-floor-hallway-bathroom
+  - type: sections
+    max_columns: 3
+    path: main-floor-dining-room
+    title: Dining Room
+    icon: hue:room-dining
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.dining_room_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.dining_room_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.dining_room_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.dining_room_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.dining_room_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.dining_room_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_dining_room
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_dining_room
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_dining_room
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_dining_room
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_dining_room
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_dining_room
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: dining_room
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: dining_room
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: dining_room
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: dining_room
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: main-floor-garage-storage
+    title: Garage Storage
+    icon: mdi:garage-lock
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.garage_storage_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.garage_storage_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.garage_storage_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.garage_storage_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.garage_storage_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.garage_storage_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_garage_storage
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_garage_storage
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_garage_storage
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_garage_storage
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_garage_storage
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_garage_storage
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: garage_storage
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: garage_storage
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: garage_storage
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: garage_storage
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: main-floor-garage
+    title: Garage
+    icon: mdi:garage
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.garage_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.garage_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.garage_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.garage_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.garage_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.garage_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_garage
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_garage
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_garage
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_garage
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_garage
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_garage
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: garage
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: garage
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: garage
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: garage
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: main-floor-hallway-bathroom
+    title: Hallway Bathroom
+    icon: hue:room-bathroom
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.hallway_bathroom_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.hallway_bathroom_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.hallway_bathroom_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.hallway_bathroom_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.hallway_bathroom_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.hallway_bathroom_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_hallway_bathroom
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_hallway_bathroom
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_hallway_bathroom
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_hallway_bathroom
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_hallway_bathroom
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_hallway_bathroom
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: hallway_bathroom
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: hallway_bathroom
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: hallway_bathroom
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: hallway_bathroom
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: main-floor-kitchen
+    title: Kitchen
+    icon: hue:room-kitchen
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.kitchen_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.kitchen_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.kitchen_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.kitchen_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.kitchen_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.kitchen_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_kitchen
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_kitchen
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_kitchen
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_kitchen
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_kitchen
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_kitchen
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: kitchen
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: kitchen
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: kitchen
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: kitchen
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: main-floor-laundry-room
+    title: Laundry Room
+    icon: mdi:washing-machine
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.laundry_room_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.laundry_room_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.laundry_room_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.laundry_room_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.laundry_room_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.laundry_room_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_laundry_room
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_laundry_room
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_laundry_room
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_laundry_room
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_laundry_room
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_laundry_room
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: laundry_room
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: laundry_room
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: laundry_room
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: laundry_room
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: main-floor-living-room
+    title: Living Room
+    icon: hue:room-living
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.living_room_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.living_room_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.living_room_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.living_room_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.living_room_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.living_room_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_living_room
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_living_room
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_living_room
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_living_room
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_living_room
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_living_room
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: living_room
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: living_room
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: living_room
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: living_room
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: main-floor-master-bathroom
+    title: Master Bathroom
+    icon: hue:room-bathroom
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.master_bathroom_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.master_bathroom_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.master_bathroom_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.master_bathroom_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.master_bathroom_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.master_bathroom_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_master_bathroom
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_master_bathroom
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_master_bathroom
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_master_bathroom
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_master_bathroom
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_master_bathroom
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: master_bathroom
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: master_bathroom
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: master_bathroom
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: master_bathroom
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: main-floor-master-bedroom
+    title: Master Bedroom
+    icon: hue:room-bedroom
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.master_bedroom_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.master_bedroom_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.master_bedroom_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.master_bedroom_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.master_bedroom_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.master_bedroom_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_master_bedroom
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_master_bedroom
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_master_bedroom
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_master_bedroom
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_master_bedroom
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_master_bedroom
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: master_bedroom
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: master_bedroom
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: master_bedroom
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: master_bedroom
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: upstairs-bedroom-closet
+    title: Bedroom Closet
+    icon: mdi:wardrobe
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.bedroom_closet_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.bedroom_closet_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.bedroom_closet_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.bedroom_closet_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.bedroom_closet_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.bedroom_closet_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_bedroom_closet
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_bedroom_closet
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_bedroom_closet
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_bedroom_closet
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_bedroom_closet
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_bedroom_closet
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: bedroom_closet
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: bedroom_closet
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: bedroom_closet
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: bedroom_closet
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: upstairs-bedroom
+    title: Bedroom
+    icon: hue:room-bedroom
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.bedroom_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.bedroom_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.bedroom_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.bedroom_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.bedroom_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.bedroom_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_bedroom
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_bedroom
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_bedroom
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_bedroom
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_bedroom
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_bedroom
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: bedroom
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: bedroom
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: bedroom
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: bedroom
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: upstairs-office-closet
+    title: Office Closet
+    icon: mdi:wardrobe
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.office_closet_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.office_closet_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.office_closet_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.office_closet_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.office_closet_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.office_closet_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_office_closet
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_office_closet
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_office_closet
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_office_closet
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_office_closet
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_office_closet
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: office_closet
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: office_closet
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: office_closet
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: office_closet
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: upstairs-office
+    title: Office
+    icon: hue:room-office
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.office_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.office_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.office_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.office_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.office_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.office_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_office
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_office
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_office
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_office
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_office
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_office
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: office
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: office
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: office
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: office
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: upstairs-upstairs-hallway-bathroom
+    title: Upstairs Hallway Bathroom
+    icon: hue:room-bathroom
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.upstairs_hallway_bathroom_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.upstairs_hallway_bathroom_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.upstairs_hallway_bathroom_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.upstairs_hallway_bathroom_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.upstairs_hallway_bathroom_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.upstairs_hallway_bathroom_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_upstairs_hallway_bathroom
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_upstairs_hallway_bathroom
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_upstairs_hallway_bathroom
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_upstairs_hallway_bathroom
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_upstairs_hallway_bathroom
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_upstairs_hallway_bathroom
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: upstairs_hallway_bathroom
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: upstairs_hallway_bathroom
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: upstairs_hallway_bathroom
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: upstairs_hallway_bathroom
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: upstairs-upstairs-hallway-closet
+    title: Upstairs Hallway Closet
+    icon: mdi:wardrobe
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.upstairs_hallway_closet_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.upstairs_hallway_closet_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.upstairs_hallway_closet_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.upstairs_hallway_closet_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.upstairs_hallway_closet_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.upstairs_hallway_closet_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_upstairs_hallway_closet
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_upstairs_hallway_closet
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_upstairs_hallway_closet
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_upstairs_hallway_closet
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_upstairs_hallway_closet
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_upstairs_hallway_closet
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: upstairs_hallway_closet
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: upstairs_hallway_closet
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: upstairs_hallway_closet
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: upstairs_hallway_closet
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - title: Upstairs
+    path: floor-upstairs
+    type: sections
+    max_columns: 3
+    icon: mdi:home-floor-2
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Rooms
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Bedroom
+                  icon: hue:room-bedroom
+                  background: var(--gradient-purple)
+                  navigation_path: upstairs-bedroom
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Office
+                  icon: hue:room-office
+                  background: var(--gradient-blue)
+                  navigation_path: upstairs-office
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Hallway <br>Bathroom
+                  icon: hue:room-bathroom
+                  background: var(--gradient-teal)
+                  navigation_path: upstairs-upstairs-hallway-bathroom
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Hallway <br>Closet
+                  icon: mdi:wardrobe
+                  background: var(--gradient-yellow)
+                  navigation_path: upstairs-upstairs-hallway-closet
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Office <br>Closet
+                  icon: mdi:wardrobe
+                  background: var(--gradient-orange)
+                  navigation_path: upstairs-office-closet
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Bedroom <br>Closet
+                  icon: mdi:wardrobe
+                  background: var(--gradient-green)
+                  navigation_path: upstairs-bedroom-closet
+  - title: Basement
+    path: floor-basement
+    type: sections
+    max_columns: 3
+    icon: mdi:home-floor-negative-1
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Rooms
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Basement
+                  icon: mdi:home-floor-negative-1
+                  background: var(--gradient-grey-cold)
+                  navigation_path: basement-basement
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Gym
+                  icon: mdi:dumbbell
+                  background: var(--gradient-red)
+                  navigation_path: basement-gym
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Storage
+                  icon: mdi:package-variant
+                  background: var(--gradient-yellow)
+                  navigation_path: basement-storage
+  - type: sections
+    max_columns: 3
+    path: basement-basement
+    title: Basement
+    icon: mdi:home-floor-negative-1
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.basement_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.basement_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.basement_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.basement_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.basement_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.basement_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_basement
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_basement
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_basement
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_basement
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_basement
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_basement
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: basement
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: basement
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: basement
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: basement
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: basement-gym
+    title: Gym
+    icon: mdi:dumbbell
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.gym_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.gym_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.gym_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.gym_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.gym_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.gym_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_gym
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_gym
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_gym
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_gym
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_gym
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_gym
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: gym
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: gym
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: gym
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: gym
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: basement-storage
+    title: Storage
+    icon: mdi:package-variant
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.storage_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.storage_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.storage_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.storage_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.storage_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.storage_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_storage
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_storage
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_storage
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_storage
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_storage
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_storage
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: storage
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: storage
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: storage
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: storage
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - title: Home
+    path: floor-home-areas
+    type: sections
+    max_columns: 3
+    icon: mdi:home
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Common Areas
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Upstairs <br>Hallway
+                  icon: mdi:door-open
+                  background: var(--gradient-purple)
+                  navigation_path: home
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Hallway
+                  icon: mdi:door-open
+                  background: var(--gradient-teal)
+                  navigation_path: home
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Stairs
+                  icon: mdi:stairs
+                  background: var(--gradient-blue)
+                  navigation_path: home
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Basement <br>Stairs
+                  icon: mdi:stairs-down
+                  background: var(--gradient-orange)
+                  navigation_path: home
+  - type: sections
+    max_columns: 3
+    path: home
+    title: Home
+    icon: mdi:home
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.upstairs_hallway_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.upstairs_hallway_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.upstairs_hallway_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.upstairs_hallway_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.upstairs_hallway_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.upstairs_hallway_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_upstairs_hallway
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_upstairs_hallway
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_upstairs_hallway
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_upstairs_hallway
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_upstairs_hallway
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_upstairs_hallway
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.hallway_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.hallway_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.hallway_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.hallway_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.hallway_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.hallway_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_hallway
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_hallway
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_hallway
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_hallway
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_hallway
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_hallway
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.stairs_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.stairs_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.stairs_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.stairs_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.stairs_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.stairs_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_stairs
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_stairs
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_stairs
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_stairs
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_stairs
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_stairs
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.basement_stairs_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.basement_stairs_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.basement_stairs_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.basement_stairs_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.basement_stairs_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.basement_stairs_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_basement_stairs
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_basement_stairs
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_basement_stairs
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_basement_stairs
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_basement_stairs
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_basement_stairs
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: upstairs_hallway
+              domain: light
+              group_name: Upstairs Hallway Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: upstairs_hallway
+              domain: fan
+              group_name: Upstairs Hallway Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: upstairs_hallway
+              domain: media_player
+              group_name: Upstairs Hallway Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: upstairs_hallway
+              domain: switch
+              group_name: Upstairs Hallway Switches
+              group_icon: mdi:light-switch
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: hallway
+              domain: light
+              group_name: Hallway Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: hallway
+              domain: fan
+              group_name: Hallway Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: hallway
+              domain: media_player
+              group_name: Hallway Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: hallway
+              domain: switch
+              group_name: Hallway Switches
+              group_icon: mdi:light-switch
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: stairs
+              domain: light
+              group_name: Stairs Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: stairs
+              domain: fan
+              group_name: Stairs Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: stairs
+              domain: media_player
+              group_name: Stairs Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: stairs
+              domain: switch
+              group_name: Stairs Switches
+              group_icon: mdi:light-switch
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: basement_stairs
+              domain: light
+              group_name: Basement Stairs Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: basement_stairs
+              domain: fan
+              group_name: Basement Stairs Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: basement_stairs
+              domain: media_player
+              group_name: Basement Stairs Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: basement_stairs
+              domain: switch
+              group_name: Basement Stairs Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: system
+    title: System
+    icon: mdi:cog
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.home_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.home_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.home_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.home_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.home_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.home_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_home
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_home
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_home
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_home
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_home
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_home
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.unassigned_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.unassigned_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.unassigned_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.unassigned_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.unassigned_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.unassigned_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_unassigned
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_unassigned
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_unassigned
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_unassigned
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_unassigned
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_unassigned
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: home
+              domain: light
+              group_name: Home Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: home
+              domain: fan
+              group_name: Home Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: home
+              domain: media_player
+              group_name: Home Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: home
+              domain: switch
+              group_name: Home Switches
+              group_icon: mdi:light-switch
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: unassigned
+              domain: light
+              group_name: Unassigned Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: unassigned
+              domain: fan
+              group_name: Unassigned Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: unassigned
+              domain: media_player
+              group_name: Unassigned Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: unassigned
+              domain: switch
+              group_name: Unassigned Switches
+              group_icon: mdi:light-switch
+  - title: System
+    path: floor-system-areas
+    type: sections
+    max_columns: 3
+    icon: mdi:cog
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: System Areas
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Home
+                  icon: mdi:home
+                  background: var(--gradient-teal-purple)
+                  navigation_path: system
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Unassigned
+                  icon: mdi:help-circle-outline
+                  background: var(--gradient-grey-cold)
+                  navigation_path: system
+  - title: Outside
+    path: floor-outside
+    type: sections
+    max_columns: 3
+    icon: mdi:weather-sunny
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Areas
+          - type: grid
+            columns: 3
+            square: false
+            cards:
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Front <br>Yard
+                  icon: mdi:flower
+                  background: var(--gradient-green)
+                  navigation_path: outside-front-yard
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Back <br>Yard
+                  icon: mdi:grill
+                  background: var(--gradient-orange)
+                  navigation_path: outside-back-yard
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Gazebo
+                  icon: mdi:pergola
+                  background: var(--gradient-purple-teal)
+                  navigation_path: outside-gazebo
+              - type: custom:streamline-card
+                template: minihass_navigate_card
+                variables:
+                  name: Outside
+                  icon: mdi:weather-sunny
+                  background: var(--gradient-yellow)
+                  navigation_path: outside-outside
+  - type: sections
+    max_columns: 3
+    path: outside-back-yard
+    title: Back Yard
+    icon: mdi:grill
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.back_yard_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.back_yard_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.back_yard_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.back_yard_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.back_yard_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.back_yard_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_back_yard
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_back_yard
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_back_yard
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_back_yard
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_back_yard
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_back_yard
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: back_yard
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: back_yard
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: back_yard
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: back_yard
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: outside-front-yard
+    title: Front Yard
+    icon: mdi:flower
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.front_yard_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.front_yard_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.front_yard_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.front_yard_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.front_yard_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.front_yard_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_front_yard
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_front_yard
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_front_yard
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_front_yard
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_front_yard
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_front_yard
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: front_yard
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: front_yard
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: front_yard
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: front_yard
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: outside-gazebo
+    title: Gazebo
+    icon: mdi:pergola
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.gazebo_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.gazebo_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.gazebo_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.gazebo_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.gazebo_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.gazebo_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_gazebo
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_gazebo
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_gazebo
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_gazebo
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_gazebo
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_gazebo
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: gazebo
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: gazebo
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: gazebo
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: gazebo
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch
+  - type: sections
+    max_columns: 3
+    path: outside-outside
+    title: Outside
+    icon: mdi:weather-sunny
+    show_icon_and_title: true
+    subview: true
+    dense_section_placement: true
+    cards: []
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.outside_average_temperature
+        visibility:
+          - condition: state
+            entity: sensor.outside_average_temperature
+            state_not: unavailable
+          - condition: state
+            entity: sensor.outside_average_temperature
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.outside_average_humidity
+        visibility:
+          - condition: state
+            entity: sensor.outside_average_humidity
+            state_not: unavailable
+          - condition: state
+            entity: sensor.outside_average_humidity
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.motion_outside
+        visibility:
+          - condition: state
+            entity: binary_sensor.motion_outside
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.motion_outside
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.occupancy_outside
+        visibility:
+          - condition: state
+            entity: binary_sensor.occupancy_outside
+            state_not: unavailable
+          - condition: state
+            entity: binary_sensor.occupancy_outside
+            state_not: unknown
+        card_mod:
+          style: |
+            :host {
+              --label-badge-background-color: var(--m3-surface-container, var(--card-background-color));
+              --label-badge-text-color: var(--m3-on-surface, var(--primary-text-color));
+            }
+    sections:
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: outside
+              domain: light
+              group_name: Lights
+              group_icon: mdi:lightbulb=group
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: outside
+              domain: fan
+              group_name: Fans
+              group_icon: mdi:fan
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: outside
+              domain: media_player
+              group_name: Media
+              group_icon: mdi:television-play
+      - type: grid
+        cards:
+          - type: custom:streamline-card
+            template: section_2col_card
+            variables:
+              area_id: outside
+              domain: switch
+              group_name: Switches
+              group_icon: mdi:light-switch

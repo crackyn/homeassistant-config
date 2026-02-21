@@ -1,0 +1,86 @@
+- id: '1771649171939'
+  alias: Assign Chip's current area
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.chip_s_phone_ble_area
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: device
+        device_id: 9da6d0cc54128de369c7287401837025
+        domain: device_tracker
+        entity_id: bc9a7d1f97bc3012aa115cbfe8bc429c
+        type: is_home
+      sequence:
+      - action: homeassistant.add_entity_to_area
+        metadata: {}
+        data:
+          entity_id:
+          - person.chip
+          area_id: '{{ area_id(states(''sensor.chip_s_phone_ble_area'')) }}
+
+            '
+    - conditions:
+      - condition: device
+        device_id: 9da6d0cc54128de369c7287401837025
+        domain: device_tracker
+        entity_id: bc9a7d1f97bc3012aa115cbfe8bc429c
+        type: is_not_home
+      sequence:
+      - action: homeassistant.add_entity_to_area
+        metadata: {}
+        data:
+          entity_id:
+          - person.chip
+          area_id: outside
+  mode: single
+- id: '1771650404903'
+  alias: Assign Nikki's current area
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.nikki_s_phone_ble_area
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: device
+        device_id: 1c6bf8b5aba1d449101e5d7c5e24c4fc
+        domain: device_tracker
+        entity_id: 811217a0292d2ee5c3fb7055b67196ec
+        type: is_home
+      sequence:
+      - action: homeassistant.add_entity_to_area
+        metadata: {}
+        data:
+          entity_id:
+          - person.nikki
+          area_id: '{{ area_id(states(''sensor.nikki_s_phone_ble_area'')) }}
+
+            '
+    - conditions:
+      - condition: device
+        device_id: 1c6bf8b5aba1d449101e5d7c5e24c4fc
+        domain: device_tracker
+        entity_id: 811217a0292d2ee5c3fb7055b67196ec
+        type: is_not_home
+      sequence:
+      - action: homeassistant.add_entity_to_area
+        metadata: {}
+        data:
+          entity_id:
+          - person.nikki
+          area_id: outside
+  mode: single

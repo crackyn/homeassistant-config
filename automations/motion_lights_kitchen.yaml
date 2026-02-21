@@ -1,0 +1,13 @@
+id: motion_lights_kitchen
+alias: "Motion Lights: Kitchen"
+description: ""
+use_blueprint:
+  path: Blackshome/sensor-light.yaml
+  input:
+    motion_trigger:
+      - binary_sensor.motion_kitchen
+      - binary_sensor.motion_dining_room
+    light_switch:
+      entity_id:
+        - light.kitchen_ceiling
+        - light.kitchen_sink

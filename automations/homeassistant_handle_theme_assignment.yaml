@@ -1,0 +1,43 @@
+alias: "Homeassistant: Handle theme assignment"
+description: ""
+triggers:
+  - trigger: homeassistant
+    event: start
+  - trigger: state
+    entity_id:
+      - binary_sensor.nighttime
+  - trigger: state
+    entity_id:
+      - input_text.selected_theme
+conditions: []
+actions:
+  - action: frontend.reload_themes
+    metadata: {}
+    data: {}
+  - action: frontend.set_theme
+    metadata: {}
+    data:
+      name: Material 3 Georgia Tech Mini
+      name_dark: Material 3 Georgia Tech Mini
+  - choose:
+      - conditions:
+          - condition: state
+            entity_id: binary_sensor.nighttime
+            state:
+              - "off"
+        sequence:
+          - action: browser_mod.set_theme
+            data:
+              theme: Material 3 Georgia Tech Mini
+              dark: light
+      - conditions:
+          - condition: state
+            entity_id: binary_sensor.nighttime
+            state:
+              - "on"
+        sequence:
+          - action: browser_mod.set_theme
+            data:
+              theme: Material 3 Georgia Tech Mini
+              dark: dark
+mode: single
