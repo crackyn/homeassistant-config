@@ -1,0 +1,9 @@
+id: echo_kitchen_timer_notifications_all
+alias: Echo Kitchen Timer All Notifications
+description: Handle all timer notifications for Echo Show Kitchen
+use_blueprint:
+  path: crackynscave/alexa_timer_notifications.yaml
+  input:
+    timer_sensor: sensor.echo_show_kitchen_next_timer
+    notify_targets:
+      - notify.livingroomtv

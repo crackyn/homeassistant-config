@@ -1,0 +1,12 @@
+id: battery_notes_check_battery_last_replaced_monthly
+alias: Monthly Battery Not Replaced Check
+description: Check when a battery was last replaced
+mode: single
+triggers:
+  - platform: template
+    value_template: "{{ now().day == 1 }}"
+conditions: []
+actions:
+  - action: battery_notes.check_battery_last_replaced
+    data:
+      days_last_replaced: 365

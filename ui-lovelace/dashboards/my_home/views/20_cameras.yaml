@@ -1,0 +1,25 @@
+title: Cameras
+type: panel
+path: cameras
+icon: mdi:cctv
+cards:
+  - type: custom:surveillance-card
+    thumb_interval: 15
+    update_interval: 2
+    recording_duration: 10
+    show_capture_buttons: true
+    focus_motion: true
+    camera_view: ''
+    cameras:
+      - entity: camera.uppergarage
+        motion_entity: binary_sensor.uppergarage_motion
+      - entity: camera.gazebo
+        motion_entity: binary_sensor.gazebo_motion
+      - entity: camera.upperbackyard
+        motion_entity: binary_sensor.upperbackyard_motion
+      - entity: camera.lowerbackyard
+        motion_entity: binary_sensor.lowerbackyard_motion
+      - entity: camera.lowergarage
+        motion_entity: binary_sensor.lowergarage_motion
+      - entity: camera.upperfence
+        motion_entity: binary_sensor.upperfence_motion

@@ -1,0 +1,12 @@
+default:
+  - name: ''
+  - icon: ''
+  - background: ''
+card:
+  type: "custom:button-card"
+  template:
+    - custom_card_camera
+  variables: 
+    name: "[[name]]"
+    icon: "[[icon]]"
+    background: "[[background]]"

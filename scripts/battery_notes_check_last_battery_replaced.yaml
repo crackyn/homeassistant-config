@@ -1,0 +1,20 @@
+id: battery_notes_check_last_battery_replaced
+sequence:
+  - action: battery_notes.check_battery_last_replaced
+    data:
+      days_last_replaced: 365
+      raise_events: false
+    response_variable: response
+  - repeat:
+      for_each: "{{ response.get('check_battery_last_replaced', []) }}"
+      sequence:
+        - action: todo.add_item
+          metadata: {}
+          data:
+            item: >-
+              {{ repeat.item.device_name }} - {{
+              repeat.item.battery_type_and_quantity }}
+          target:
+            entity_id: todo.maintenance_list
+alias: Add not replaced to maintenance list 
+description: ""

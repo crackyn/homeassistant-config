@@ -1,0 +1,33 @@
+id: lights_outside_off
+alias: "Lights: Outside Off"
+description: ""
+triggers:
+  - trigger: time
+    at:
+      entity_id: input_datetime.alarm_arm_home_time
+      offset: 01:00:00
+  - trigger: state
+    entity_id:
+      - binary_sensor.nighttime
+    from:
+      - "on"
+    to:
+      - "off"
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+conditions:
+  - condition: state
+    entity_id: binary_sensor.nighttime
+    state:
+      - "off"
+actions:
+  - action: light.turn_off
+    metadata: {}
+    target:
+      entity_id:
+        - light.house_lights
+        - light.gazebo_lights
+        - light.gazebo_flood_lights
+mode: single

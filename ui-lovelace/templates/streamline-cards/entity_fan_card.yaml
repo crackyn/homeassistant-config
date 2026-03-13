@@ -1,0 +1,56 @@
+default:
+  - entity_id: ''
+  - name: ''
+card:
+  type: custom:bubble-card
+  entity: '[[entity_id]]'
+  name: '[[name]]'
+  card_type: button
+  button_type: slider
+  sub_button:
+    main: []
+    bottom: []
+  slider_fill_orientation: left
+  slider_value_position: right
+  min_value: 0
+  max_value: 100
+  step: 25
+  show_state: true
+  columns: 2
+  card_layout: large
+  modules:
+    - attribute_resolver
+    - color_resolver
+    - fan_resolver
+    - icon_resolver
+    - state_resolver
+  tap_action:
+    action: toggle
+  bind_to_area:
+    area: living_room
+    bindIcon: false
+  styles: |
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    .bubble-name {
+      font-weight: 700;
+      font-size: 13px;
+      font-family: var(--bubble-font-family, 'Exo 2');
+    }
+    .bubble-icon {
+      animation: rotate ${50 / hass.states['[[entity]]'].attributes.percentage}s linear infinite;
+    }
+    .background-on {
+      background-color: var(--m3-primary-container, var(--light-primary-color));
+    }
+    .bubble-state::after {
+      content: " - ${hass.states['[[entity]]'].attributes.percentage}%";
+      margin-left: 4px;
+    }
+

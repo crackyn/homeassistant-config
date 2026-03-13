@@ -1,0 +1,4 @@
+pkg_telegram:
+  homeassistant:
+    allowlist_external_dirs:
+      - "/media"

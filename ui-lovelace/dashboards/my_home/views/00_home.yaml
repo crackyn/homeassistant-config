@@ -1,0 +1,180 @@
+title: Home
+type: custom:horizontal-layout
+icon: mdi:home
+show_icon_and_title: false
+subview: false
+theme: Home Assistant
+cards:
+  - type: vertical-stack
+    cards:
+      - type: heading
+        heading_style: subtitle
+        heading: Weather
+      - type: weather-forecast
+        entity: weather.forecast_home
+        forecast_type: daily
+        show_current: true
+        show_forecast: true
+  - type: vertical-stack
+    cards:
+      - type: heading
+        heading_style: subtitle
+        heading: People
+      - square: false
+        type: grid
+        cards:
+          - type: custom:streamline-card
+            template: person_card
+            variables:
+              slug: chip
+          - type: custom:streamline-card
+            template: person_card
+            variables:
+              slug: nikki
+        columns: 2
+  - type: vertical-stack
+    cards:
+      - type: heading
+        heading_style: subtitle
+        heading: Network
+      - type: custom:stack-in-card
+        title: Pi-Hole
+        cards:
+          - type: custom:expander-card
+            title: Overall
+            cards:
+              - state_color: false
+                type: entities
+                entities:
+                  - entity: binary_sensor.pi_hole
+                    name: Status
+                  - entity: switch.pi_hole
+                    name: Enabled
+                  - entity: sensor.pi_hole_ads_blocked
+                    name: Ads Blocked Today
+                  - entity: sensor.pi_hole_ads_percentage_blocked
+                    name: Percentage Blocked
+                  - entity: sensor.pi_hole_dns_queries
+                    name: DNS Queries Today
+          - type: custom:expander-card
+            title: Breakdown
+            cards:
+              - title: NS1
+                state_color: false
+                type: entities
+                entities:
+                  - entity: binary_sensor.ns1_status
+                    name: Status
+                  - entity: switch.ns1
+                    name: Enabled
+                  - entity: sensor.ns1_ads_blocked
+                    name: Ads Blocked Today
+                  - entity: sensor.ns1_ads_percentage_blocked
+                    name: Percentage Blocked
+                  - entity: sensor.ns1_dns_queries
+                    name: DNS Queries Today
+              - title: NS2
+                state_color: false
+                type: entities
+                entities:
+                  - entity: binary_sensor.ns2_status
+                    name: Status
+                  - entity: switch.ns2
+                    name: Enabled
+                  - entity: sensor.ns2_ads_blocked
+                    name: Ads Blocked Today
+                  - entity: sensor.ns2_ads_percentage_blocked
+                    name: Percentage Blocked
+                  - entity: sensor.ns2_dns_queries
+                    name: DNS Queries Today
+  - square: false
+    type: grid
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: heading
+            heading_style: subtitle
+            heading: Climate
+          - type: custom:mushroom-climate-card
+            entity: climate.thermostat
+            show_temperature_control: true
+            hvac_modes: []
+            fill_container: true
+            icon: phu:thermostat-v2
+      - type: vertical-stack
+        cards:
+          - type: heading
+            heading_style: subtitle
+            heading: Security
+          - type: custom:mushroom-alarm-control-panel-card
+            entity: alarm_control_panel.home_alarm
+            states:
+              - armed_home
+              - armed_away
+            show_keypad: false
+      - type: custom:mushroom-entity-card
+        entity: input_text.selected_theme
+    columns: 2
+  - type: vertical-stack
+    cards:
+      - type: heading
+        heading_style: subtitle
+        heading: Floors
+      - square: false
+        type: grid
+        columns: 3
+        cards:
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Main <br> Floor
+              icon: mdi:home-floor-1
+              background: var(--gradient-blue)
+              navigation_path: floor-main-floor
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Upstairs
+              icon: mdi:home-floor-2
+              background: var(--gradient-purple)
+              navigation_path: floor-upstairs
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Basement
+              icon: mdi:home-floor-negative-1
+              background: var(--gradient-grey-cold)
+              navigation_path: floor-basement
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Home
+              icon: mdi:home
+              background: var(--gradient-teal)
+              navigation_path: floor-home-areas
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: Outside
+              icon: mdi:weather-sunny
+              background: var(--gradient-green)
+              navigation_path: floor-outside-areas
+          - type: custom:streamline-card
+            template: minihass_navigate_card
+            variables:
+              name: System
+              icon: mdi:cog
+              background: var(--gradient-orange)
+              navigation_path: floor-system-areas
+  - type: custom:advanced-camera-card
+    cameras:
+      - camera_entity: camera.gazebo
+      - camera_entity: camera.lowerbackyard
+      - camera_entity: camera.lowergarage
+      - camera_entity: camera.upperbackyard
+      - camera_entity: camera.upperfence
+      - camera_entity: camera.uppergarage
+path: main
+layout:
+  width: 400
+  max_cols: 3

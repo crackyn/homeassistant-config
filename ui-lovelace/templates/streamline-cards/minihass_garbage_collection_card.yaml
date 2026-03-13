@@ -1,0 +1,10 @@
+default:
+  - label: ''
+  - counter: ''
+card:
+  type: "custom:button-card"
+  template:
+    - custom_card_garbage_collection
+  variables: 
+    label: "[[label]]"
+    counter: "[[counter]]"

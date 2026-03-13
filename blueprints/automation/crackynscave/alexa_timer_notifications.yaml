@@ -1,0 +1,147 @@
+blueprint:
+  name: Alexa Timer Notifications
+  description: Send notifications for Alexa timer events (set, 1 minute warning, completed, cancelled)
+  domain: automation
+  author: Home Assistant User
+  input:
+    timer_sensor:
+      name: Timer Sensor
+      description: The Alexa timer sensor to monitor (e.g., sensor.echo_show_kitchen_next_timer)
+      selector:
+        entity:
+          filter:
+            - domain: sensor
+    notify_targets:
+      name: Notification Services
+      description: Select one or more notification services to send alerts to
+      selector:
+        select:
+          options: []
+          custom_value: true
+          multiple: true
+      default: []
+
+mode: queued
+triggers:
+  - trigger: state
+    entity_id: !input timer_sensor
+    alias: Timer state changed
+conditions: []
+actions:
+  - choose:
+      # Timer Set - Active count increased
+      - conditions:
+          - condition: template
+            value_template: >-
+              {{ trigger.to_state.attributes.total_active | int(0) > trigger.from_state.attributes.total_active | int(0) }}
+          - condition: template
+            value_template: >-
+              {{ trigger.to_state.attributes.total_active | int(0) > 0 }}
+        sequence:
+          - repeat:
+              for_each: !input notify_targets
+              sequence:
+                - action: "{{ repeat.item }}"
+                  data:
+                    title: "Timer Set"
+                    message: >-
+                      {% set label = trigger.to_state.attributes.brief.active[0].label | default('', true) %}
+                      {% if label %}Timer "{{ label }}"{% else %}Timer{% endif %} 
+                      set for {{ (trigger.to_state.attributes.brief.active[0].remainingTime / 60000) | round(0) }} minutes
+                      on {{ trigger.to_state.attributes.friendly_name }}
+      
+      # Timer Cancelled - Active count decreased with >1 min remaining
+      - conditions:
+          - condition: template
+            value_template: >-
+              {{ trigger.to_state.attributes.total_active | int(0) < trigger.from_state.attributes.total_active | int(0) }}
+          - condition: template
+            value_template: >-
+              {{ trigger.from_state.attributes.total_active | int(0) > 0 }}
+          - condition: template
+            value_template: >-
+              {% if trigger.from_state.attributes.brief.active | length > 0 %}
+                {% set remaining = trigger.from_state.attributes.brief.active[0].remainingTime | int(0) %}
+                {{ remaining > 60000 }}
+              {% else %}
+                false
+              {% endif %}
+        sequence:
+          - repeat:
+              for_each: !input notify_targets
+              sequence:
+                - action: "{{ repeat.item }}"
+                  data:
+                    title: "Timer Cancelled"
+                    message: >-
+                      {% set label = trigger.from_state.attributes.brief.active[0].label | default('', true) %}
+                      {% if label %}Timer "{{ label }}"{% else %}Timer{% endif %} 
+                      on {{ trigger.from_state.attributes.friendly_name | replace('_', ' ') | replace('sensor.', '') | title }}
+                      was cancelled with {{ (trigger.from_state.attributes.brief.active[0].remainingTime / 60000) | round(1) }} minutes remaining
+      
+      # Timer Completed - Active count decreased with ≤1 min remaining
+      - conditions:
+          - condition: template
+            value_template: >-
+              {{ trigger.to_state.attributes.total_active | int(0) < trigger.from_state.attributes.total_active | int(0) }}
+          - condition: template
+            value_template: >-
+              {{ trigger.from_state.attributes.total_active | int(0) > 0 }}
+          - condition: template
+            value_template: >-
+              {% if trigger.from_state.attributes.brief.active | length > 0 %}
+                {% set remaining = trigger.from_state.attributes.brief.active[0].remainingTime | int(0) %}
+                {{ remaining <= 60000 }}
+              {% else %}
+                true
+              {% endif %}
+        sequence:
+          - repeat:
+              for_each: !input notify_targets
+              sequence:
+                - action: "{{ repeat.item }}"
+                  data:
+                    title: "Timer Done"
+                    message: >-
+                      {% if trigger.from_state.attributes.brief.active | length > 0 %}
+                        {% set label = trigger.from_state.attributes.brief.active[0].label | default('', true) %}
+                        {% if label %}Timer "{{ label }}"{% else %}Timer{% endif %}
+                      {% else %}
+                        Timer
+                      {% endif %} 
+                      on {{ trigger.from_state.attributes.friendly_name | replace('_', ' ') | replace('sensor.', '') | title }}
+                      is complete!
+      
+      # Timer One Minute Warning - Crossed 1 minute threshold
+      - conditions:
+          - condition: template
+            value_template: >-
+              {{ trigger.to_state.attributes.total_active | int(0) > 0 }}
+          - condition: template
+            value_template: >-
+              {% if trigger.to_state.attributes.brief.active | length > 0 %}
+                {% set remaining = trigger.to_state.attributes.brief.active[0].remainingTime | int(0) %}
+                {{ remaining > 0 and remaining <= 60000 }}
+              {% else %}
+                false
+              {% endif %}
+          - condition: template
+            value_template: >-
+              {% if trigger.from_state.attributes.brief.active | length > 0 %}
+                {% set prev_remaining = trigger.from_state.attributes.brief.active[0].remainingTime | int(999999) %}
+                {{ prev_remaining > 60000 }}
+              {% else %}
+                false
+              {% endif %}
+        sequence:
+          - repeat:
+              for_each: !input notify_targets
+              sequence:
+                - action: "{{ repeat.item }}"
+                  data:
+                    title: "Timer Almost Done"
+                    message: >-
+                      {% set label = trigger.to_state.attributes.brief.active[0].label | default('', true) %}
+                      {% if label %}Timer "{{ label }}"{% else %}Timer{% endif %} 
+                      on {{ trigger.to_state.attributes.friendly_name }}
+                      has 1 minute remaining!

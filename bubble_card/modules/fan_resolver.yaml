@@ -1,0 +1,21 @@
+fan_resolver:
+  name: "Fan Resolver"
+  description: "Animates the Bubble Card icon when a fan is running."
+  code: |
+    .bubble-icon {
+      animation: ${(() => {
+        const st = hass?.states?.[entity];
+        if (!st) return 'none';
+
+        const domain = String(entity || '').split('.')[0]?.toLowerCase();
+        if (domain !== 'fan') return 'none';
+
+        const p = Number(st.attributes?.percentage ?? 0);
+        return p > 0 ? 'slow-rotate 1s linear infinite' : 'none';
+      })()} !important;
+    }
+
+    @keyframes slow-rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }

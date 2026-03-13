@@ -1,0 +1,26 @@
+default:
+  - entity1: ''
+  - init1: ''
+  - entity2: ''
+  - init2: ''
+  - entity3: ''
+  - init3: ''
+  - entity4: ''
+  - init4: ''
+  - entity5: ''
+  - init5: ''
+card:
+  type: "custom:button-card"
+  template:
+    - custom_card_header_people
+  variables: 
+    entity1: "[[entity1]]"
+    init1: "[[init1]]"
+    entity2: "[[entity2]]"
+    init2: "[[init2]]"
+    entity3: "[[entity3]]"
+    init3: "[[init3]]"
+    entity4: "[[entity4]]"
+    init4: "[[init4]]"
+    entity5: "[[entity5]]"
+    init5: "[[init5]]"

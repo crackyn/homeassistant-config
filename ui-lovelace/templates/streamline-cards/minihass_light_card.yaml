@@ -1,0 +1,10 @@
+default:
+  - light_name: ''
+  - light_label: ''
+card:
+  type: "custom:button-card"
+  template:
+    - custom_card_light
+  variables: 
+    light_name: "[[light_name]]"
+    light_label: "[[light_label]]"

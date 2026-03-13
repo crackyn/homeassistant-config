@@ -1,0 +1,9 @@
+alias: "Automatic Fan Control - Dining Room"
+description: ""
+use_blueprint:
+  path: SirGoodenough/AutoFanControl_HA_fan.yaml
+  input:
+    fan: fan.dining_room_fan
+    fan_control: input_boolean.automatic_fan_control_enabled
+    room_temp_now: sensor.dining_room_average_temperature
+    room_set_temp: input_number.dining_room_target_temperature

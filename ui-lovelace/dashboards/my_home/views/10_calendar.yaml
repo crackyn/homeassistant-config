@@ -1,0 +1,11 @@
+title: Calendar
+type: panel
+path: calendar
+icon: mdi:calendar
+cards:
+  - initial_view: dayGridMonth
+    type: calendar
+    entities:
+      - calendar.concerts_entertainment
+      - calendar.appointments
+    theme: Material 3 Georgia Tech

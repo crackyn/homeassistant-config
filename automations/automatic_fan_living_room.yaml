@@ -1,0 +1,9 @@
+alias: "Automatic Fan Control - Living Room"
+description: ""
+use_blueprint:
+  path: SirGoodenough/AutoFanControl_HA_fan.yaml
+  input:
+    fan: fan.living_room_fan
+    fan_control: input_boolean.automatic_fan_control_enabled
+    room_temp_now: sensor.living_room_average_temperature
+    room_set_temp: input_number.living_room_target_temperature

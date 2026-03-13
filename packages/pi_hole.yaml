@@ -1,0 +1,241 @@
+pkg_pi_hole:
+  ################################################################################
+  # Package: Area A C Closet                                                     #
+  ################################################################################
+
+  homeassistant:
+    customize:
+      # ################################################
+      # ## Node Anchors
+      # ################################################
+      # package.node_anchors:
+      #   customize: &customize
+      #     package: 'pi_hole'
+      #   expose: &expose
+      #     alexa_hidden: false
+      #     smartthings_hidden: false        
+      #     ui_hidden: false
+      #   hide: &hide
+      #     hidden: true
+      #   persistence: &persistence
+      #     persistent: true
+
+      ################################################
+      ## Domain: binary_sensor
+      ################################################
+      binary_sensor.ns1_status:
+        package: 'pi_hole'
+        hidden: true
+      binary_sensor.ns2_status:
+        package: 'pi_hole'
+        hidden: true
+      binary_sensor.pi_hole:
+        package: 'pi_hole'
+        alexa_hidden: false
+        smartthings_hidden: false        
+        ui_hidden: false
+        persistent: true
+
+      ################################################
+      ## Domain: switch
+      ################################################
+      switch.ns1:
+        package: 'pi_hole'
+        hidden: true
+      switch.ns2:
+        package: 'pi_hole'
+        hidden: true
+      switch.pi_hole:
+        package: 'pi_hole'
+        alexa_hidden: false
+        smartthings_hidden: false        
+        ui_hidden: false
+        persistent: true
+
+      ################################################
+      ## Domain: sensor (Child/Source Entities)
+      ################################################
+      sensor.ns1_ads_blocked:
+        package: 'pi_hole'
+        hidden: true
+      sensor.ns2_ads_blocked:
+        package: 'pi_hole'
+        hidden: true
+      sensor.ns1_dns_queries:
+        package: 'pi_hole'
+        hidden: true
+      sensor.ns2_dns_queries:
+        package: 'pi_hole'
+        hidden: true
+      sensor.ns1_dns_queries_cached:
+        package: 'pi_hole'
+        hidden: true
+      sensor.ns2_dns_queries_cached:
+        package: 'pi_hole'
+        hidden: true
+      sensor.ns1_dns_queries_forwarded:
+        package: 'pi_hole'
+        hidden: true
+      sensor.ns2_dns_queries_forwarded:
+        package: 'pi_hole'
+        hidden: true
+      sensor.ns1_dns_unique_clients:
+        package: 'pi_hole'
+        hidden: true
+      sensor.ns2_dns_unique_clients:
+        package: 'pi_hole'
+        hidden: true
+      sensor.ns1_unique_domains:
+        package: 'pi_hole'
+        hidden: true
+      sensor.ns2_unique_domains:
+        package: 'pi_hole'
+        hidden: true
+      sensor.ns1_blocked:
+        package: 'pi_hole'
+        hidden: true
+      sensor.ns2_blocked:
+        package: 'pi_hole'
+        hidden: true
+      sensor.ns1_seen_clients:
+        package: 'pi_hole'
+        hidden: true
+      sensor.ns2_seen_clients:
+        package: 'pi_hole'
+        hidden: true
+
+      ################################################
+      ## Domain: sensor (Master Template Entities)
+      ################################################
+      sensor.pi_hole_ads_blocked:
+        package: 'pi_hole'
+        alexa_hidden: false
+        smartthings_hidden: false        
+        ui_hidden: false
+      sensor.pi_hole_ads_percentage_blocked:
+        package: 'pi_hole'
+        alexa_hidden: false
+        smartthings_hidden: false        
+        ui_hidden: false
+      sensor.pi_hole_dns_queries:
+        package: 'pi_hole'
+        alexa_hidden: false
+        smartthings_hidden: false        
+        ui_hidden: false
+      sensor.pi_hole_dns_queries_cached:
+        package: 'pi_hole'
+        alexa_hidden: false
+        smartthings_hidden: false        
+        ui_hidden: false
+      sensor.pi_hole_dns_queries_forwarded:
+        package: 'pi_hole'
+        alexa_hidden: false
+        smartthings_hidden: false        
+        ui_hidden: false
+      sensor.pi_hole_dns_unique_clients:
+        package: 'pi_hole'
+        alexa_hidden: false
+        smartthings_hidden: false        
+        ui_hidden: false
+      sensor.pi_hole_unique_domains:
+        package: 'pi_hole'
+        alexa_hidden: false
+        smartthings_hidden: false        
+        ui_hidden: false
+      sensor.pi_hole_blocked:
+        package: 'pi_hole'
+        alexa_hidden: false
+        smartthings_hidden: false        
+        ui_hidden: false
+      sensor.pi_hole_seen_clients:
+        package: 'pi_hole'
+        alexa_hidden: false
+        smartthings_hidden: false        
+        ui_hidden: false
+
+  template:
+    - binary_sensor:
+        - unique_id: pi_hole
+          name: "Pi-Hole"
+          state: >
+            {{ is_state('binary_sensor.ns1_status', 'on') and is_state('binary_sensor.ns2_status', 'on') }}
+          attributes:
+            ns1_status: "{{ states('binary_sensor.ns1_status') }}"
+            ns2_status: "{{ states('binary_sensor.ns2_status') }}"
+
+    - sensor:
+        - unique_id: pi_hole_ads_blocked
+          name: Pi-hole Ads blocked
+          state: "{{ (states('sensor.ns1_ads_blocked') | int(0) + states('sensor.ns2_ads_blocked') | int(0)) }}"
+          unit_of_measurement: "ads"
+
+        - unique_id: pi_hole_ads_percentage_blocked
+          name: Pi-hole Ads percentage blocked
+          state: >
+            {% set total_queries = (states('sensor.ns1_dns_queries') | int(0) + states('sensor.ns2_dns_queries') | int(0)) %}
+            {% set total_blocked = (states('sensor.ns1_ads_blocked') | int(0) + states('sensor.ns2_ads_blocked') | int(0)) %}
+            {% if total_queries > 0 %}
+              {{ ((total_blocked / total_queries) * 100) | round(2) }}
+            {% else %}
+              0
+            {% endif %}
+          unit_of_measurement: "%"
+
+        - unique_id: pi_hole_dns_queries
+          name: Pi-hole DNS queries
+          state: "{{ (states('sensor.ns1_dns_queries') | int(0) + states('sensor.ns2_dns_queries') | int(0)) }}"
+          unit_of_measurement: "queries"
+
+        - unique_id: pi_hole_dns_queries_cached
+          name: Pi-hole DNS queries cached
+          state: "{{ (states('sensor.ns1_dns_queries_cached') | int(0) + states('sensor.ns2_dns_queries_cached') | int(0)) }}"
+          unit_of_measurement: "queries"
+
+        - unique_id: pi_hole_dns_queries_forwarded
+          name: Pi-hole DNS queries forwarded
+          state: "{{ (states('sensor.ns1_dns_queries_forwarded') | int(0) + states('sensor.ns2_dns_queries_forwarded') | int(0)) }}"
+          unit_of_measurement: "queries"
+
+        - unique_id: pi_hole_dns_unique_clients
+          name: Pi-hole DNS unique clients
+          state: "{{ (states('sensor.ns1_dns_unique_clients') | int(0) + states('sensor.ns2_dns_unique_clients') | int(0)) }}"
+          unit_of_measurement: "clients"
+
+        - unique_id: pi_hole_unique_domains
+          name: Pi-hole Unique domains
+          state: "{{ (states('sensor.ns1_unique_domains') | int(0) + states('sensor.ns2_unique_domains') | int(0)) }}"
+          unit_of_measurement: "domains"
+
+        - unique_id: pi_hole_blocked
+          name: Pi-hole Blocked
+          state: "{{ (states('sensor.ns1_blocked') | int(0) + states('sensor.ns2_blocked') | int(0)) }}"
+          unit_of_measurement: "requests"
+
+        - unique_id: pi_hole_seen_clients
+          name: Pi-hole Seen clients
+          state: "{{ (states('sensor.ns1_seen_clients') | int(0) + states('sensor.ns2_seen_clients') | int(0)) }}"
+          unit_of_measurement: "clients"
+
+    - switch:
+        - name: "Pi-Hole"
+          unique_id: pi_hole
+          state: >-
+            {{ is_state('switch.ns1', 'on') and is_state('switch.ns2', 'on') }}
+          turn_on:
+            action: switch.turn_on
+            target:
+              entity_id:
+                - switch.ns1
+                - switch.ns2
+          turn_off:
+            action: switch.turn_off
+            target:
+              entity_id:
+                - switch.ns1
+                - switch.ns2
+          icon: >-
+            {% if is_state('switch.ns1', 'on') and is_state('switch.ns2', 'on') %}
+              mdi:pi-hole
+            {% else %}
+              mdi:dns-outline
+            {% endif %}

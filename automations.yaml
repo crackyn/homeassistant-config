@@ -1,0 +1,653 @@
+- id: '1771649171939'
+  alias: Assign Chip's current area
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.chip_s_phone_ble_area
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: device
+        device_id: 16de6bd58dc22af89f428b91ff00b3c8
+        domain: device_tracker
+        entity_id: 39ce99d01159bf004f4597ff27843f85
+        type: is_home
+      sequence:
+      - action: homeassistant.add_entity_to_area
+        metadata: {}
+        data:
+          entity_id:
+          - person.chip
+          area_id: '{{ area_id(states(''sensor.chip_s_phone_ble_area'')) }}
+
+            '
+    - conditions:
+      - condition: device
+        device_id: 16de6bd58dc22af89f428b91ff00b3c8
+        domain: device_tracker
+        entity_id: 39ce99d01159bf004f4597ff27843f85
+        type: is_not_home
+      sequence:
+      - action: homeassistant.add_entity_to_area
+        metadata: {}
+        data:
+          entity_id:
+          - person.chip
+          area_id: outside
+  mode: single
+- id: '1771650404903'
+  alias: Assign Nikki's current area
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.nikki_s_phone_ble_area
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: device
+        device_id: 02766d5865ca804a5eb98efa98e9808a
+        domain: device_tracker
+        entity_id: beb49706aa382138e05280bad2608a27
+        type: is_home
+      sequence:
+      - action: homeassistant.add_entity_to_area
+        metadata: {}
+        data:
+          entity_id:
+          - person.nikki
+          area_id: '{{ area_id(states(''sensor.nikki_s_phone_ble_area'')) }}
+
+            '
+    - conditions:
+      - condition: device
+        device_id: 02766d5865ca804a5eb98efa98e9808a
+        domain: device_tracker
+        entity_id: beb49706aa382138e05280bad2608a27
+        type: is_not_home
+      sequence:
+      - action: homeassistant.add_entity_to_area
+        metadata: {}
+        data:
+          entity_id:
+          - person.nikki
+          area_id: outside
+  mode: single
+- id: '1771813265938'
+  alias: 'Car: Auto Start'
+  description: ''
+  triggers:
+  - trigger: time
+    at: 05:30:00
+  conditions:
+  - condition: state
+    entity_id: binary_sensor.workday_today
+    state:
+    - 'on'
+  actions:
+  - choose:
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.home_weather_station_temp
+        below: 40.1
+        above: -40
+      sequence:
+      - action: kia_uvo.start_climate
+        metadata: {}
+        data:
+          climate: true
+          defrost: true
+          heating: '2'
+          device_id: f699f97b4a8e5f3549097d5b362a8c9f
+          duration: 15
+          temperature: 70
+          flseat: '8'
+          frseat: '8'
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.home_weather_station_temp
+        below: 70
+        above: 40
+      sequence:
+      - action: kia_uvo.start_climate
+        metadata: {}
+        data:
+          climate: true
+          heating: '0'
+          device_id: f699f97b4a8e5f3549097d5b362a8c9f
+          duration: 15
+          temperature: 69
+          flseat: '7'
+          frseat: '7'
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.home_weather_station_temp
+        below: 120
+        above: 70
+      sequence:
+      - action: kia_uvo.start_climate
+        metadata: {}
+        data:
+          climate: true
+          heating: '0'
+          device_id: f699f97b4a8e5f3549097d5b362a8c9f
+          duration: 15
+          temperature: 66
+  mode: single
+- id: '1771813971101'
+  alias: 'Car: Auto Lock'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.2021_elantra_engine
+    to:
+    - 'off'
+    from:
+    - 'on'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  conditions: []
+  actions:
+  - action: kia_uvo.lock
+    metadata: {}
+    data:
+      device_id: f699f97b4a8e5f3549097d5b362a8c9f
+  mode: single
+- id: '1771814513656'
+  alias: 'Car: Update'
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    minutes: /15
+  conditions: []
+  actions:
+  - action: kia_uvo.update
+    metadata: {}
+    data:
+      device_id: f699f97b4a8e5f3549097d5b362a8c9f
+  mode: single
+- id: '1771816989140'
+  alias: 'TV: mormings'
+  description: ''
+  triggers:
+  - trigger: time
+    at: 03:30:00
+    weekday:
+    - mon
+  - trigger: time
+    at: 04:00:00
+    weekday:
+    - tue
+    - wed
+    - thu
+    - fri
+  - trigger: time
+    at: 04:30:00
+    weekday:
+    - sat
+    - sun
+  conditions: []
+  actions:
+  - parallel:
+    - action: alexa_devices.send_text_command
+      metadata: {}
+      data:
+        device_id: f8920e3bf9c85e753112e30510183962
+        text_command: Tune to FOX
+    - action: alexa_devices.send_text_command
+      metadata: {}
+      data:
+        device_id: 5fbf7c8b0a95470df8f3695266c2fa36
+        text_command: Tune to FOX
+  mode: single
+- id: '1771817345053'
+  alias: 'TV: WWE Raw'
+  description: ''
+  triggers:
+  - trigger: time
+    at: '20:00:00'
+    weekday:
+    - mon
+  conditions: []
+  actions:
+  - action: alexa_devices.send_text_command
+    metadata: {}
+    data:
+      device_id: 5fbf7c8b0a95470df8f3695266c2fa36
+      text_command: Watch WWE Raw on Netflix
+  - action: alexa_devices.send_text_command
+    metadata: {}
+    data:
+      device_id: f8920e3bf9c85e753112e30510183962
+      text_command: Watch WWE Raw on Netflix
+  mode: single
+- id: '1771817452543'
+  alias: 'TV: WWE Smackdown'
+  description: ''
+  triggers:
+  - trigger: time
+    at: '20:00:00'
+    weekday:
+    - fri
+  conditions: []
+  actions:
+  - action: alexa_devices.send_text_command
+    metadata: {}
+    data:
+      device_id: 5fbf7c8b0a95470df8f3695266c2fa36
+      text_command: Tune to USA
+  - action: alexa_devices.send_text_command
+    metadata: {}
+    data:
+      device_id: f8920e3bf9c85e753112e30510183962
+      text_command: Tune to USA
+  mode: single
+- id: '1771840927494'
+  alias: Restart ESPHome Nodes
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    hours: '*'
+    minutes: '12'
+    seconds: '30'
+  conditions: []
+  actions:
+  - action: button.press
+    metadata: {}
+    target:
+      entity_id:
+      - button.bt_proxy_gazebo_esp_reboot
+      - button.bt_proxy_ibbq_787e_esp_reboot
+      - button.bt_proxy_ibbq_787e_esp_reboot_2
+      - button.bt_proxy_bedroom_esp_reboot
+      - button.bt_proxy_garage_esp_reboot
+      - button.bt_proxy_basement_esp_reboot
+      - button.bt_proxy_kitchen_esp_reboot
+      - button.bt_proxy_living_room_esp_reboot
+      - button.bt_proxy_master_bedroom_esp_reboot
+    data: {}
+  mode: single
+- id: '1772058881493'
+  alias: Battery Notes - Battery Not Replaced
+  description: ''
+  use_blueprint:
+    path: andrew-codechimp/battery_notes_battery_not_replaced.yaml
+- id: '1772059251020'
+  alias: Battery Notes - Battery Not Reported
+  description: ''
+  use_blueprint:
+    path: andrew-codechimp/battery_notes_battery_not_reported.yaml
+- id: '1772059314749'
+  alias: Battery Notes - Battery Replaced
+  description: ''
+  use_blueprint:
+    path: andrew-codechimp/battery_notes_battery_replaced.yaml
+- id: '1772059342884'
+  alias: Battery Notes - Battery Threshold
+  description: ''
+  use_blueprint:
+    path: andrew-codechimp/battery_notes_battery_threshold.yaml
+- id: '1772374084049'
+  alias: 'Echo Devices: Keep Volume 50%'
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    hours: '4'
+    minutes: '0'
+    seconds: '0'
+  conditions: []
+  actions:
+  - action: media_player.volume_set
+    metadata: {}
+    target:
+      entity_id:
+      - media_player.echo_spot_bedroom
+      - media_player.dining_room_tablet
+      - media_player.dining_room
+      - media_player.echo_show_kitchen
+      - media_player.living_room_echo_show
+      - media_player.echo_garage
+      - media_player.echo_gym
+      - media_player.echo_mando
+      - media_player.echo_bathroom
+    data:
+      volume_level: 0.5
+  mode: single
+- id: '1772377214602'
+  alias: 'Timer: Kitchen'
+  description: ''
+  use_blueprint:
+    path: crackynscave/alexa_timer_notifications.yaml
+    input:
+      timer_sensor: sensor.echo_show_kitchen_next_timer
+      notify_targets:
+      - notify.livingroomtv
+- id: '1772380005818'
+  alias: 'Lving Room: Unoccupied'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.occupancy_living_room
+    from:
+    - 'on'
+    to:
+    - 'off'
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  conditions: []
+  actions:
+  - action: media_player.turn_off
+    metadata: {}
+    target:
+      entity_id: media_player.living_room
+    data: {}
+  mode: single
+- id: '1772380130954'
+  alias: 'Living Room: Motion'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.motion_living_room
+    from:
+    - 'off'
+    to:
+    - 'on'
+  conditions:
+  - condition: state
+    entity_id: media_player.living_room
+    state:
+    - 'off'
+  actions:
+  - parallel:
+    - if:
+      - condition: state
+        entity_id: media_player.living_room
+        state:
+        - 'off'
+      then:
+      - sequence:
+        - action: media_player.volume_set
+          metadata: {}
+          data:
+            volume_level: 0
+          target:
+            entity_id: media_player.living_room_echo_show
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 10
+            milliseconds: 0
+        - action: alexa_devices.send_text_command
+          metadata: {}
+          data:
+            device_id: 5fbf7c8b0a95470df8f3695266c2fa36
+            text_command: Tune to fox
+        - action: media_player.turn_on
+          metadata: {}
+          target:
+            entity_id: media_player.living_room
+          data: {}
+        - action: media_player.volume_set
+          metadata: {}
+          data:
+            volume_level: 0.5
+          target:
+            entity_id: media_player.living_room_echo_show
+  mode: single
+- id: '1772396914086'
+  alias: Keep bedroom TV On
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - media_player.bedroomtv
+    to:
+    - 'off'
+  conditions: []
+  actions:
+  - action: button.press
+    metadata: {}
+    target:
+      entity_id: button.wake_on_lan_ac_5a_f0_83_9b_a4
+    data: {}
+  mode: single
+- id: '1772397296984'
+  alias: 'Lights: Off when nobody home'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - zone.alarm_perimeter
+    from:
+    - 'on'
+    to:
+    - 'off'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    target:
+      area_id:
+      - kitchen
+      - dining_room
+      - garage
+      - garage_storage
+      - bedroom
+      - office
+      - upstairs_hallway_bathroom
+      - bedroom_closet
+      - upstairs_hallway
+      - hallway
+      - front_yard
+      - back_yard
+      - outside
+    data: {}
+  mode: single
+- id: '1772397598900'
+  alias: 'Lights: Turn on when arriving home at night'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.occupancy_alarm_perimeter
+    from:
+    - 'off'
+    to:
+    - 'on'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  conditions:
+  - condition: state
+    entity_id: binary_sensor.nighttime
+    state:
+    - 'on'
+  actions:
+  - action: light.turn_on
+    metadata: {}
+    target:
+      area_id:
+      - front_yard
+      - back_yard
+      - outside
+    data: {}
+  mode: single
+- id: '1772532021418'
+  alias: 'Toggle: BLE Restarted Auto Off'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.ble_restarted
+    to:
+    - 'on'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  conditions: []
+  actions:
+  - action: input_boolean.turn_off
+    metadata: {}
+    target:
+      entity_id: input_boolean.ble_restarted
+    data: {}
+  mode: single
+- id: '1772532116866'
+  alias: 'BLE Bermuda: Restart'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.chip_s_phone_ble_area
+    - sensor.nikki_s_phone_ble_area
+    to:
+    - unknown
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  conditions:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.ble_restarted
+      state:
+      - 'off'
+    - condition: or
+      conditions:
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: person.chip
+          state:
+          - home
+        - condition: state
+          entity_id: sensor.chip_s_phone_ble_area
+          state:
+          - unknown
+          for:
+            hours: 0
+            minutes: 5
+            seconds: 0
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: person.nikki
+          state:
+          - home
+        - condition: state
+          entity_id: sensor.nikki_s_phone_ble_area
+          state:
+          - unknown
+          for:
+            hours: 0
+            minutes: 5
+            seconds: 0
+  actions:
+  - if:
+    - condition: or
+      conditions:
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: person.chip
+          state:
+          - home
+        - condition: state
+          entity_id: sensor.chip_s_phone_ble_area
+          state:
+          - unavailable
+          for:
+            hours: 0
+            minutes: 5
+            seconds: 0
+    then:
+    - action: homeassistant.reload_config_entry
+      target:
+        entity_id:
+        - device_tracker.chip_s_phone_ble_bermuda_tracker
+      data: {}
+  - if:
+    - condition: or
+      conditions:
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: person.nikki
+          state:
+          - home
+        - condition: state
+          entity_id: sensor.nikki_s_phone_ble_area
+          state:
+          - unavailable
+          for:
+            hours: 0
+            minutes: 5
+            seconds: 0
+    then:
+    - action: homeassistant.reload_config_entry
+      target:
+        entity_id:
+        - device_tracker.nikki_s_phone_ble_bermuda_tracker
+      data: {}
+  - action: input_boolean.turn_on
+    metadata: {}
+    target:
+      entity_id: input_boolean.ble_restarted
+    data: {}
+  mode: single
+- id: '1772576363650'
+  alias: 'Run Speedtest.net #1'
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    hours: '*'
+    minutes: '5'
+    seconds: '0'
+  - trigger: homeassistant
+    event: start
+  conditions: []
+  actions:
+  - action: hassio.addon_start
+    metadata: {}
+    data:
+      addon: 6b87c29e_speedtest_addon
+  mode: single
+- id: '1772577019628'
+  alias: 'Run Speedtest.net #2'
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    minutes: '20'
+  - trigger: time_pattern
+    minutes: '50'
+  conditions: []
+  actions:
+  - action: ookla_speedtest.run_speedtest
+    metadata: {}
+    data: {}
+  mode: single

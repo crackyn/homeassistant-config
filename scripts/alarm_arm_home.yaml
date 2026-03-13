@@ -1,0 +1,27 @@
+alarm_arm_home:
+  alias: "Alarm: Arm Home"
+  description: ""
+  sequence:
+    - if:
+        - condition: not
+          conditions:
+            - condition: state
+              entity_id: alarm_control_panel.home_alarm
+              state:
+                - armed_home
+      then:
+        - action: alarm_control_panel.alarm_arm_home
+          metadata: {}
+          target:
+            entity_id: alarm_control_panel.home_alarm
+          data: {}
+        - wait_for_trigger:
+            - trigger: state
+              entity_id:
+                - alarm_control_panel.home_alarm
+              to:
+                - armed_home
+        - action: script.send_alarm_state_notification
+          metadata: {}
+          data:
+            alarm_status: Armed Home

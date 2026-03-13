@@ -1,0 +1,21 @@
+id: battery_notes_battery_not_reported
+alias: Battery Not Reported
+description: Battery not reported
+mode: queued
+max: 30
+triggers:
+  - trigger: event
+    event_type: battery_notes_battery_not_reported
+conditions: []
+actions:
+  - action: persistent_notification.create
+    data:
+      title: |
+        {{ trigger.event.data.device_name }} Battery Not Reported
+      message: >
+        The device has not reported its battery level for {{
+        trigger.event.data.battery_last_reported_days }} days {{ '\n'
+        -}} Its last reported level was {{
+        trigger.event.data.battery_last_reported_level }}% {{ '\n' -}} You need
+        {{ trigger.event.data.battery_quantity }}× {{
+        trigger.event.data.battery_type }}

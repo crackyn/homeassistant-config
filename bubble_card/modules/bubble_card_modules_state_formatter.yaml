@@ -1,0 +1,76 @@
+state_formatter:
+  name: State Formatter
+  description: Formats the main state line for common domains (light/fan/climate/media_player/etc.).
+  code: |
+    ${(() => {
+      const st = hass?.states?.[entity];
+      if (!st || !card) return;
+
+      const domain = String(entity || '').split('.')[0]?.toLowerCase();
+      const state = String(st.state ?? '').toLowerCase();
+      const attrs = st.attributes || {};
+
+      const titleCase = (s) => {
+        if (!s) return '';
+        const x = String(s).replaceAll('_', ' ');
+        return x.charAt(0).toUpperCase() + x.slice(1);
+      };
+
+      const format = () => {
+        if (domain === 'light') {
+          if (state === 'on') {
+            if (attrs.brightness != null) {
+              const pct = Math.round((attrs.brightness / 255) * 100);
+              return `On • ${pct}%`;
+            }
+            return 'On';
+          }
+          if (state === 'off') return 'Off';
+        }
+
+        if (domain === 'fan') {
+          if (attrs.percentage != null && attrs.percentage > 0) return `On • ${attrs.percentage}%`;
+          if (state === 'off' || attrs.percentage === 0) return 'Off';
+          return titleCase(state);
+        }
+
+        if (domain === 'climate') {
+          const mode = attrs.hvac_action || state;
+          const temp = attrs.temperature ?? attrs.target_temp_low ?? attrs.target_temp_high ?? null;
+          const label = titleCase(mode);
+          return temp != null ? `${label} • ${temp}°` : label;
+        }
+
+        if (domain === 'media_player') {
+          const app = attrs.app_name || attrs.source || '';
+          if (state === 'playing') return app ? `Playing • ${app}` : 'Playing';
+          if (state === 'paused') return app ? `Paused • ${app}` : 'Paused';
+          if (state === 'idle') return 'Idle';
+          if (state === 'off') return 'Off';
+          return titleCase(state);
+        }
+
+        if (domain === 'lock') {
+          if (state === 'locked') return 'Locked';
+          if (state === 'unlocked') return 'Unlocked';
+          return titleCase(state);
+        }
+
+        if (domain === 'alarm_control_panel') {
+          if (state === 'disarmed') return 'Disarmed';
+          if (state === 'triggered') return 'Triggered';
+          if (state.startsWith('armed_')) return `Armed • ${titleCase(state.replace('armed_', ''))}`;
+        }
+
+        if (domain === 'sensor') {
+          if (attrs.unit_of_measurement != null) return `${st.state} ${attrs.unit_of_measurement}`;
+          return String(st.state ?? '');
+        }
+
+        return titleCase(state);
+      };
+
+      const el = card.querySelector('.bubble-state');
+      if (el) el.innerText = format();
+    })()}
+  is_global: true

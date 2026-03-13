@@ -1,0 +1,8 @@
+default:
+  - entity_id: ''
+  - name: ''
+card:
+  type: custom:mushroom-template-card
+  secondary: "Entity ID: '[[entity_id]]'"
+  icon: mdi:home
+  primary: "Name: '[[name]]'"

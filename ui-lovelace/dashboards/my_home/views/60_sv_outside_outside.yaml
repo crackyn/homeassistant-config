@@ -1,0 +1,121 @@
+title: Outside
+type: sections
+max_columns: 3
+path: outside-outside
+icon: mdi:weather-sunny
+show_icon_and_title: true
+subview: true
+dense_section_placement: true
+cards: []
+sections:
+  - type: grid
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: back
+            card_mod:
+              style: "ha-card {\n  background: var(--m3-surface-container, var(--card-background-color));\n  color: var(--m3-on-surface,\
+                \ var(--primary-text-color));\n}\n"
+          - type: spacer
+          - type: entity
+            entity: sensor.outside_average_temperature
+            show_name: false
+            show_state: true
+            show_icon: true
+            visibility:
+              - condition: state
+                entity: sensor.outside_average_temperature
+                state_not: unavailable
+              - condition: state
+                entity: sensor.outside_average_temperature
+                state_not: unknown
+            card_mod:
+              style: "ha-card {\n  background: var(--m3-surface-container, var(--card-background-color));\n  color: var(--m3-on-surface,\
+                \ var(--primary-text-color));\n}\n"
+          - type: entity
+            entity: sensor.outside_average_humidity
+            show_name: false
+            show_state: true
+            show_icon: true
+            visibility:
+              - condition: state
+                entity: sensor.outside_average_humidity
+                state_not: unavailable
+              - condition: state
+                entity: sensor.outside_average_humidity
+                state_not: unknown
+            card_mod:
+              style: "ha-card {\n  background: var(--m3-surface-container, var(--card-background-color));\n  color: var(--m3-on-surface,\
+                \ var(--primary-text-color));\n}\n"
+          - type: entity
+            entity: binary_sensor.motion_outside
+            show_name: false
+            show_state: true
+            show_icon: true
+            visibility:
+              - condition: state
+                entity: binary_sensor.motion_outside
+                state_not: unavailable
+              - condition: state
+                entity: binary_sensor.motion_outside
+                state_not: unknown
+            card_mod:
+              style: "ha-card {\n  background: var(--m3-surface-container, var(--card-background-color));\n  color: var(--m3-on-surface,\
+                \ var(--primary-text-color));\n}\n"
+          - type: entity
+            entity: binary_sensor.occupancy_outside
+            show_name: false
+            show_state: true
+            show_icon: true
+            visibility:
+              - condition: state
+                entity: binary_sensor.occupancy_outside
+                state_not: unavailable
+              - condition: state
+                entity: binary_sensor.occupancy_outside
+                state_not: unknown
+            card_mod:
+              style: "ha-card {\n  background: var(--m3-surface-container, var(--card-background-color));\n  color: var(--m3-on-surface,\
+                \ var(--primary-text-color));\n}\n"
+          - type: spacer
+        card_mod:
+          style: "ha-card {\n  background: transparent;\n  box-shadow: none;\n}\n"
+    grid_options:
+      columns: full
+      column_span: 3
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: outside
+          domain: light
+          group_name: Lights
+          group_icon: mdi:lightbulb=group
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: outside
+          domain: fan
+          group_name: Fans
+          group_icon: mdi:fan
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: outside
+          domain: media_player
+          group_name: Media
+          group_icon: mdi:television-play
+  - type: grid
+    cards:
+      - type: custom:streamline-card
+        template: section_2col_card
+        variables:
+          area_id: outside
+          domain: switch
+          group_name: Switches
+          group_icon: mdi:light-switch

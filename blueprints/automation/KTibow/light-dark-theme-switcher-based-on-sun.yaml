@@ -1,0 +1,35 @@
+blueprint:
+  name: Theme switcher
+  description: Switch to dark theme when the sun goes down.
+  domain: automation
+  input:
+    light_theme:
+      name: Light theme name
+      description: What do you call your light theme when you go to choose it?
+    dark_theme:
+      name: Dark theme name
+      description: What do you call your dark theme when you go to choose it?
+  source_url: https://community.home-assistant.io/t/light-dark-theme-switcher-based-on-sun/255455
+mode: restart
+max_exceeded: silent
+trigger:
+  platform: state
+  entity_id: sun.sun
+action:
+- choose:
+  - conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: above_horizon
+    sequence:
+    - service: frontend.set_theme
+      data:
+        name: !input light_theme
+  - conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+    sequence:
+    - service: frontend.set_theme
+      data:
+        name: !input dark_theme

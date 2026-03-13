@@ -1,0 +1,19 @@
+pkg_influxdb:
+  influxdb:
+    tags:
+      source: HA
+    tags_attributes:
+      - friendly_name
+    default_measurement: units
+    exclude:
+      domains:
+        - persistent_notification
+        - person
+        - zone
+    include:
+      domains:
+        - sensor
+        - binary_sensor
+        - sun
+        - weather
+    

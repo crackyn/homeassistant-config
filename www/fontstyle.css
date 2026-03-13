@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Exo:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Science+Gothic:wght@100..900&family=Share+Tech&display=swap');
+
+html, {
+	font-family: "Exo 2", "Exo", "Share Tech", "Science Gothic", sans-serif !important;
+	paper-font-common-base_-_font-family: "Exo 2", "Exo", "Share Tech", "Science Gothic", sans-serif !important;
+	
+}

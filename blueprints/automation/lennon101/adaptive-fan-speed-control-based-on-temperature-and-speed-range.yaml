@@ -1,0 +1,247 @@
+blueprint:
+  name: Auto fan speed
+  description: "Temperature based Auto fan control.\n\n Fan Speed will be set when
+    initially turned on by relating the ambient temperature to an equivalant speed
+    setting. \nA time delay and a minimum percentage change is used to eliminate frequent
+    speed changes.\n At the minimum temperature setting the fan will turn off. \n
+    When the temperature rises above this minimum temperature setting, the fan will
+    automatically turn back on."
+  domain: automation
+  input:
+    temp_sensor:
+      name: "\U0001F321 Temperature Sensor"
+      description: Enter your temperature sensor. Make sure the temperature sensor
+        is in the units (°C or °F) you want to use for the settings below. If your
+        temp sensor is in °C but you want to use the °F settings, you will need to
+        create a template sensor to convert the sensor into the correct units.
+      default: []
+      selector:
+        entity:
+          domain:
+          - sensor
+          device_class:
+          - temperature
+          multiple: false
+          reorder: false
+    fan_switch:
+      name: "\U0001F4A8 Fan"
+      description: The fan you wish to speed control.
+      selector:
+        entity:
+          domain:
+          - fan
+          multiple: false
+          reorder: false
+    min_fan_speed:
+      name: "\U0001F4A8 Minimum Fan Speed"
+      description: Set the minimum percentage speed when your fan is still on.
+      default: 16
+      selector:
+        number:
+          min: 1.0
+          max: 100.0
+          mode: slider
+          step: 1.0
+          unit_of_measurement: '%'
+    max_fan_speed:
+      name: "\U0001F4A8 Maximum Fan Speed"
+      description: Set the maximum percentage speed for your fan.
+      default: 100
+      selector:
+        number:
+          min: 1.0
+          max: 100.0
+          mode: slider
+          step: 1.0
+          unit_of_measurement: '%'
+    max_temp:
+      name: "\U0001F4C8 Maximum Temperature"
+      description: What temperature would you like the fan to run at max fan speed.
+      default: 40
+      selector:
+        number:
+          min: 10.0
+          max: 120.0
+          step: 1.0
+          mode: slider
+    min_temp:
+      name: "\U0001F4C9 Minimum Temperature"
+      description: What temperature would you like the fan to run at minimum speed.
+      default: 23
+      selector:
+        number:
+          min: 10.0
+          max: 120.0
+          step: 1.0
+          mode: slider
+    off_temp:
+      name: "\U0001F6D1 The temperature the fan switches off"
+      description: What temperature would you like the fan to turn off? When the temperature
+        falls below this value, the fan turns off. When the temperature rises above
+        this value, the fan will automatically turn back on (unless you disable this
+        via the "Enable auto fan on" setting).
+      default: 22
+      selector:
+        number:
+          min: 10.0
+          max: 120.0
+          step: 1.0
+          mode: slider
+    auto_turn_on_enabled:
+      name: ✅ Enable auto fan on
+      description: Let the fan automatically turn back on if the temperature returns
+        to a value above the temperature that the fan switches off
+      default: true
+      selector:
+        boolean: {}
+    change_time:
+      name: ⏱️ Change frequency delay
+      description: How long to delay bewteen potential speed adjustments.
+      default: 30
+      selector:
+        number:
+          min: 1.0
+          max: 120.0
+          unit_of_measurement: minutes
+          step: 1.0
+          mode: slider
+    change_threshold:
+      name: Minimum percentage change
+      description: The minimum percentage change (between current fan speed and set
+        fan speed)
+      default: 1
+      selector:
+        number:
+          min: 1.0
+          max: 100.0
+          mode: slider
+          step: 1.0
+          unit_of_measurement: '%'
+    max_change:
+      name: Maximum percentage change
+      description: The maximum percentage change (between current fan speed and set
+        fan speed)
+      default: 50
+      selector:
+        number:
+          min: 1.0
+          max: 100.0
+          mode: slider
+          step: 1.0
+          unit_of_measurement: '%'
+    blocker_entity:
+      name: (OPTIONAL) Blocking entity
+      description: If this entity's state is on, it will prevent the automation from
+        running. E.g. sleepmode or away mode.
+      default:
+      selector:
+        entity:
+          multiple: false
+          reorder: false
+  source_url: https://community.home-assistant.io/t/adaptive-fan-speed-control-based-on-temperature-and-speed-range/678152
+variables:
+  temp_sensor: !input temp_sensor
+  fan_switch: !input fan_switch
+  auto_turn_on_enabled: !input auto_turn_on_enabled
+  min_fan_speed: !input min_fan_speed
+  max_fan_speed: !input max_fan_speed
+  max_temp: !input max_temp
+  min_temp: !input min_temp
+  off_temp: !input off_temp
+  change_time: !input change_time
+  max_change: !input max_change
+  change_threshold: !input change_threshold
+  blocker_entity: !input blocker_entity
+  current_temp: '{{ states(temp_sensor) | float(0)}}'
+  fan_speed: '{{ state_attr(fan_switch,''percentage'') | float(0)}}'
+  temp_range: '{{max_temp | float(0)-min_temp | float(0)}}'
+  fan_range: '{{max_fan_speed | float(0) - min_fan_speed | float(0)}}'
+  slope: '{{fan_range | float(0)/temp_range | float(0)}}'
+  initial_set_fan_speed: '{{ [[slope|float(0) * (current_temp|float(0) - min_temp|float(0))
+    + min_fan_speed|float(0),  min_fan_speed] | max, max_fan_speed] | min}}'
+  adjusted_set_fan_speed: "{% set diff = initial_set_fan_speed - fan_speed %} {% if
+    diff > max_change|float(0) %}\n  {{ fan_speed + max_change|float(0) }}\n{% elif
+    diff < -max_change|float(0) %}\n  {{ fan_speed - max_change|float(0) }}\n{% else
+    %}\n  {{ initial_set_fan_speed }}\n{% endif %}\n"
+  set_fan_speed: '{{ adjusted_set_fan_speed }}'
+  speed_diff: '{{(fan_speed - set_fan_speed)|abs}}'
+trigger:
+- platform: state
+  entity_id:
+  - !input fan_switch
+  id: fanon
+  from: 'off'
+  to: 'on'
+- platform: state
+  id: temp_state_change
+  entity_id:
+  - !input temp_sensor
+condition:
+- condition: template
+  alias: Check for blocker entity
+  value_template: '{{ (blocker_entity == none) or (states(blocker_entity) == ''off'')}}'
+action:
+- choose:
+  - conditions:
+    - condition: trigger
+      alias: Only run if fan was switched on
+      id: fanon
+    - condition: template
+      alias: Is the percentage change great enough?
+      value_template: '{{ speed_diff | float(0) > change_threshold | float(0) }}'
+    sequence:
+    - service: homeassistant.turn_on
+      data:
+        percentage: '{{set_fan_speed}}'
+      target:
+        entity_id: '{{fan_switch}}'
+    - delay:
+        minutes: !input change_time
+  - conditions:
+    - condition: template
+      value_template: '{{states(fan_switch) == ''on''}}'
+      alias: Make sure the fan is already on (ignore if it's been switched off)
+    - condition: template
+      alias: Is the percentage change great enough?
+      value_template: '{{ speed_diff | float(0) > change_threshold | float(0) }}'
+    - condition: template
+      alias: Is the temperature above the off temp?
+      value_template: '{{ current_temp | float(0) > off_temp | float(0) }}'
+    sequence:
+    - service: homeassistant.turn_on
+      target:
+        entity_id: '{{fan_switch}}'
+      data:
+        percentage: '{{set_fan_speed}}'
+    - delay:
+        minutes: !input change_time
+  - conditions:
+    - condition: not
+      alias: Make sure the fan hasn't just been turned on
+      conditions:
+      - condition: trigger
+        id: fanon
+    - condition: numeric_state
+      entity_id: !input temp_sensor
+      below: !input off_temp
+    sequence:
+    - service: homeassistant.turn_off
+      target:
+        entity_id: '{{fan_switch}}'
+  - conditions:
+    - '{{ auto_turn_on_enabled }}'
+    - condition: template
+      value_template: '{{states(fan_switch) == ''off''}}'
+      alias: Is the fan currently off?
+    - condition: template
+      alias: Is the temperature above the off temp?
+      value_template: '{{ current_temp | float(0) > off_temp | float(0) }}'
+    sequence:
+    - service: homeassistant.turn_on
+      data:
+        percentage: '{{set_fan_speed}}'
+      target:
+        entity_id: '{{fan_switch}}'
+    - delay:
+        minutes: !input change_time
+mode: single

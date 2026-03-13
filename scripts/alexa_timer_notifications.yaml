@@ -1,0 +1,136 @@
+notify_alexa_timer_set:
+  alias: Notify Alexa Timer Set
+  description: Send notification when an Alexa timer is set
+  mode: queued
+  max: 10
+  fields:
+    timer_entity:
+      description: The timer sensor entity ID
+      example: sensor.echo_show_kitchen_next_timer
+      required: true
+      selector:
+        entity:
+          domain: sensor
+    notify_target:
+      description: The notification service to use
+      example: notify.livingroomtv
+      required: true
+      selector:
+        text:
+  sequence:
+    - action: "{{ notify_target }}"
+      data:
+        title: "Timer Set"
+        message: >-
+          {% set label = state_attr(timer_entity, 'brief').active[0].label | default('', true) %}
+          {% if label %}Timer "{{ label }}"{% else %}Timer{% endif %} 
+          set for {{ (state_attr(timer_entity, 'brief').active[0].remainingTime / 60000) | round(0) }} minutes
+          on {{ state_attr(timer_entity, 'friendly_name') }}
+
+notify_alexa_timer_one_minute:
+  alias: Notify Alexa Timer One Minute Warning
+  description: Send notification when an Alexa timer has 1 minute remaining
+  mode: queued
+  max: 10
+  fields:
+    timer_entity:
+      description: The timer sensor entity ID
+      example: sensor.echo_show_kitchen_next_timer
+      required: true
+      selector:
+        entity:
+          domain: sensor
+    notify_target:
+      description: The notification service to use
+      example: notify.livingroomtv
+      required: true
+      selector:
+        text:
+  sequence:
+    - action: "{{ notify_target }}"
+      data:
+        title: "Timer Almost Done"
+        message: >-
+          {% set label = state_attr(timer_entity, 'brief').active[0].label | default('', true) %}
+          {% if label %}Timer "{{ label }}"{% else %}Timer{% endif %} 
+          on {{ state_attr(timer_entity, 'friendly_name') }}
+          has 1 minute remaining!
+
+notify_alexa_timer_completed:
+  alias: Notify Alexa Timer Completed
+  description: Send notification when an Alexa timer completes
+  mode: queued
+  max: 10
+  fields:
+    timer_entity:
+      description: The timer sensor entity ID
+      example: sensor.echo_show_kitchen_next_timer
+      required: true
+      selector:
+        entity:
+          domain: sensor
+    notify_target:
+      description: The notification service to use
+      example: notify.livingroomtv
+      required: true
+      selector:
+        text:
+    timer_label:
+      description: The label of the completed timer
+      example: Test
+      required: true
+      selector:
+        text:
+  sequence:
+    - action: "{{ notify_target }}"
+      data:
+        title: "Timer Done"
+        message: >-
+          {% set label = timer_label | default('', true) %}
+          {% if label %}Timer "{{ label }}"{% else %}Timer{% endif %} 
+          on {{ state_attr(timer_entity, 'friendly_name') }}
+          is complete!
+
+notify_alexa_timer_cancelled:
+  alias: Notify Alexa Timer Cancelled
+  description: Send notification when an Alexa timer is cancelled
+  mode: queued
+  max: 10
+  fields:
+    timer_entity:
+      description: The timer sensor entity ID
+      example: sensor.echo_show_kitchen_next_timer
+      required: true
+      selector:
+        entity:
+          domain: sensor
+    notify_target:
+      description: The notification service to use
+      example: notify.livingroomtv
+      required: true
+      selector:
+        text:
+    timer_label:
+      description: The label of the cancelled timer
+      example: Test
+      required: true
+      selector:
+        text:
+    remaining_minutes:
+      description: Minutes remaining when cancelled
+      example: 15.5
+      required: true
+      selector:
+        number:
+          min: 0
+          max: 1440
+          step: 0.1
+  sequence:
+    - action: "{{ notify_target }}"
+      data:
+        title: "Timer Cancelled"
+        message: >-
+          {% set label = timer_label | default('', true) %}
+          {% if label %}Timer "{{ label }}"{% else %}Timer{% endif %} 
+          on {{ state_attr(timer_entity, 'friendly_name') }}
+          was cancelled with {{ remaining_minutes }} minutes remaining

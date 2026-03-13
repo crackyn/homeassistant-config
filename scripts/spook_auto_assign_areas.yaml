@@ -1,0 +1,33 @@
+spook_auto_assign_areas:
+  alias: "Spook: Auto-assign entities to areas"
+  mode: single
+  sequence:
+    - variables:
+        # Get all area IDs, sorted descending
+        area_ids: >
+          {% set ids = areas() | list %}
+          {{ ids | sort(reverse=true) }}
+
+    - repeat:
+        for_each: "{{ area_ids }}"
+        sequence:
+          - variables:
+              current_area: "{{ repeat.item }}"
+
+              # Find entities with no area but whose entity_id contains the area_id
+              matched_entities: >
+                {% set ns = namespace(out=[]) %}
+                {% for s in states %}
+                  {% if area_id(s.entity_id) == None and current_area in s.entity_id %}
+                    {% set ns.out = ns.out + [s.entity_id] %}
+                  {% endif %}
+                {% endfor %}
+                {{ ns.out }}
+          - if:
+              - condition: template
+                value_template: "{{ matched_entities | count > 0 }}"
+            then:
+              - service: homeassistant.add_entity_to_area
+                data:
+                  area_id: "{{ current_area }}"
+                  entity_id: "{{ matched_entities }}"

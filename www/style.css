@@ -1,0 +1,8 @@
+body {
+    font-family: "Exo 2", "Exo", "Share Tech", "Science Gothic", sans-serif;
+} 
+
+html {
+    font-family: "Exo 2", "Exo", "Share Tech", "Science Gothic", sans-serif;
+	--paper-font-common-base_-_font-family: "Exo 2", "Exo", "Share Tech", "Science Gothic", sans-serif;
+}

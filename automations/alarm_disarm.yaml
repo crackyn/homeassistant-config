@@ -1,0 +1,37 @@
+alias: "Alarm: Disam"
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - input_boolean.alarm_armed_home_time
+    from:
+      - "on"
+    to:
+      - "off"
+  - alias: Someone arrives home
+    trigger: state
+    entity_id:
+      - binary_sensor.occupancy_alarm_perimeter
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    from:
+      - "off"
+    to:
+      - "on"
+conditions: []
+actions:
+  - action: alarm_control_panel.alarm_disarm
+    metadata: {}
+    target:
+      entity_id:
+        - alarm_control_panel.home_alarm
+        - alarm_control_panel.home
+    data:
+      code: "2440"
+  - action: script.send_alarm_state_notification
+    metadata: {}
+    data:
+      alarm_status: Disarmed
+mode: single

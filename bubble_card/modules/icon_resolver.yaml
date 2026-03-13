@@ -1,0 +1,70 @@
+icon_resolver:
+  name: "Icon Resolver"
+  description: "Sets the Bubble Card icon based on domain/state/device_class."
+  code: |
+    ${(() => {
+      const st = hass?.states?.[entity];
+      if (!st || !icon) return;
+
+      const domain = String(entity || '').split('.')[0]?.toLowerCase();
+      const state = String(st.state ?? '').toLowerCase();
+      const attrs = st.attributes || {};
+      const dc = String(attrs.device_class ?? '').toLowerCase();
+
+      const custom = attrs.icon;
+      if (custom) {
+        icon.setAttribute('icon', custom);
+        return;
+      }
+
+      let chosen = 'mdi:help-circle';
+
+      if (domain === 'light') {
+        chosen = state === 'on' ? 'mdi:lightbulb-on' : 'mdi:lightbulb';
+      } else if (domain === 'switch') {
+        chosen = state === 'on' ? 'mdi:toggle-switch' : 'mdi:toggle-switch-off';
+      } else if (domain === 'fan') {
+        chosen = state === 'off' ? 'mdi:fan-off' : 'mdi:fan';
+      } else if (domain === 'binary_sensor') {
+        if (dc === 'motion') chosen = state === 'on' ? 'mdi:motion-sensor' : 'mdi:motion-sensor-off';
+        else if (dc === 'door') chosen = state === 'on' ? 'mdi:door-open' : 'mdi:door-closed';
+        else if (dc === 'window') chosen = state === 'on' ? 'mdi:window-open' : 'mdi:window-closed';
+        else if (dc === 'moisture') chosen = state === 'on' ? 'mdi:water-alert' : 'mdi:water-check';
+        else if (dc === 'opening') chosen = state === 'on' ? 'mdi:door-open' : 'mdi:door-closed';
+        else chosen = state === 'on' ? 'mdi:alert' : 'mdi:check-circle';
+      } else if (domain === 'sensor') {
+        if (dc === 'temperature') chosen = 'mdi:thermometer';
+        else if (dc === 'humidity') chosen = 'mdi:water-percent';
+        else if (dc === 'battery') chosen = 'mdi:battery';
+        else if (dc === 'power') chosen = 'mdi:flash';
+        else if (dc === 'energy') chosen = 'mdi:lightning-bolt';
+        else if (dc === 'voltage') chosen = 'mdi:sine-wave';
+        else if (dc === 'current') chosen = 'mdi:current-ac';
+        else if (dc === 'pressure') chosen = 'mdi:gauge';
+        else chosen = 'mdi:information-outline';
+      } else if (domain === 'media_player') {
+        if (state === 'playing') chosen = 'mdi:play-circle';
+        else if (state === 'paused') chosen = 'mdi:pause-circle';
+        else if (state === 'idle') chosen = 'mdi:television';
+        else chosen = 'mdi:television-off';
+      } else if (domain === 'cover') {
+        if (dc === 'door') chosen = state === 'open' ? 'mdi:door-open' : 'mdi:door-closed';
+        else if (dc === 'window') chosen = state === 'open' ? 'mdi:window-open' : 'mdi:window-closed';
+        else if (dc === 'garage') chosen = state === 'open' ? 'mdi:garage-open' : 'mdi:garage';
+        else chosen = 'mdi:window-shutter';
+      } else if (domain === 'lock') {
+        chosen = state === 'locked' ? 'mdi:lock' : 'mdi:lock-open';
+      } else if (domain === 'climate') {
+        if (state === 'cooling') chosen = 'mdi:snowflake';
+        else if (state === 'heating') chosen = 'mdi:fire';
+        else if (state === 'off') chosen = 'mdi:power';
+        else chosen = 'mdi:thermostat';
+      } else if (domain === 'alarm_control_panel') {
+        if (state === 'armed_away') chosen = 'mdi:shield-lock';
+        else if (state === 'armed_home') chosen = 'mdi:shield-home';
+        else if (state === 'triggered') chosen = 'mdi:alarm-light';
+        else chosen = 'mdi:shield-outline';
+      }
+
+      icon.setAttribute('icon', chosen);
+    })()}

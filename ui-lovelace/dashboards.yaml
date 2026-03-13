@@ -1,0 +1,13 @@
+home-dashboard:
+  mode: yaml
+  title: My Home
+  icon: mdi:home
+  filename: /config/ui-lovelace/dashboards/my_home/dashboard.yaml
+  show_in_sidebar: true
+# theme-viewer:
+#   mode: yaml
+#   title: Theme Viewer
+#   icon: mdi:palette
+#   filename: /config/ui-lovelace/dashboards/theme_viewer/dashboard.yaml
+#   show_in_sidebar: true
+  

@@ -1,0 +1,36 @@
+type: sections
+max_columns: 4
+title: Theme Viewer
+path: theme-viewer
+icon: mdi:eye
+sections:
+  - type: grid
+    cards:
+      - type: custom:auto-entities
+        card:
+          type: grid
+          title: Theme Previews
+          columns: 1
+          square: false
+        card_param: cards
+        filter:
+          template: "[\n{% set themes = state_attr('sensor.raw_theme_preview', 'themes') or {} %}\n{% for theme_name in themes.keys()\
+            \ | list %}\n{\n  \"type\": \"custom:button-card\",\n  \"template\": \"theme_preview\",\n  \"entity\": \"sensor.raw_theme_preview\"\
+            ,\n  \"variables\": {\n    \"theme_name\": \"{{ theme_name }}\",\n    \"mode\": \"light\"\n  }\n}{% if not loop.last\
+            \ %},{% endif %}\n{% endfor %}\n]\n"
+      - type: custom:auto-entities
+        card:
+          type: grid
+          title: Theme Previews
+          columns: 1
+          square: false
+        card_param: cards
+        filter:
+          template: "[\n{% set themes = state_attr('sensor.raw_theme_preview', 'themes') or {} %}\n{% for theme_name in themes.keys()\
+            \ | list %}\n{\n  \"type\": \"custom:button-card\",\n  \"template\": \"theme_preview\",\n  \"entity\": \"sensor.raw_theme_preview\"\
+            ,\n  \"variables\": {\n    \"theme_name\": \"{{ theme_name }}\",\n    \"mode\": \"dark\"\n  }\n}{% if not loop.last\
+            \ %},{% endif %}\n{% endfor %}\n]\n"
+    column_span: 2
+show_icon_and_title: true
+cards: []
+theme: Material 3

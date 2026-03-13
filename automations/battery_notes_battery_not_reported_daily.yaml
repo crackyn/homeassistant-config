@@ -1,0 +1,12 @@
+id: battery_notes_battery_not_reported_daily
+alias: Daily Battery Not Reported Check
+description: Check whether a battery has reported
+mode: single
+triggers:
+  - platform: time
+    at: "09:00:00"
+conditions: []
+actions:
+  - action: battery_notes.check_battery_last_reported
+    data:
+      days_last_reported: 2

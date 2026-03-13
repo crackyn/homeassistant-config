@@ -1,0 +1,13 @@
+id: battery_notes_battery_low_check
+alias: Battery Low Check
+description: Check whether a battery is low
+triggers:
+  - trigger: state
+    entity_id:
+      - schedule.maintenance
+    to: "on"
+conditions: []
+actions:
+  - action: battery_notes.check_battery_low
+    data: {}
+mode: single

@@ -1,0 +1,1175 @@
+pkg_template_sensors:
+  template:
+    - sensor:
+
+    ## Home -------------------------------------------------------------------
+      - unique_id: "lighting_effect"
+        name: "Lighting Effect"
+        state: >
+          {% set events = state_attr('calendar.microsoft_home_assistant_lights', 'data') %}
+          {% set event = (events | selectattr('summary', 'ne', 'Default') | list | first) or events[0] %}
+          {{ event.description.replace('effect=', '') }}
+
+    ## Basement stairs ------------------------------------------------------------  
+      - unique_id: "basement_stairs_average_temperature"
+        name: "Basement stairs Average Temperature"
+        unit_of_measurement: "°F"
+        device_class: temperature
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('basement_stairs'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.basement_stairs_average_temperature'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_temperature') }}
+          {% endif %}
+      - unique_id: "basement_stairs_average_humidity"
+        name: "Basement stairs Average Humidity"
+        unit_of_measurement: "%"
+        device_class: humidity
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('basement_stairs'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.basement_stairs_average_humidity'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_humidity') }}
+          {% endif %}
+      - unique_id: "basement_stairs_fan_count"
+        name: "Basement stairs Fan Count"
+        state: >
+          {{ states.fan
+            | selectattr('entity_id', 'in', area_entities('basement_stairs'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "basement_stairs_light_count"
+        name: "Basement stairs Light Count"
+        state: >
+          {{ states.light
+            | selectattr('entity_id', 'in', area_entities('basement_stairs'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "basement_stairs_media_player_count"
+        name: "Basement stairs Media Player Count"
+        state: >
+          {{ states.media_player
+            | selectattr('entity_id', 'in', area_entities('basement_stairs'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "basement_stairs_switch_count"
+        name: "Basement stairs Switch Count"
+        state: >
+          {{ states.switch
+            | selectattr('entity_id', 'in', area_entities('basement_stairs'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+
+    ## bedroom ------------------------------------------------------------  
+      - unique_id: "bedroom_average_temperature"
+        name: "bedroom Average Temperature"
+        unit_of_measurement: "°F"
+        device_class: temperature
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('bedroom'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.bedroom_average_temperature'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_temperature') }}
+          {% endif %}
+      - unique_id: "bedroom_average_humidity"
+        name: "bedroom Average Humidity"
+        unit_of_measurement: "%"
+        device_class: humidity
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('bedroom'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.bedroom_average_humidity'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_humidity') }}
+          {% endif %}
+      - unique_id: "bedroom_fan_count"
+        name: "bedroom Fan Count"
+        state: >
+          {{ states.fan
+            | selectattr('entity_id', 'in', area_entities('bedroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "bedroom_light_count"
+        name: "bedroom Light Count"
+        state: >
+          {{ states.light
+            | selectattr('entity_id', 'in', area_entities('bedroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "bedroom_media_player_count"
+        name: "bedroom Media Player Count"
+        state: >
+          {{ states.media_player
+            | selectattr('entity_id', 'in', area_entities('bedroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "bedroom_switch_count"
+        name: "bedroom Switch Count"
+        state: >
+          {{ states.switch
+            | selectattr('entity_id', 'in', area_entities('bedroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+
+    ## Dining room ------------------------------------------------------------  
+      - unique_id: "dining_room_average_temperature"
+        name: "Dining room Average Temperature"
+        unit_of_measurement: "°F"
+        device_class: temperature
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('dining_room'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.dining_room_average_temperature'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_temperature') }}
+          {% endif %}
+      - unique_id: "dining_room_average_humidity"
+        name: "Dining room Average Humidity"
+        unit_of_measurement: "%"
+        device_class: humidity
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('dining_room'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.dining_room_average_humidity'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_humidity') }}
+          {% endif %}
+      - unique_id: "dining_room_fan_count"
+        name: "Dining room Fan Count"
+        state: >
+          {{ states.fan
+            | selectattr('entity_id', 'in', area_entities('dining_room'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "dining_room_light_count"
+        name: "Dining room Light Count"
+        state: >
+          {{ states.light
+            | selectattr('entity_id', 'in', area_entities('dining_room'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "dining_room_media_player_count"
+        name: "Dining room Media Player Count"
+        state: >
+          {{ states.media_player
+            | selectattr('entity_id', 'in', area_entities('dining_room'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "dining_room_switch_count"
+        name: "Dining room Switch Count"
+        state: >
+          {{ states.switch
+            | selectattr('entity_id', 'in', area_entities('dining_room'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+
+    ## Garage ------------------------------------------------------------  
+      - unique_id: "garage_average_temperature"
+        name: "Garage Average Temperature"
+        unit_of_measurement: "°F"
+        device_class: temperature
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('garage'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.garage_average_temperature'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_temperature') }}
+          {% endif %}
+      - unique_id: "garage_average_humidity"
+        name: "Garage Average Humidity"
+        unit_of_measurement: "%"
+        device_class: humidity
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('garage'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.garage_average_humidity'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_humidity') }}
+          {% endif %}
+      - unique_id: "garage_fan_count"
+        name: "Garage Fan Count"
+        state: >
+          {{ states.fan
+            | selectattr('entity_id', 'in', area_entities('garage'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "garage_light_count"
+        name: "Garage Light Count"
+        state: >
+          {{ states.light
+            | selectattr('entity_id', 'in', area_entities('garage'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "garage_media_player_count"
+        name: "Garage Media Player Count"
+        state: >
+          {{ states.media_player
+            | selectattr('entity_id', 'in', area_entities('garage'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "garage_switch_count"
+        name: "Garage Switch Count"
+        state: >
+          {{ states.switch
+            | selectattr('entity_id', 'in', area_entities('garage'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+
+    ## Gazebo ------------------------------------------------------------  
+      - unique_id: "gazebo_average_temperature"
+        name: "Gazebo Average Temperature"
+        unit_of_measurement: "°F"
+        device_class: temperature
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('gazebo'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.gazebo_average_temperature'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_temperature') }}
+          {% endif %}
+      - unique_id: "gazebo_average_humidity"
+        name: "Gazebo Average Humidity"
+        unit_of_measurement: "%"
+        device_class: humidity
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('gazebo'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.gazebo_average_humidity'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_humidity') }}
+          {% endif %}
+      - unique_id: "gazebo_fan_count"
+        name: "Gazebo Fan Count"
+        state: >
+          {{ states.fan
+            | selectattr('entity_id', 'in', area_entities('gazebo'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "gazebo_light_count"
+        name: "Gazebo Light Count"
+        state: >
+          {{ states.light
+            | selectattr('entity_id', 'in', area_entities('gazebo'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "gazebo_media_player_count"
+        name: "Gazebo Media Player Count"
+        state: >
+          {{ states.media_player
+            | selectattr('entity_id', 'in', area_entities('gazebo'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "gazebo_switch_count"
+        name: "Gazebo Switch Count"
+        state: >
+          {{ states.switch
+            | selectattr('entity_id', 'in', area_entities('gazebo'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+
+    ## Gym ------------------------------------------------------------  
+      - unique_id: "gym_average_temperature"
+        name: "Gym Average Temperature"
+        unit_of_measurement: "°F"
+        device_class: temperature
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('gym'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.gym_average_temperature'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_temperature') }}
+          {% endif %}
+      - unique_id: "gym_average_humidity"
+        name: "Gym Average Humidity"
+        unit_of_measurement: "%"
+        device_class: humidity
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('gym'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.gym_average_humidity'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_humidity') }}
+          {% endif %}
+      - unique_id: "gym_fan_count"
+        name: "Gym Fan Count"
+        state: >
+          {{ states.fan
+            | selectattr('entity_id', 'in', area_entities('gym'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "gym_light_count"
+        name: "Gym Light Count"
+        state: >
+          {{ states.light
+            | selectattr('entity_id', 'in', area_entities('gym'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "gym_media_player_count"
+        name: "Gym Media Player Count"
+        state: >
+          {{ states.media_player
+            | selectattr('entity_id', 'in', area_entities('gym'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "gym_switch_count"
+        name: "Gym Switch Count"
+        state: >
+          {{ states.switch
+            | selectattr('entity_id', 'in', area_entities('gym'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+
+    ## Hallway ------------------------------------------------------------  
+      - unique_id: "hallway_average_temperature"
+        name: "Hallway Average Temperature"
+        unit_of_measurement: "°F"
+        device_class: temperature
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('hallway'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.hallway_average_temperature'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_temperature') }}
+          {% endif %}
+      - unique_id: "hallway_average_humidity"
+        name: "Hallway Average Humidity"
+        unit_of_measurement: "%"
+        device_class: humidity
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('hallway'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.hallway_average_humidity'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_humidity') }}
+          {% endif %}
+      - unique_id: "hallway_fan_count"
+        name: "Hallway Fan Count"
+        state: >
+          {{ states.fan
+            | selectattr('entity_id', 'in', area_entities('hallway'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "hallway_light_count"
+        name: "Hallway Light Count"
+        state: >
+          {{ states.light
+            | selectattr('entity_id', 'in', area_entities('hallway'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "hallway_media_player_count"
+        name: "Hallway Media Player Count"
+        state: >
+          {{ states.media_player
+            | selectattr('entity_id', 'in', area_entities('hallway'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "hallway_switch_count"
+        name: "Hallway Switch Count"
+        state: >
+          {{ states.switch
+            | selectattr('entity_id', 'in', area_entities('hallway'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+
+    ## Kitchen ------------------------------------------------------------  
+      - unique_id: "kitchen_average_temperature"
+        name: "Kitchen Average Temperature"
+        unit_of_measurement: "°F"
+        device_class: temperature
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('kitchen'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.kitchen_average_temperature'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_temperature') }}
+          {% endif %}
+      - unique_id: "kitchen_average_humidity"
+        name: "Kitchen Average Humidity"
+        unit_of_measurement: "%"
+        device_class: humidity
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('kitchen'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.kitchen_average_humidity'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_humidity') }}
+          {% endif %}
+      - unique_id: "kitchen_fan_count"
+        name: "Kitchen Fan Count"
+        state: >
+          {{ states.fan
+            | selectattr('entity_id', 'in', area_entities('kitchen'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "kitchen_light_count"
+        name: "Kitchen Light Count"
+        state: >
+          {{ states.light
+            | selectattr('entity_id', 'in', area_entities('kitchen'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "kitchen_media_player_count"
+        name: "Kitchen Media Player Count"
+        state: >
+          {{ states.media_player
+            | selectattr('entity_id', 'in', area_entities('kitchen'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "kitchen_switch_count"
+        name: "Kitchen Switch Count"
+        state: >
+          {{ states.switch
+            | selectattr('entity_id', 'in', area_entities('kitchen'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+
+    ## Living Room ------------------------------------------------------------  
+      - unique_id: "living_room_average_temperature"
+        name: "Living Room Average Temperature"
+        unit_of_measurement: "°F"
+        device_class: temperature
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('living_room'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.living_room_average_temperature'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_temperature') }}
+          {% endif %}
+      - unique_id: "living_room_average_humidity"
+        name: "Living Room Average Humidity"
+        unit_of_measurement: "%"
+        device_class: humidity
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('living_room'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.living_room_average_humidity'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_humidity') }}
+          {% endif %}
+      - unique_id: "living_room_fan_count"
+        name: "Living Room Fan Count"
+        state: >
+          {{ states.fan
+            | selectattr('entity_id', 'in', area_entities('living_room'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "living_room_light_count"
+        name: "Living Room Light Count"
+        state: >
+          {{ states.light
+            | selectattr('entity_id', 'in', area_entities('living_room'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "living_room_media_player_count"
+        name: "Living Room Media Player Count"
+        state: >
+          {{ states.media_player
+            | selectattr('entity_id', 'in', area_entities('living_room'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "living_room_switch_count"
+        name: "Living Room Switch Count"
+        state: >
+          {{ states.switch
+            | selectattr('entity_id', 'in', area_entities('living_room'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+
+    ## Master bathroom ------------------------------------------------------------  
+      - unique_id: "master_bathroom_average_temperature"
+        name: "Master bathroom Average Temperature"
+        unit_of_measurement: "°F"
+        device_class: temperature
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('master_bathroom'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.master_bathroom_average_temperature'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_temperature') }}
+          {% endif %}
+      - unique_id: "master_bathroom_average_humidity"
+        name: "Master bathroom Average Humidity"
+        unit_of_measurement: "%"
+        device_class: humidity
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('master_bathroom'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.master_bathroom_average_humidity'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_humidity') }}
+          {% endif %}
+      - unique_id: "master_bathroom_fan_count"
+        name: "Master bathroom Fan Count"
+        state: >
+          {{ states.fan
+            | selectattr('entity_id', 'in', area_entities('master_bathroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "master_bathroom_light_count"
+        name: "Master bathroom Light Count"
+        state: >
+          {{ states.light
+            | selectattr('entity_id', 'in', area_entities('master_bathroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "master_bathroom_media_player_count"
+        name: "Master bathroom Media Player Count"
+        state: >
+          {{ states.media_player
+            | selectattr('entity_id', 'in', area_entities('master_bathroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "master_bathroom_switch_count"
+        name: "Master bathroom Switch Count"
+        state: >
+          {{ states.switch
+            | selectattr('entity_id', 'in', area_entities('master_bathroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+
+    ## Master bedroom ------------------------------------------------------------  
+      - unique_id: "master_bedroom_average_temperature"
+        name: "Master bedroom Average Temperature"
+        unit_of_measurement: "°F"
+        device_class: temperature
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('master_bedroom'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.master_bedroom_average_temperature'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_temperature') }}
+          {% endif %}
+      - unique_id: "master_bedroom_average_humidity"
+        name: "Master bedroom Average Humidity"
+        unit_of_measurement: "%"
+        device_class: humidity
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('master_bedroom'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.master_bedroom_average_humidity'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_humidity') }}
+          {% endif %}
+      - unique_id: "master_bedroom_fan_count"
+        name: "Master bedroom Fan Count"
+        state: >
+          {{ states.fan
+            | selectattr('entity_id', 'in', area_entities('master_bedroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "master_bedroom_light_count"
+        name: "Master bedroom Light Count"
+        state: >
+          {{ states.light
+            | selectattr('entity_id', 'in', area_entities('master_bedroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "master_bedroom_media_player_count"
+        name: "Master bedroom Media Player Count"
+        state: >
+          {{ states.media_player
+            | selectattr('entity_id', 'in', area_entities('master_bedroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "master_bedroom_switch_count"
+        name: "Master bedroom Switch Count"
+        state: >
+          {{ states.switch
+            | selectattr('entity_id', 'in', area_entities('master_bedroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+
+    ## Office ------------------------------------------------------------  
+      - unique_id: "office_average_temperature"
+        name: "Office Average Temperature"
+        unit_of_measurement: "°F"
+        device_class: temperature
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('office'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.office_average_temperature'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_temperature') }}
+          {% endif %}
+      - unique_id: "office_average_humidity"
+        name: "Office Average Humidity"
+        unit_of_measurement: "%"
+        device_class: humidity
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('office'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.office_average_humidity'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_humidity') }}
+          {% endif %}
+      - unique_id: "office_fan_count"
+        name: "Office Fan Count"
+        state: >
+          {{ states.fan
+            | selectattr('entity_id', 'in', area_entities('office'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "office_light_count"
+        name: "Office Light Count"
+        state: >
+          {{ states.light
+            | selectattr('entity_id', 'in', area_entities('office'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "office_media_player_count"
+        name: "Office Media Player Count"
+        state: >
+          {{ states.media_player
+            | selectattr('entity_id', 'in', area_entities('office'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "office_switch_count"
+        name: "Office Switch Count"
+        state: >
+          {{ states.switch
+            | selectattr('entity_id', 'in', area_entities('office'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+
+    ## Stairs ------------------------------------------------------------  
+      - unique_id: "stairs_average_temperature"
+        name: "Stairs Average Temperature"
+        unit_of_measurement: "°F"
+        device_class: temperature
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('stairs'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.stairs_average_temperature'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_temperature') }}
+          {% endif %}
+      - unique_id: "stairs_average_humidity"
+        name: "Stairs Average Humidity"
+        unit_of_measurement: "%"
+        device_class: humidity
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('stairs'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.stairs_average_humidity'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_humidity') }}
+          {% endif %}
+      - unique_id: "stairs_fan_count"
+        name: "Stairs Fan Count"
+        state: >
+          {{ states.fan
+            | selectattr('entity_id', 'in', area_entities('stairs'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "stairs_light_count"
+        name: "Stairs Light Count"
+        state: >
+          {{ states.light
+            | selectattr('entity_id', 'in', area_entities('stairs'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "stairs_media_player_count"
+        name: "Stairs Media Player Count"
+        state: >
+          {{ states.media_player
+            | selectattr('entity_id', 'in', area_entities('stairs'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "stairs_switch_count"
+        name: "Stairs Switch Count"
+        state: >
+          {{ states.switch
+            | selectattr('entity_id', 'in', area_entities('stairs'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+
+    ## Upstairs hallway ------------------------------------------------------------  
+      - unique_id: "upstairs_hallway_average_temperature"
+        name: "Upstairs hallway Average Temperature"
+        unit_of_measurement: "°F"
+        device_class: temperature
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.upstairs_hallway_average_temperature'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_temperature') }}
+          {% endif %}
+      - unique_id: "upstairs_hallway_average_humidity"
+        name: "Upstairs hallway Average Humidity"
+        unit_of_measurement: "%"
+        device_class: humidity
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.upstairs_hallway_average_humidity'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_humidity') }}
+          {% endif %}
+      - unique_id: "upstairs_hallway_fan_count"
+        name: "Upstairs hallway Fan Count"
+        state: >
+          {{ states.fan
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "upstairs_hallway_light_count"
+        name: "Upstairs hallway Light Count"
+        state: >
+          {{ states.light
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "upstairs_hallway_media_player_count"
+        name: "Upstairs hallway Media Player Count"
+        state: >
+          {{ states.media_player
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "upstairs_hallway_switch_count"
+        name: "Upstairs hallway Switch Count"
+        state: >
+          {{ states.switch
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+
+    ## Upstairs hallway bathroom ------------------------------------------------------------  
+      - unique_id: "upstairs_hallway_bathroom_average_temperature"
+        name: "Upstairs hallway bathroom Average Temperature"
+        unit_of_measurement: "°F"
+        device_class: temperature
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway_bathroom'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.upstairs_hallway_bathroom_average_temperature'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_temperature') }}
+          {% endif %}
+      - unique_id: "upstairs_hallway_bathroom_average_humidity"
+        name: "Upstairs hallway bathroom Average Humidity"
+        unit_of_measurement: "%"
+        device_class: humidity
+        state: >
+          {% set sensors = states.sensor
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway_bathroom'))
+            | selectattr('attributes.device_class', 'equalto', 'temperature')
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'in', ['sensor.upstairs_hallway_bathroom_average_humidity'])
+            | map(attribute='state')
+            | map('float')
+            | list
+          %}
+          {% if sensors | count > 0 %}
+            {{ sensors | average }}
+          {% else %}
+            {{ states('sensor.thermostat_humidity') }}
+          {% endif %}
+      - unique_id: "upstairs_hallway_bathroom_fan_count"
+        name: "Upstairs hallway bathroom Fan Count"
+        state: >
+          {{ states.fan
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway_bathroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "upstairs_hallway_bathroom_light_count"
+        name: "Upstairs hallway bathroom Light Count"
+        state: >
+          {{ states.light
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway_bathroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "upstairs_hallway_bathroom_media_player_count"
+        name: "Upstairs hallway bathroom Media Player Count"
+        state: >
+          {{ states.media_player
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway_bathroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+      - unique_id: "upstairs_hallway_bathroom_switch_count"
+        name: "Upstairs hallway bathroom Switch Count"
+        state: >
+          {{ states.switch
+            | selectattr('entity_id', 'in', area_entities('upstairs_hallway_bathroom'))
+            | rejectattr('state', 'in', ['unknown', 'unavailable'])
+            | rejectattr('entity_id', 'is_hidden_entity')
+            | list | count
+          }}
+
+
+      - name: "Chip"
+        unique_id: "chip_presence"
+        state: "{{ states('sensor.chip_s_phone_ble_area') if is_state('person.chip', 'home') else states('sensor.chip_s_phone_geocoded_location') }}"
+        icon: 'mdi:account'
+        attributes:
+          android_auto: "{{ states('sensor.chip_s_phone_android_auto') }}"
+          battery_level: "{{ states('sensor.chip_s_phone_battery_level') }}"
+          battery_state: "{{ states('sensor.chip_s_phone_battery_state') }}"
+          do_not_disturb: "{{ states('sensor.chip_s_phone_do_not_disturb_sensor') }}"
+          entity_picture: "{{ state_attr('person.chip', 'entity_picture') }}"
+          is_charging: "{{ states('binary_sensor.chip_s_phone_is_charging') }}"
+      - name: "Nikki"
+        unique_id: "nikki_presence"
+        state: "{{ states('sensor.nikki_s_phone_ble_area') if is_state('person.nikki', 'home') else states('sensor.nikki_s_phone_geocoded_location') }}"
+        icon: 'mdi:account'
+        attributes:
+          android_auto: "{{ states('sensor.nikki_s_phone_android_auto') }}"
+          battery_level: "{{ states('sensor.nikki_s_phone_battery_level') }}"
+          battery_state: "{{ states('sensor.nikki_s_phone_battery_state') }}"
+          do_not_disturb: "{{ states('sensor.nikki_s_phone_do_not_disturb_sensor') }}"
+          entity_picture: "{{ state_attr('person.nikki', 'entity_picture') }}"
+          is_charging: "{{ states('binary_sensor.nikki_s_phone_is_charging') }}"
